@@ -190,9 +190,3 @@ Saved image
 <img src="https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/18.jpg" width="130" height="250">
 </p>  
 
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
