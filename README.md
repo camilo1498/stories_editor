@@ -1,11 +1,11 @@
 
+# flutter stories editor
+This is a package created in the style of the instagram story creator, with which you can create images with images, texts, stickers (Gifs), finger drawing. They can be exported as an image to the gallery or shared directly to social networks.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+## Demo
 
-## Features
+![Demo Gif video](https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/demo.gif)
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
 
 ## Installation
 
@@ -119,9 +119,6 @@ class _ExampleState extends State<Example> {
 ```
 
 ## ScreenShots
-
-
-![Demo Gif video](https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/demo.gif)
 
 
 initial view
