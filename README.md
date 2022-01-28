@@ -28,14 +28,14 @@ import 'package:stories_editor/stories_editor.dart';
    ```
 2) add `MultiProvider` in your `runApp()` as bellow:
 ```dart
-    void main() {
-      runApp(
-        MultiProvider(
-          providers: StoriesEditorProvider().providers, /// is required to use it
-          child: const MyApp(),
+void main() {
+     runApp(
+       MultiProvider(
+         providers: StoriesEditorProvider().providers, /// is required to use it
+         child: const MyApp(),
        )
-      );
-    }
+     );
+   }
 ```
 3) Create a `StoriesEditor()` widget, and pass the params:
 
