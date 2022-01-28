@@ -1,3 +1,4 @@
+<script src="https://platform.linkedin.com/badges/js/profile.js" async defer type="text/javascript"></script>
 
 # flutter stories editor
 This is a package created in the style of the instagram story creator, with which you can create images with images, texts, stickers (Gifs), finger drawing. They can be exported as an image to the gallery or shared directly to social networks.
@@ -199,3 +200,5 @@ Saved image
 <img src="https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/18.jpg" width="130" height="250">
 </p>  
 
+<div class="badge-base LI-profile-badge" data-locale="es_ES" data-size="medium" data-theme="dark" data-type="VERTICAL" data-vanity="camilo-velandia-4aa113226" data-version="v1"><a class="badge-base__link LI-simple-link" href="https://co.linkedin.com/in/camilo-velandia-4aa113226?trk=profile-badge">Camilo Velandia</a></div>
+              
