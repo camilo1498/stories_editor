@@ -8,16 +8,25 @@ This is a package created in the style of the instagram story creator, with whic
 
 
 ## Installation
+*This package has only tested in Android and some features in web*
+Add `stories_editor: 0.1.0` to your `pubspec.yaml` dependencies and then import it.
 
-Add `stories_editor: 0.1.0` yo your `pubspec.yaml` dependencies and then import it.
 
 ```dart
 import 'package:stories_editor/stories_editor.dart';
 ```
 
 ## How to use
-
-1) add `MultiProvider` in your `runApp()` as bellow:
+1) add uses-permission `AndroidMAnifest.xml` file
+   ```xml
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="31" />
+    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+   ```
+2) add `MultiProvider` in your `runApp()` as bellow:
 ```dart
 void main() {
   runApp(
@@ -28,7 +37,7 @@ void main() {
   );
 }
 ```
-2) Create a `StoriesEditor()` widget, and pass the params:
+3) Create a `StoriesEditor()` widget, and pass the params:
 
 ```dart
 StoriesEditor(
