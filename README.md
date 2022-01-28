@@ -8,7 +8,8 @@ This is a package created in the style of the instagram story creator, with whic
 
 
 ## Installation
-*This package has only tested in Android and some features in web*
+**This package has only tested in Android and some features in web**
+
 Add `stories_editor: 0.1.0` to your `pubspec.yaml` dependencies and then import it.
 
 
