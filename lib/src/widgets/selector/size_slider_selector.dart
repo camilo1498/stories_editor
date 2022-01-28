@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/providers/control_variable_provider.dart';
 import 'package:stories_editor/src/providers/painting_provider.dart';
-import 'package:stories_editor/src/providers/providers.dart';
 import 'package:stories_editor/src/providers/text_editing_provider.dart';
 
 
@@ -36,7 +35,6 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
                 child: CustomPaint(
                   painter: RPSCustomPainter(),
                   size: Size(_size.height,(_size.width).toDouble()),
-
                 )
             ),
 
@@ -104,6 +102,7 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
   }
 }
 
+/// shape slider like instagram
 class RPSCustomPainter extends CustomPainter{
 
   @override

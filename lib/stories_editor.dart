@@ -3,10 +3,6 @@ library stories_editor;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:stories_editor/src/providers/control_variable_provider.dart';
-import 'package:stories_editor/src/providers/custom_scrollController_provider.dart';
-import 'package:stories_editor/src/providers/draggable_widget_provider.dart';
-import 'package:stories_editor/src/providers/painting_provider.dart';
 import 'package:stories_editor/src/providers/photo_provider.dart';
 import 'package:photo_manager/photo_manager.dart';
 import 'package:stories_editor/src/views/main_view.dart';
@@ -57,15 +53,12 @@ class _StoriesEditorState extends State<StoriesEditor> {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
-    // TODO: implement initState
     super.initState();
     _getPermission();
   }
 
   @override
   void dispose() {
-    // TODO: implement dispose
-
     super.dispose();
     PhotoManager.clearFileCache();
   }

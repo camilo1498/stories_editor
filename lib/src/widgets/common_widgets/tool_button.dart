@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:stories_editor/src/utils/animated_onTap_button.dart';
 
 class ToolButton extends StatelessWidget {
-  final onTap;
+  final Function() onTap;
   final Widget child;
   final Color? backGroundColor;
   final EdgeInsets? padding;
-  final onLongPress;
+  final Function()? onLongPress;
   final Color colorBorder;
   const ToolButton({
     Key? key,

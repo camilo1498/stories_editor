@@ -12,12 +12,11 @@ class Sketcher extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     Paint paint = Paint();
-    var outlinePoints;
+    List<Point>? outlinePoints;
 
     for (int i = 0; i < lines.length; ++i) {
       switch(lines[i].paintingType){
         case PaintingType.PEN:
-        // TODO: Handle this case.
           paint = Paint()
             ..color =  lines[i].lineColor;
 
@@ -42,7 +41,6 @@ class Sketcher extends CustomPainter {
           );
           break;
         case PaintingType.MARKER:
-        // TODO: Handle this case.
           paint = Paint()
             ..strokeWidth = 5
             ..color =  lines[i].lineColor.withOpacity(0.7)
@@ -65,7 +63,6 @@ class Sketcher extends CustomPainter {
           );
           break;
         case PaintingType.BRUSH:
-        // TODO: Handle this case.
           paint = Paint()
             ..strokeWidth = 5
             ..color =  lines[i].lineColor
@@ -92,7 +89,6 @@ class Sketcher extends CustomPainter {
           );
           break;
         case PaintingType.NEON:
-        // TODO: Handle this case.
           paint = Paint()
             ..strokeWidth = 5
             ..color = lines[i].lineColor
@@ -123,39 +119,21 @@ class Sketcher extends CustomPainter {
           );
           break;
         case PaintingType.ERASE:
-          // TODO: Handle this case.
         /// select brush marker (does not work :c)
-          // paint.blendMode = BlendMode.clear;
-          // paint.color = Colors.transparent;
-          // paint.style = PaintingStyle.stroke;
-          // paint.strokeWidth = 0;
-          // paint.strokeCap = StrokeCap.round;
-          // paint.isAntiAlias = true;
-          // outlinePoints = getStroke(
-          //   /// coordinates
-          //   lines[i].points,
-          //   /// line width
-          //   size: lines[i].size,
-          //   /// line thin
-          //   thinning: -0.1,
-          //   /// line smooth
-          //   smoothing: 1,
-          //   /// on complete line
-          //   isComplete: lines[i].isComplete,
-          // );
+
           break;
       }
 
       final path = Path();
 
-      if (outlinePoints.isEmpty) {
+      if (outlinePoints!.isEmpty) {
         return;
       } else if (outlinePoints.length < 2) {
-        // If the path only has one line, draw a dot.
+        /// If the path only has one line, draw a dot.
         path.addOval(Rect.fromCircle(
             center: Offset(outlinePoints[0].x, outlinePoints[0].y), radius: 1));
       } else {
-        // Otherwise, draw a line that connects each point with a curve.
+        /// Otherwise, draw a line that connects each point with a curve.
         path.moveTo(outlinePoints[0].x, outlinePoints[0].y);
 
         for (int i = 1; i < outlinePoints.length - 1; ++i) {

@@ -7,9 +7,10 @@ class ScrollablePageView extends StatefulWidget {
   Widget child;
   final bool scrollPhysics;
   ScrollablePageView({
+    Key? key,
     required this.child,
     required this.scrollPhysics
-});
+}) : super(key: key);
   @override
   _ScrollablePageViewState createState() => _ScrollablePageViewState();
 }

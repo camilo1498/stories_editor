@@ -45,9 +45,7 @@ class PickerDataProvider extends ChangeNotifier {
             AssetPathEntity b,
             ) sortBy = _defaultSort,
       }) {
-    if (sortBy != null) {
-      list.sort(sortBy);
-    }
+    list.sort(sortBy);
     pathList.clear();
     pathList.addAll(list);
     currentPath = list[defaultIndex];

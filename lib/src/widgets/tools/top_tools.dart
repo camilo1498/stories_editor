@@ -5,7 +5,6 @@ import 'package:stories_editor/src/providers/control_variable_provider.dart';
 import 'package:stories_editor/src/providers/draggable_widget_provider.dart';
 import 'package:stories_editor/src/providers/painting_provider.dart';
 import 'package:stories_editor/src/providers/photo_provider.dart';
-import 'package:stories_editor/src/providers/providers.dart';
 import 'package:stories_editor/src/services/save_as_image.dart';
 import 'package:stories_editor/src/utils/animated_onTap_button.dart';
 import 'package:stories_editor/src/utils/modal_sheets/modal_sheets.dart';

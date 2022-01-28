@@ -22,7 +22,6 @@ class TextEditor extends StatefulWidget {
 class _TextEditorState extends State<TextEditor> {
   @override
   void initState() {
-    // TODO: implement initState
    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
      final _editorProvider = Provider.of<TextEditorProvider>(context, listen: false);
      _editorProvider
@@ -34,7 +33,6 @@ class _TextEditorState extends State<TextEditor> {
 
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 

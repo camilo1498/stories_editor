@@ -66,7 +66,6 @@ class _MainViewState extends State<MainView> {
 
   @override
   void initState() {
-    // TODO: implement initState
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       var _control = Provider.of<ControlVariableProvider>(context, listen: false);
 
@@ -82,7 +81,6 @@ class _MainViewState extends State<MainView> {
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
   }
 

@@ -95,6 +95,5 @@ class PaintingProvider extends ChangeNotifier{
   closeConnection(){
     _currentLineStreamController.close();
     _linesStreamController.close();
-    print('close');
   }
 }

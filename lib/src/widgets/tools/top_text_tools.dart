@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:stories_editor/src/providers/providers.dart';
 import 'package:stories_editor/src/providers/text_editing_provider.dart';
 import 'package:stories_editor/src/widgets/common_widgets/tool_button.dart';
 

@@ -38,7 +38,7 @@ Future takePicture({required contentKey, required BuildContext context, required
     }
 
   } catch (e) {
-    print('exception => $e');
+    debugPrint('exception => $e');
     return false;
   }
 }

@@ -23,7 +23,7 @@ class SelectedPathDropdownButton extends StatelessWidget {
         child: ((context) => buildButton(context, arrowDownNotifier))(context),
         dropdownWidgetBuilder:(BuildContext context, close) {
               return ChangePathWidget(
-                provider: provider as PickerDataProvider,
+                provider: provider,
                 close: close,
               );
             },

@@ -3,7 +3,7 @@ import 'package:perfect_freehand/perfect_freehand.dart';
 import 'package:stories_editor/src/constants/painting_type.dart';
 
 class PaintingModel {
-  /// lines coordiates
+  /// lines coordinates
   List<Point> points;
 
   /// The base size (diameter) of the stroke.
