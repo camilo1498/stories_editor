@@ -36,7 +36,7 @@ void main() {
   );
 }
 ```
-3) Create a `StoriesEditor()` widget, and pass the params:
+3) Create a `StoriesEditor()` widget with the follow params:
 
 ```dart
 StoriesEditor(
