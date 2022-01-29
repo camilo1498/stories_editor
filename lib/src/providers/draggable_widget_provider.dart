@@ -1,5 +1,5 @@
 import 'package:flutter/cupertino.dart';
-import 'package:giphy_picker/giphy_picker.dart';
+import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:stories_editor/src/models/editable_items.dart';
 
 class DraggableWidgetProvider extends ChangeNotifier{

@@ -21,10 +21,7 @@ dependencies:
   path_provider: ^2.0.8
   image_gallery_saver: ^1.7.1
   fluttertoast: ^8.0.8
-  giphy_picker:
-    git:
-      url: https://github.com/camilo1498/giphy_picker
-
+  modal_gif_picker: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

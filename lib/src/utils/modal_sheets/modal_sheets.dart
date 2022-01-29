@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:giphy_picker/giphy_picker.dart';
+import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/constants/item_type.dart';
 import 'package:stories_editor/src/models/editable_items.dart';
@@ -41,7 +41,7 @@ Future createGiphyItem({
   required giphyKey
 }) async{
   final _editableItem = Provider.of<DraggableWidgetProvider>(context, listen: false);
-  _editableItem.giphy = await GiphyPicker.pickModalSheetGif(
+  _editableItem.giphy = await ModalGifPicker.pickModalSheetGif(
     context: context,
     apiKey: giphyKey,
     rating: GiphyRating.r,
