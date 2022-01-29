@@ -29,3 +29,4 @@ class StoriesEditorProvider{
     ChangeNotifierProvider(create: (_) => ControlVariableProvider()),
   ];
 }
+
