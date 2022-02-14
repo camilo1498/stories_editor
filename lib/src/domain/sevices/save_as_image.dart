@@ -6,17 +6,18 @@ import 'package:flutter/rendering.dart';
 import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 
-Future takePicture({required contentKey, required BuildContext context, required saveToGallery}) async {
+Future takePicture(
+    {required contentKey,
+    required BuildContext context,
+    required saveToGallery}) async {
   try {
-
     /// converter widget to image
     RenderRepaintBoundary boundary =
-    contentKey.currentContext.findRenderObject();
+        contentKey.currentContext.findRenderObject();
 
     ui.Image image = await boundary.toImage(pixelRatio: 3.0);
 
-    ByteData? byteData =
-    await image.toByteData(format: ui.ImageByteFormat.png);
+    ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     Uint8List pngBytes = byteData!.buffer.asUint8List();
 
     /// create file
@@ -25,23 +26,19 @@ Future takePicture({required contentKey, required BuildContext context, required
     File capturedFile = File(imagePath);
     await capturedFile.writeAsBytes(pngBytes);
 
-    if(saveToGallery){
+    if (saveToGallery) {
       final result = await ImageGallerySaver.saveImage(pngBytes,
           quality: 100, name: "stories_creator${DateTime.now()}");
-      if(result != null){
+      if (result != null) {
         return true;
-      } else{
+      } else {
         return false;
       }
-    } else{
+    } else {
       return imagePath;
     }
-
   } catch (e) {
     debugPrint('exception => $e');
     return false;
   }
 }
-
-
-

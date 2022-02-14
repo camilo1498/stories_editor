@@ -40,10 +40,11 @@ class ColorDetection {
   }
 
   Future<void> loadSnapshotBytes() async {
-    RenderRepaintBoundary? boxPaint = paintKey!.currentContext!.findRenderObject() as RenderRepaintBoundary?;
+    RenderRepaintBoundary? boxPaint =
+        paintKey!.currentContext!.findRenderObject() as RenderRepaintBoundary?;
     ui.Image capture = await boxPaint!.toImage();
     ByteData? imageBytes =
-    await capture.toByteData(format: ui.ImageByteFormat.png);
+        await capture.toByteData(format: ui.ImageByteFormat.png);
     setImageBytes(imageBytes!);
     capture.dispose();
   }

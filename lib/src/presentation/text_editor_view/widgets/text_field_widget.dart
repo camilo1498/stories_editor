@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
 
-
 class TextFieldWidget extends StatelessWidget {
   const TextFieldWidget({Key? key}) : super(key: key);
 
@@ -14,35 +13,35 @@ class TextFieldWidget extends StatelessWidget {
     var _size = MediaQuery.of(context).size;
     FocusNode _textNode = FocusNode();
     return Consumer2<TextEditingNotifier, ControlNotifier>(
-      builder: (context, editorNotifier, controlNotifier, child){
+      builder: (context, editorNotifier, controlNotifier, child) {
         return Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(
               maxWidth: _size.width - 100,
             ),
             child: IntrinsicWidth(
-              /// textField Box decoration
+
+                /// textField Box decoration
                 child: Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(right: 2),
-                      child: _text(
-                        editorNotifier: editorNotifier,
-                        textNode: _textNode,
-                        controlNotifier: controlNotifier,
-                        paintingStyle: PaintingStyle.fill,
-                      ),
-                    ),
-                    _textField(
-                      editorNotifier: editorNotifier,
-                      textNode: _textNode,
-                      controlNotifier: controlNotifier,
-                      paintingStyle: PaintingStyle.stroke,
-                    )
-                  ],
+              alignment: Alignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 2),
+                  child: _text(
+                    editorNotifier: editorNotifier,
+                    textNode: _textNode,
+                    controlNotifier: controlNotifier,
+                    paintingStyle: PaintingStyle.fill,
+                  ),
+                ),
+                _textField(
+                  editorNotifier: editorNotifier,
+                  textNode: _textNode,
+                  controlNotifier: controlNotifier,
+                  paintingStyle: PaintingStyle.stroke,
                 )
-            ),
+              ],
+            )),
           ),
         );
       },
@@ -54,21 +53,21 @@ class TextFieldWidget extends StatelessWidget {
     required FocusNode textNode,
     required ControlNotifier controlNotifier,
     required PaintingStyle paintingStyle,
-  }){
+  }) {
     return Text(
       editorNotifier.textController.text,
       textAlign: editorNotifier.textAlign,
       style: TextStyle(
-          fontFamily : controlNotifier.fontList![editorNotifier.fontFamilyIndex],
+          fontFamily: controlNotifier.fontList![editorNotifier.fontFamilyIndex],
           package: controlNotifier.isCustomFontList ? null : 'stories_editor',
           shadows: <Shadow>[
             Shadow(
                 offset: const Offset(1.0, 1.0),
                 blurRadius: 3.0,
-                color: editorNotifier.textColor == Colors.black ? Colors.white54 : Colors.black
-            )
-          ]
-      ).copyWith(
+                color: editorNotifier.textColor == Colors.black
+                    ? Colors.white54
+                    : Colors.black)
+          ]).copyWith(
           color: controlNotifier.colorList![editorNotifier.textColor],
           fontSize: editorNotifier.textSize,
           background: Paint()
@@ -78,17 +77,16 @@ class TextFieldWidget extends StatelessWidget {
             ..strokeJoin = StrokeJoin.round
             ..filterQuality = FilterQuality.high
             ..strokeCap = StrokeCap.round
-            ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1)
-      ),
+            ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1)),
     );
   }
 
-  Widget _textField ({
+  Widget _textField({
     required TextEditingNotifier editorNotifier,
     required FocusNode textNode,
     required ControlNotifier controlNotifier,
     required PaintingStyle paintingStyle,
-  }){
+  }) {
     return TextField(
       focusNode: textNode,
       autofocus: true,
@@ -96,17 +94,20 @@ class TextFieldWidget extends StatelessWidget {
       controller: editorNotifier.textController,
       textAlign: editorNotifier.textAlign,
       style: TextStyle(
-          fontFamily: controlNotifier.fontList![editorNotifier.fontFamilyIndex],
-          package: controlNotifier.isCustomFontList ? null : 'stories_editor',
-          shadows: <Shadow>[
-            Shadow(
-                offset: const Offset(1.0, 1.0),
-                blurRadius: 3.0,
-                color: editorNotifier.textColor == Colors.black ? Colors.white54 : Colors.black
-            )
-          ],
-          backgroundColor: Colors.redAccent
-      ).copyWith(
+              fontFamily:
+                  controlNotifier.fontList![editorNotifier.fontFamilyIndex],
+              package:
+                  controlNotifier.isCustomFontList ? null : 'stories_editor',
+              shadows: <Shadow>[
+                Shadow(
+                    offset: const Offset(1.0, 1.0),
+                    blurRadius: 3.0,
+                    color: editorNotifier.textColor == Colors.black
+                        ? Colors.white54
+                        : Colors.black)
+              ],
+              backgroundColor: Colors.redAccent)
+          .copyWith(
         color: controlNotifier.colorList![editorNotifier.textColor],
         fontSize: editorNotifier.textSize,
         background: Paint()
@@ -121,18 +122,17 @@ class TextFieldWidget extends StatelessWidget {
           Shadow(
               offset: const Offset(1.0, 1.0),
               blurRadius: 3.0,
-              color: editorNotifier.textColor == Colors.black ? Colors.white54 : Colors.black
-          )
+              color: editorNotifier.textColor == Colors.black
+                  ? Colors.white54
+                  : Colors.black)
         ],
-
       ),
-
       cursorColor: controlNotifier.colorList![editorNotifier.textColor],
       minLines: 1,
       keyboardType: TextInputType.multiline,
       maxLines: null,
       decoration: null,
-      onChanged: (value){
+      onChanged: (value) {
         editorNotifier.text = value;
       },
     );

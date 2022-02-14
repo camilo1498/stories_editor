@@ -12,7 +12,7 @@ class FontSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     var _size = MediaQuery.of(context).size;
     return Consumer2<TextEditingNotifier, ControlNotifier>(
-      builder: (context, editorNotifier, controlNotifier, child){
+      builder: (context, editorNotifier, controlNotifier, child) {
         return Container(
           height: _size.width * 0.1,
           width: _size.width,
@@ -20,41 +20,43 @@ class FontSelector extends StatelessWidget {
           child: PageView.builder(
             controller: editorNotifier.fontFamilyController,
             itemCount: controlNotifier.fontList!.length,
-            onPageChanged: (index){
+            onPageChanged: (index) {
               editorNotifier.fontFamilyIndex = index;
               HapticFeedback.heavyImpact();
             },
             physics: const BouncingScrollPhysics(),
             allowImplicitScrolling: true,
             pageSnapping: false,
-            itemBuilder: (context, index){
+            itemBuilder: (context, index) {
               return AnimatedOnTapButton(
-                onTap: (){
+                onTap: () {
                   editorNotifier.fontFamilyIndex = index;
                   editorNotifier.fontFamilyController.jumpToPage(index);
-
                 },
                 child: Container(
                   height: _size.width * 0.1,
-                  width:  _size.width * 0.1,
+                  width: _size.width * 0.1,
                   alignment: Alignment.center,
                   margin: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
-                      color: index ==  editorNotifier.fontFamilyIndex ? Colors.white : Colors.black.withOpacity(0.4),
+                      color: index == editorNotifier.fontFamilyIndex
+                          ? Colors.white
+                          : Colors.black.withOpacity(0.4),
                       shape: BoxShape.circle,
-                      border: Border.all(color: Colors.white)
-                  ),
+                      border: Border.all(color: Colors.white)),
                   child: Center(
                     child: Text(
                       'Aa',
                       style: TextStyle(
-                          fontFamily: controlNotifier.fontList![index],
-                          package: controlNotifier.isCustomFontList ? null : 'stories_editor'
-                      )
+                              fontFamily: controlNotifier.fontList![index],
+                              package: controlNotifier.isCustomFontList
+                                  ? null
+                                  : 'stories_editor')
                           .copyWith(
-                          color: index ==  editorNotifier.fontFamilyIndex ? Colors.red : Colors.white,
-                          fontWeight: FontWeight.bold
-                      ),
+                              color: index == editorNotifier.fontFamilyIndex
+                                  ? Colors.red
+                                  : Colors.white,
+                              fontWeight: FontWeight.bold),
                     ),
                   ),
                 ),

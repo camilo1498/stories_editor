@@ -17,16 +17,22 @@ export 'package:stories_editor/stories_editor.dart';
 class StoriesEditor extends StatefulWidget {
   /// editor custom font families
   final List<String>? fontFamilyList;
+
   /// editor custom font families package
   final bool? isCustomFontList;
+
   /// giphy api key
   final String giphyKey;
+
   /// editor custom color gradients
   final List<List<Color>>? gradientColors;
+
   /// editor custom logo
   final Widget? middleBottomWidget;
+
   /// on done
   final Function(String)? onDone;
+
   /// editor custom color palette list
   List<Color>? colorList;
   StoriesEditor({
@@ -45,7 +51,6 @@ class StoriesEditor extends StatefulWidget {
 }
 
 class _StoriesEditorState extends State<StoriesEditor> {
-
   @override
   void initState() {
     Paint.enableDithering = true;
@@ -60,7 +65,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
 
   @override
   void dispose() {
-    if(mounted){
+    if (mounted) {
       super.dispose();
     }
   }
@@ -83,9 +88,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
           isCustomFontList: widget.isCustomFontList,
           middleBottomWidget: widget.middleBottomWidget,
           gradientColors: widget.gradientColors,
-          colorList: widget.colorList
-      ),
+          colorList: widget.colorList),
     );
-
   }
 }

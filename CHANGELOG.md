@@ -1,4 +1,4 @@
-## 0.1.5
+## 0.1.6
 
 * 1) improve provider implementation
 * 2) new folder structure

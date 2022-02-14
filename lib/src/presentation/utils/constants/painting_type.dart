@@ -1,6 +1,1 @@
-
-enum PaintingType{
-  pen,
-  marker,
-  neon
-}
+enum PaintingType { pen, marker, neon }

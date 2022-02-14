@@ -11,13 +11,9 @@ import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
 import 'package:stories_editor/src/presentation/widgets/color_selector.dart';
 import 'package:stories_editor/src/presentation/widgets/size_slider_selector.dart';
 
-
 class TextEditor extends StatefulWidget {
   final BuildContext context;
-  const TextEditor({
-    Key? key,
-    required this.context
-  }) : super(key: key);
+  const TextEditor({Key? key, required this.context}) : super(key: key);
 
   @override
   State<TextEditor> createState() => _TextEditorState();
@@ -26,15 +22,15 @@ class TextEditor extends StatefulWidget {
 class _TextEditorState extends State<TextEditor> {
   @override
   void initState() {
-   WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-     final _editorNotifier= Provider.of<TextEditingNotifier>(widget.context, listen: false);
-     _editorNotifier
-       ..textController.text = _editorNotifier.text
-       ..fontFamilyController = PageController(viewportFraction: .125);
-   });
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+      final _editorNotifier =
+          Provider.of<TextEditingNotifier>(widget.context, listen: false);
+      _editorNotifier
+        ..textController.text = _editorNotifier.text
+        ..fontFamilyController = PageController(viewportFraction: .125);
+    });
     super.initState();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -42,18 +38,15 @@ class _TextEditorState extends State<TextEditor> {
     return Material(
         color: Colors.transparent,
         child: Consumer2<ControlNotifier, TextEditingNotifier>(
-          builder: (_, controlNotifier, editorNotifier, __){
+          builder: (_, controlNotifier, editorNotifier, __) {
             return Scaffold(
               backgroundColor: Colors.transparent,
               body: GestureDetector(
                 /// onTap => Close view and create/modify item object
-                onTap: () => _onTap(context,
-                    controlNotifier,
-                    editorNotifier),
+                onTap: () => _onTap(context, controlNotifier, editorNotifier),
                 child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.5)
-                    ),
+                    decoration:
+                        BoxDecoration(color: Colors.black.withOpacity(0.5)),
                     height: _size.height,
                     width: _size.width,
                     child: Stack(
@@ -75,11 +68,9 @@ class _TextEditorState extends State<TextEditor> {
                           child: Align(
                               alignment: Alignment.topCenter,
                               child: TopTextTools(
-                                onDone: () => _onTap(context,
-                                    controlNotifier,
-                                    editorNotifier),
-                              )
-                          ),
+                                onDone: () => _onTap(
+                                    context, controlNotifier, editorNotifier),
+                              )),
                         ),
 
                         /// font family selector (bottom)
@@ -103,36 +94,34 @@ class _TextEditorState extends State<TextEditor> {
                                 padding: EdgeInsets.only(bottom: 20),
                                 child: ColorSelector(),
                               ),
-                            )
-                        ),
+                            )),
                       ],
-                    )
-                ),
+                    )),
               ),
             );
           },
-        )
-    );
+        ));
   }
 
-  void _onTap(context, ControlNotifier controlNotifier, TextEditingNotifier editorNotifier){
-    final _editableItemNotifier = Provider.of<DraggableWidgetNotifier>(context, listen: false);
+  void _onTap(context, ControlNotifier controlNotifier,
+      TextEditingNotifier editorNotifier) {
+    final _editableItemNotifier =
+        Provider.of<DraggableWidgetNotifier>(context, listen: false);
+
     /// create Text Item
-    if(editorNotifier.text.trim().isNotEmpty){
-      _editableItemNotifier.draggableWidget.add(
-          EditableItem()
-            ..type = ItemType.text
-            ..text = editorNotifier.text.trim()
-            ..backGroundColor = editorNotifier.backGroundColor
-            ..textColor = controlNotifier.colorList![editorNotifier.textColor]
-            ..fontFamily = editorNotifier.fontFamilyIndex
-            ..fontSize = editorNotifier.textSize
-            ..textAlign = editorNotifier.textAlign
-            ..position = const Offset(0.0, 0.0)
-      );
+    if (editorNotifier.text.trim().isNotEmpty) {
+      _editableItemNotifier.draggableWidget.add(EditableItem()
+        ..type = ItemType.text
+        ..text = editorNotifier.text.trim()
+        ..backGroundColor = editorNotifier.backGroundColor
+        ..textColor = controlNotifier.colorList![editorNotifier.textColor]
+        ..fontFamily = editorNotifier.fontFamilyIndex
+        ..fontSize = editorNotifier.textSize
+        ..textAlign = editorNotifier.textAlign
+        ..position = const Offset(0.0, 0.0));
       editorNotifier.setDefaults();
       controlNotifier.isTextEditing = !controlNotifier.isTextEditing;
-    } else{
+    } else {
       editorNotifier.setDefaults();
       controlNotifier.isTextEditing = !controlNotifier.isTextEditing;
     }

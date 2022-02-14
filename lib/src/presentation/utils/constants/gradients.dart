@@ -3,20 +3,39 @@ import 'package:flutter/material.dart';
 import 'package:stories_editor/src/presentation/utils/Extensions/hexColor.dart';
 
 List<List<Color>> gradientBackgroundColors = [
-  [const Color.fromRGBO(31, 179, 237, 1), const Color.fromRGBO(17, 106, 197, 1)],
+  [
+    const Color.fromRGBO(31, 179, 237, 1),
+    const Color.fromRGBO(17, 106, 197, 1)
+  ],
   [const Color.fromRGBO(240, 19, 77, 1), const Color.fromRGBO(228, 0, 124, 1)],
-  [const Color.fromRGBO(255, 190, 32, 1), const Color.fromRGBO(251, 112, 71, 1)],
-  [const Color.fromRGBO(255, 255, 255, 1), const Color.fromRGBO(234, 236, 255, 1)],
+  [
+    const Color.fromRGBO(255, 190, 32, 1),
+    const Color.fromRGBO(251, 112, 71, 1)
+  ],
+  [
+    const Color.fromRGBO(255, 255, 255, 1),
+    const Color.fromRGBO(234, 236, 255, 1)
+  ],
   [HexColor.fromHex('#2AA8F2'), HexColor.fromHex('#A800FF')],
   [HexColor.fromHex('#A800FF'), HexColor.fromHex('#2AA8F2')],
   [HexColor.fromHex('#A800FF'), HexColor.fromHex('#FF0900')],
-  [HexColor.fromHex('#33CD11'), HexColor.fromHex('#33CD75'),HexColor.fromHex('#0099FF')],
+  [
+    HexColor.fromHex('#33CD11'),
+    HexColor.fromHex('#33CD75'),
+    HexColor.fromHex('#0099FF')
+  ],
   [HexColor.fromHex('#FF0043'), HexColor.fromHex('#FFAA20')],
   [HexColor.fromHex('#9911AA'), HexColor.fromHex('#FF0013')],
   [HexColor.fromHex('#323232'), HexColor.fromHex('#354047')],
   [HexColor.fromHex('#A9AAAE'), HexColor.fromHex('#C8CACA')],
-  [HexColor.fromHex('#FF0033'), HexColor.fromHex('#FF8800'),HexColor.fromHex('#FFAA00'),
-    HexColor.fromHex('#009508'),HexColor.fromHex('#0078FF'),HexColor.fromHex('#8001AA')],
+  [
+    HexColor.fromHex('#FF0033'),
+    HexColor.fromHex('#FF8800'),
+    HexColor.fromHex('#FFAA00'),
+    HexColor.fromHex('#009508'),
+    HexColor.fromHex('#0078FF'),
+    HexColor.fromHex('#8001AA')
+  ],
   [const Color(0xFFee9ca7), const Color(0xFFffdde1)],
   [const Color(0xFF2193b0), const Color(0xFF6dd5ed)],
   [const Color(0xFFb92b27), const Color(0xFF1565C0)],
@@ -66,5 +85,4 @@ List<List<Color>> gradientBackgroundColors = [
   [const Color(0xFFfdcbf1), const Color(0xFFe6dee9)],
   [const Color(0xFFa1c4fd), const Color(0xFFc2e9fb)],
   [const Color(0xFFd4fc79), const Color(0xFF96e6a1)],
-
 ];

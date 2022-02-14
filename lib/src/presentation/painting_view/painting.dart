@@ -11,8 +11,6 @@ import 'package:stories_editor/src/presentation/painting_view/widgets/top_painti
 import 'package:stories_editor/src/presentation/widgets/color_selector.dart';
 import 'package:stories_editor/src/presentation/widgets/size_slider_selector.dart';
 
-
-
 class Painting extends StatefulWidget {
   const Painting({Key? key}) : super(key: key);
 
@@ -25,8 +23,10 @@ class _PaintingState extends State<Painting> {
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
       Provider.of<PaintingNotifier>(context, listen: false)
-        ..linesStreamController =  StreamController<List<PaintingModel>>.broadcast()
-        ..currentLineStreamController = StreamController<PaintingModel>.broadcast();
+        ..linesStreamController =
+            StreamController<List<PaintingModel>>.broadcast()
+        ..currentLineStreamController =
+            StreamController<PaintingModel>.broadcast();
     });
     super.initState();
   }
@@ -35,22 +35,23 @@ class _PaintingState extends State<Painting> {
   void dispose() {
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
-
     /// instance of painting model
     PaintingModel? line;
 
     /// on gestures start
-    void _onPanStart(DragStartDetails details, PaintingNotifier paintingNotifier, ControlNotifier controlProvider) {
+    void _onPanStart(DragStartDetails details,
+        PaintingNotifier paintingNotifier, ControlNotifier controlProvider) {
       var _size = MediaQuery.of(context).size;
       final box = context.findRenderObject() as RenderBox;
       final offset = box.globalToLocal(details.globalPosition);
-      final point = Point(offset.dx, offset.dy-33);
+      final point = Point(offset.dx, offset.dy - 33);
       final points = [point];
 
       /// validate allow pan area
-      if(point.y >= 4 && point.y <= _size.height- 132){
+      if (point.y >= 4 && point.y <= _size.height - 132) {
         line = PaintingModel(
             points,
             paintingNotifier.lineWidth,
@@ -60,21 +61,21 @@ class _PaintingState extends State<Painting> {
             controlProvider.colorList![paintingNotifier.lineColor],
             1,
             true,
-            paintingNotifier.paintingType
-        );
+            paintingNotifier.paintingType);
       }
     }
 
     /// on gestures update
-    void _onPanUpdate(DragUpdateDetails details, PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
+    void _onPanUpdate(DragUpdateDetails details,
+        PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
       var _size = MediaQuery.of(context).size;
       final box = context.findRenderObject() as RenderBox;
       final offset = box.globalToLocal(details.globalPosition);
-      final point = Point(offset.dx, offset.dy-33);
+      final point = Point(offset.dx, offset.dy - 33);
       final points = [...line!.points, point];
 
       /// validate allow pan area
-      if(point.y >= 6 && point.y <= _size.height- 140){
+      if (point.y >= 6 && point.y <= _size.height - 140) {
         line = PaintingModel(
             points,
             paintingNotifier.lineWidth,
@@ -84,8 +85,7 @@ class _PaintingState extends State<Painting> {
             controlNotifier.colorList![paintingNotifier.lineColor],
             1,
             true,
-            paintingNotifier.paintingType
-        );
+            paintingNotifier.paintingType);
         paintingNotifier.currentLineStreamController.add(line!);
       }
     }
@@ -94,19 +94,20 @@ class _PaintingState extends State<Painting> {
     void _onPanEnd(DragEndDetails details, PaintingNotifier paintingNotifier) {
       paintingNotifier.lines = List.from(paintingNotifier.lines)..add(line!);
       line = null;
-      paintingNotifier.linesStreamController.add(paintingNotifier.lines );
+      paintingNotifier.linesStreamController.add(paintingNotifier.lines);
     }
 
     /// paint current line
-    Widget _renderCurrentLine(BuildContext context, PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
+    Widget _renderCurrentLine(BuildContext context,
+        PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
       return GestureDetector(
-        onPanStart: (details){
-          _onPanStart(details, paintingNotifier,controlNotifier);
+        onPanStart: (details) {
+          _onPanStart(details, paintingNotifier, controlNotifier);
         },
-        onPanUpdate: (details){
+        onPanUpdate: (details) {
           _onPanUpdate(details, paintingNotifier, controlNotifier);
         },
-        onPanEnd: (details){
+        onPanEnd: (details) {
           _onPanEnd(details, paintingNotifier);
         },
         child: RepaintBoundary(
@@ -120,7 +121,8 @@ class _PaintingState extends State<Painting> {
                   width: MediaQuery.of(context).size.width,
                   height: MediaQuery.of(context).size.height - 132,
                   child: StreamBuilder<PaintingModel>(
-                      stream: paintingNotifier.currentLineStreamController.stream,
+                      stream:
+                          paintingNotifier.currentLineStreamController.stream,
                       builder: (context, snapshot) {
                         return CustomPaint(
                           painter: Sketcher(
@@ -136,9 +138,9 @@ class _PaintingState extends State<Painting> {
 
     /// return Painting board
     return Consumer2<ControlNotifier, PaintingNotifier>(
-      builder: (context, controlNotifier, paintingNotifier, child){
+      builder: (context, controlNotifier, paintingNotifier, child) {
         return WillPopScope(
-          onWillPop: () async{
+          onWillPop: () async {
             controlNotifier.isPainting = false;
             WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
               paintingNotifier.closeConnection();
@@ -162,9 +164,7 @@ class _PaintingState extends State<Painting> {
                 ),
 
                 /// top painting tools
-                const SafeArea(
-                    child: TopPaintingTools()
-                ),
+                const SafeArea(child: TopPaintingTools()),
 
                 /// color picker
                 const Align(
@@ -182,4 +182,3 @@ class _PaintingState extends State<Painting> {
     );
   }
 }
-

@@ -14,7 +14,6 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter stories editor Demo',
       theme: ThemeData(
-
         primarySwatch: Colors.blue,
       ),
       home: const Example(),
@@ -24,8 +23,6 @@ class MyApp extends StatelessWidget {
 
 class Example extends StatefulWidget {
   const Example({Key? key}) : super(key: key);
-
-
 
   @override
   State<Example> createState() => _ExampleState();
@@ -39,22 +36,22 @@ class _ExampleState extends State<Example> {
         resizeToAvoidBottomInset: false,
         body: Center(
           child: ElevatedButton(
-            onPressed: (){
-              Navigator.push(context, MaterialPageRoute(builder: (context) => StoriesEditor(
-                giphyKey: '[HERE YOUR API KEY]',
-                fontFamilyList: const ['Shizuru', 'Aladin'],
-                isCustomFontList: true,
-                onDone: (uri){
-                  debugPrint(uri);
-                  Share.shareFiles([uri]);
-                },
-              ))
-              );
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => StoriesEditor(
+                            giphyKey: '[HERE YOUR API KEY]',
+                            fontFamilyList: const ['Shizuru', 'Aladin'],
+                            isCustomFontList: true,
+                            onDone: (uri) {
+                              debugPrint(uri);
+                              Share.shareFiles([uri]);
+                            },
+                          )));
             },
             child: const Text('Open Stories Editor'),
           ),
-        )
-    );
-
+        ));
   }
 }

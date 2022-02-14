@@ -8,10 +8,10 @@ class PaintingModel {
 
   /// The base size (diameter) of the stroke.
   double size = 10;
-  
+
   /// The effect of pressure on the stroke's size.
   double thinning = 1;
-  
+
   /// Controls the density of points along the stroke's edges.
   double smoothing = 1;
 
@@ -20,23 +20,24 @@ class PaintingModel {
 
   /// line Color
   Color lineColor = Colors.black;
+
   /// Controls the level of variation allowed in the input points.
   double streamline;
-  // Whether to simulate pressure or use the point's provided pressures.
+
+  /// Whether to simulate pressure or use the point's provided pressures.
   final bool simulatePressure;
 
   /// painting type
   PaintingType paintingType = PaintingType.pen;
 
   PaintingModel(
-  this.points,
-    this.size,
-    this.thinning,
-    this.smoothing,
-    this.isComplete,
-    this.lineColor,
-    this.streamline,
-    this.simulatePressure,
-    this.paintingType
-  );
+      this.points,
+      this.size,
+      this.thinning,
+      this.smoothing,
+      this.isComplete,
+      this.lineColor,
+      this.streamline,
+      this.simulatePressure,
+      this.paintingType);
 }

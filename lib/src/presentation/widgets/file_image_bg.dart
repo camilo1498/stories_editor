@@ -4,15 +4,12 @@ import 'dart:async';
 
 import 'package:stories_editor/src/presentation/utils/color_detection.dart';
 
-
-
 class FileImageBG extends StatefulWidget {
   final File? filePath;
   final void Function(Color color1, Color color2) generatedGradient;
-  const FileImageBG({Key? key,
-    required this.filePath,
-    required this.generatedGradient
-  }) : super(key: key);
+  const FileImageBG(
+      {Key? key, required this.filePath, required this.generatedGradient})
+      : super(key: key);
   @override
   _FileImageBGState createState() => _FileImageBGState();
 }
@@ -37,12 +34,14 @@ class _FileImageBGState extends State<FileImageBG> {
           currentKey: currentKey,
           paintKey: paintKey,
           stateController: stateController,
-        ).searchPixel(Offset(imageKey.currentState!.context.size!.width / 2, 480));
+        ).searchPixel(
+            Offset(imageKey.currentState!.context.size!.width / 2, 480));
         var cd12 = await ColorDetection(
           currentKey: currentKey,
           paintKey: paintKey,
           stateController: stateController,
-        ).searchPixel(Offset(imageKey.currentState!.context.size!.width / 2.03, 530));
+        ).searchPixel(
+            Offset(imageKey.currentState!.context.size!.width / 2.03, 530));
         color1 = cd1;
         color2 = cd12;
         setState(() {});
@@ -63,14 +62,10 @@ class _FileImageBGState extends State<FileImageBG> {
         child: RepaintBoundary(
             key: paintKey,
             child: Center(
-              child: Image.file(
-                File(widget.filePath!.path),
-                key: imageKey,
-                filterQuality: FilterQuality.high,
-              )
-            )
-        )
-    );
-
+                child: Image.file(
+              File(widget.filePath!.path),
+              key: imageKey,
+              filterQuality: FilterQuality.high,
+            ))));
   }
 }

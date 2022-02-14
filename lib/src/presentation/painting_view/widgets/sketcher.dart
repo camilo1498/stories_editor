@@ -3,7 +3,6 @@ import 'package:perfect_freehand/perfect_freehand.dart';
 import 'package:stories_editor/src/domain/models/painting_model.dart';
 import 'package:stories_editor/src/presentation/utils/constants/painting_type.dart';
 
-
 class Sketcher extends CustomPainter {
   final List<PaintingModel> lines;
 
@@ -15,35 +14,37 @@ class Sketcher extends CustomPainter {
     List<Point>? outlinePoints;
 
     for (int i = 0; i < lines.length; ++i) {
-      switch(lines[i].paintingType){
+      switch (lines[i].paintingType) {
         case PaintingType.pen:
-          paint = Paint()
-            ..color =  lines[i].lineColor;
+          paint = Paint()..color = lines[i].lineColor;
 
           outlinePoints = getStroke(
-            /// coordinates
-            lines[i].points,
-            /// line width
-            size: lines[i].size,
-            /// line thin
-            thinning: 1,
-            /// line smooth
-            smoothing: 1,
-            /// on complete line
-            isComplete: lines[i].isComplete,
-            streamline: 1,
-            taperEnd: 0,
-            taperStart: 0,
-            capEnd: true,
-            simulatePressure: true,
-            capStart: true
 
-          );
+              /// coordinates
+              lines[i].points,
+
+              /// line width
+              size: lines[i].size,
+
+              /// line thin
+              thinning: 1,
+
+              /// line smooth
+              smoothing: 1,
+
+              /// on complete line
+              isComplete: lines[i].isComplete,
+              streamline: 1,
+              taperEnd: 0,
+              taperStart: 0,
+              capEnd: true,
+              simulatePressure: true,
+              capStart: true);
           break;
         case PaintingType.marker:
           paint = Paint()
             ..strokeWidth = 5
-            ..color =  lines[i].lineColor.withOpacity(0.7)
+            ..color = lines[i].lineColor.withOpacity(0.7)
             ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 5)
             ..strokeCap = StrokeCap.square
             ..filterQuality = FilterQuality.high
@@ -51,15 +52,18 @@ class Sketcher extends CustomPainter {
           outlinePoints = getStroke(
             /// coordinates
             lines[i].points,
+
             /// line width
             size: lines[i].size,
+
             /// line thin
             thinning: 1,
+
             /// line smooth
             smoothing: 1,
+
             /// on complete line
             isComplete: lines[i].isComplete,
-
           );
           break;
         case PaintingType.neon:
@@ -74,23 +78,27 @@ class Sketcher extends CustomPainter {
             ..style = PaintingStyle.stroke;
 
           outlinePoints = getStroke(
-            /// coordinates
-            lines[i].points,
-            /// line width
-            size: lines[i].size,
-            /// line thin
-            thinning: -0.1,
-            /// line smooth
-            smoothing: 1,
-            /// on complete line
-            isComplete: lines[i].isComplete,
-            streamline:  lines[i].streamline,
-            simulatePressure: lines[i].simulatePressure,
-            taperStart: 0,
-            taperEnd: 0,
-            capStart: true,
-            capEnd: true
-          );
+
+              /// coordinates
+              lines[i].points,
+
+              /// line width
+              size: lines[i].size,
+
+              /// line thin
+              thinning: -0.1,
+
+              /// line smooth
+              smoothing: 1,
+
+              /// on complete line
+              isComplete: lines[i].isComplete,
+              streamline: lines[i].streamline,
+              simulatePressure: lines[i].simulatePressure,
+              taperStart: 0,
+              taperEnd: 0,
+              capStart: true,
+              capEnd: true);
           break;
       }
 
@@ -116,7 +124,6 @@ class Sketcher extends CustomPainter {
 
       canvas.drawPath(path, paint);
     }
-
   }
 
   @override

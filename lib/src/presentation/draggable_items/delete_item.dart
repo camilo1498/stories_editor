@@ -33,20 +33,18 @@ class DeleteItem extends StatelessWidget {
                 width: isDeletePosition ? 55.0 : 45,
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.35),
-                  border: Border.all(
-                      color: Colors.white
-                  ),
+                  border: Border.all(color: Colors.white),
                   borderRadius: BorderRadius.circular(50),
                 ),
                 child: const ImageIcon(
-                  AssetImage('assets/icons/trash.png', package: 'stories_editor'),
+                  AssetImage('assets/icons/trash.png',
+                      package: 'stories_editor'),
                   color: Colors.white,
                   size: 23,
                 ),
               ),
             ),
-          )
-      ),
+          )),
     );
   }
 }

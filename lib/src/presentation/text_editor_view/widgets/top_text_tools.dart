@@ -5,14 +5,12 @@ import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 
 class TopTextTools extends StatelessWidget {
   final void Function() onDone;
-  const TopTextTools({Key? key,
-    required this.onDone
-  }) : super(key: key);
+  const TopTextTools({Key? key, required this.onDone}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Consumer<TextEditingNotifier>(
-      builder: (context, editorNotifier, child){
+      builder: (context, editorNotifier, child) {
         return Container(
           padding: const EdgeInsets.only(top: 15),
           child: Stack(
@@ -23,19 +21,23 @@ class TopTextTools extends StatelessWidget {
                 children: [
                   /// font family / font color
                   ToolButton(
-                    onTap: (){
-                      editorNotifier.isFontFamily = !editorNotifier.isFontFamily;
-
+                    onTap: () {
+                      editorNotifier.isFontFamily =
+                          !editorNotifier.isFontFamily;
                     },
                     child: Transform.scale(
                         scale: !editorNotifier.isFontFamily ? 0.8 : 1.3,
-                        child: !editorNotifier.isFontFamily ? const ImageIcon(
-                          AssetImage(
-                              'assets/icons/text.png', package: 'stories_editor'),
-                          size: 20,
-                          color: Colors.white,
-                        ) : Image.asset('assets/icons/circular_gradient.png', package: 'stories_editor',)
-                    ),
+                        child: !editorNotifier.isFontFamily
+                            ? const ImageIcon(
+                                AssetImage('assets/icons/text.png',
+                                    package: 'stories_editor'),
+                                size: 20,
+                                color: Colors.white,
+                              )
+                            : Image.asset(
+                                'assets/icons/circular_gradient.png',
+                                package: 'stories_editor',
+                              )),
                   ),
 
                   /// text align
@@ -45,12 +47,12 @@ class TopTextTools extends StatelessWidget {
                         scale: 0.8,
                         child: Icon(
                           editorNotifier.textAlign == TextAlign.center
-                              ? Icons.format_align_center :
-                          editorNotifier.textAlign == TextAlign.right ? Icons.format_align_right :
-                          Icons.format_align_left,
+                              ? Icons.format_align_center
+                              : editorNotifier.textAlign == TextAlign.right
+                                  ? Icons.format_align_right
+                                  : Icons.format_align_left,
                           color: Colors.white,
-                        )
-                    ),
+                        )),
                   ),
 
                   /// background color
@@ -60,16 +62,15 @@ class TopTextTools extends StatelessWidget {
                         scale: 0.7,
                         child: const Center(
                           child: Padding(
-                            padding: EdgeInsets.only(left: 5,bottom: 3),
+                            padding: EdgeInsets.only(left: 5, bottom: 3),
                             child: ImageIcon(
-                              AssetImage('assets/icons/font_backGround.png', package: 'stories_editor'),
+                              AssetImage('assets/icons/font_backGround.png',
+                                  package: 'stories_editor'),
                               color: Colors.white,
                             ),
                           ),
-                        )
-                    ),
+                        )),
                   )
-
                 ],
               ),
 
@@ -81,15 +82,12 @@ class TopTextTools extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10, top: 10),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 6,horizontal: 12),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 6, horizontal: 12),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
-                          border: Border.all(
-                              color: Colors.white,
-                              width: 1.5
-                          ),
-                          borderRadius: BorderRadius.circular(15)
-                      ),
+                          border: Border.all(color: Colors.white, width: 1.5),
+                          borderRadius: BorderRadius.circular(15)),
                       child: const Text(
                         'Done',
                         style: TextStyle(

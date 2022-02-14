@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-class TextEditingNotifier extends ChangeNotifier{
-
+class TextEditingNotifier extends ChangeNotifier {
   String _text = '';
   int _textColor = 0;
   double _textSize = 25.0;
@@ -13,7 +12,6 @@ class TextEditingNotifier extends ChangeNotifier{
 
   PageController _fontFamilyController = PageController(viewportFraction: .125);
   TextEditingController _textController = TextEditingController();
-
 
   int _currentColorBackground = 0;
   final List<Color> _textColorBackGround = [
@@ -39,86 +37,84 @@ class TextEditingNotifier extends ChangeNotifier{
   PageController get fontFamilyController => _fontFamilyController;
   TextEditingController get textController => _textController;
 
-
-  set text(String text){
+  set text(String text) {
     _text = text;
     notifyListeners();
   }
 
-  set textColor(int color){
-    if(_backGroundColor == Colors.white && color == 0){
+  set textColor(int color) {
+    if (_backGroundColor == Colors.white && color == 0) {
       _textColor = 1;
       notifyListeners();
-    } else if(_backGroundColor == Colors.black && color == 1){
+    } else if (_backGroundColor == Colors.black && color == 1) {
       _textColor = 0;
       notifyListeners();
-    } else{
+    } else {
       _textColor = color;
       notifyListeners();
     }
   }
 
-  set textSize(double size){
+  set textSize(double size) {
     _textSize = size;
     notifyListeners();
   }
 
-  set fontFamilyIndex(int fontIndex){
+  set fontFamilyIndex(int fontIndex) {
     _fontFamilyIndex = fontIndex;
     notifyListeners();
   }
 
-  set isFontFamily(bool isFamily){
+  set isFontFamily(bool isFamily) {
     _isFontFamily = isFamily;
     notifyListeners();
   }
 
-  set fontFamilyController(PageController controller){
+  set fontFamilyController(PageController controller) {
     _fontFamilyController = controller;
     notifyListeners();
   }
 
-  set textController(TextEditingController textController){
+  set textController(TextEditingController textController) {
     _textController = textController;
     notifyListeners();
   }
 
-  set backGroundColor(Color backGround){
+  set backGroundColor(Color backGround) {
     _backGroundColor = backGround;
     notifyListeners();
   }
 
-  set textAlign(TextAlign align){
+  set textAlign(TextAlign align) {
     _textAlign = align;
     notifyListeners();
   }
 
-
-  onBackGroundChange(){
-    if(_currentColorBackground < _textColorBackGround.length -1 ){
+  onBackGroundChange() {
+    if (_currentColorBackground < _textColorBackGround.length - 1) {
       _currentColorBackground += 1;
       _backGroundColor = _textColorBackGround[_currentColorBackground];
       notifyListeners();
-    }else{
+    } else {
       _currentColorBackground = 0;
       _backGroundColor = _textColorBackGround[_currentColorBackground];
       notifyListeners();
     }
   }
 
-  onAlignmentChange(){
-    if(_currentAlign < _texAlignment.length -1 ){
+  onAlignmentChange() {
+    if (_currentAlign < _texAlignment.length - 1) {
       _currentAlign += 1;
       _textAlign = _texAlignment[_currentAlign];
       notifyListeners();
-    }else{
+    } else {
       _currentAlign = 0;
       _textAlign = _texAlignment[_currentAlign];
       notifyListeners();
     }
   }
 
-  setDefaults(){
+  setDefaults() {
     _text = '';
     _textController.text = '';
     _textColor = 0;
@@ -130,9 +126,8 @@ class TextEditingNotifier extends ChangeNotifier{
     _isFontFamily = true;
   }
 
-  disposeController(){
+  disposeController() {
     _textController.dispose();
     _fontFamilyController.dispose();
   }
-
 }

@@ -15,10 +15,9 @@ class TopPaintingTools extends StatefulWidget {
 class _TopPaintingToolsState extends State<TopPaintingTools> {
   @override
   Widget build(BuildContext context) {
-
     return Consumer2<ControlNotifier, PaintingNotifier>(
-      builder: (context, controlNotifier, paintingNotifier, child){
-        return  Padding(
+      builder: (context, controlNotifier, paintingNotifier, child) {
+        return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
           child: Container(
             color: Colors.transparent,
@@ -27,75 +26,100 @@ class _TopPaintingToolsState extends State<TopPaintingTools> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 /// remove last line
-                if(paintingNotifier.lines.isNotEmpty)
+                if (paintingNotifier.lines.isNotEmpty)
                   ToolButton(
-                    onTap:  paintingNotifier.removeLast,
+                    onTap: paintingNotifier.removeLast,
                     onLongPress: paintingNotifier.clearAll,
                     padding: const EdgeInsets.symmetric(horizontal: 5),
                     backGroundColor: Colors.black12,
                     child: Transform.scale(
                         scale: 0.6,
                         child: const ImageIcon(
-                          AssetImage('assets/icons/return.png', package: 'stories_editor'),
+                          AssetImage('assets/icons/return.png',
+                              package: 'stories_editor'),
                           color: Colors.white,
-                        )
-                    ),
+                        )),
                   ),
 
                 /// select pen
                 ToolButton(
-                  onTap: (){
+                  onTap: () {
                     paintingNotifier.paintingType = PaintingType.pen;
                   },
-                  colorBorder: paintingNotifier.paintingType == PaintingType.pen ? Colors.black : Colors.white,
+                  colorBorder: paintingNotifier.paintingType == PaintingType.pen
+                      ? Colors.black
+                      : Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  backGroundColor: paintingNotifier.paintingType == PaintingType.pen ? Colors.white.withOpacity(0.9) : Colors.black12,
+                  backGroundColor:
+                      paintingNotifier.paintingType == PaintingType.pen
+                          ? Colors.white.withOpacity(0.9)
+                          : Colors.black12,
                   child: Transform.scale(
                       scale: 1.2,
                       child: ImageIcon(
-                        const AssetImage('assets/icons/pen.png', package: 'stories_editor'),
-                        color: paintingNotifier.paintingType == PaintingType.pen ? Colors.black : Colors.white,
-                      )
-                  ),
+                        const AssetImage('assets/icons/pen.png',
+                            package: 'stories_editor'),
+                        color: paintingNotifier.paintingType == PaintingType.pen
+                            ? Colors.black
+                            : Colors.white,
+                      )),
                 ),
 
                 /// select marker
                 ToolButton(
-                  onTap: (){
+                  onTap: () {
                     paintingNotifier.paintingType = PaintingType.marker;
                   },
-                  colorBorder: paintingNotifier.paintingType == PaintingType.marker ? Colors.black : Colors.white,
+                  colorBorder:
+                      paintingNotifier.paintingType == PaintingType.marker
+                          ? Colors.black
+                          : Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  backGroundColor: paintingNotifier.paintingType == PaintingType.marker ? Colors.white.withOpacity(0.9): Colors.black12,
+                  backGroundColor:
+                      paintingNotifier.paintingType == PaintingType.marker
+                          ? Colors.white.withOpacity(0.9)
+                          : Colors.black12,
                   child: Transform.scale(
                       scale: 1.2,
-                      child:  ImageIcon(
-                        const AssetImage('assets/icons/marker.png', package: 'stories_editor'),
-                        color: paintingNotifier.paintingType == PaintingType.marker ? Colors.black : Colors.white,
-                      )
-                  ),
+                      child: ImageIcon(
+                        const AssetImage('assets/icons/marker.png',
+                            package: 'stories_editor'),
+                        color:
+                            paintingNotifier.paintingType == PaintingType.marker
+                                ? Colors.black
+                                : Colors.white,
+                      )),
                 ),
 
                 /// select neon marker
                 ToolButton(
-                  onTap: (){
+                  onTap: () {
                     paintingNotifier.paintingType = PaintingType.neon;
                   },
-                  colorBorder: paintingNotifier.paintingType == PaintingType.neon ? Colors.black : Colors.white,
+                  colorBorder:
+                      paintingNotifier.paintingType == PaintingType.neon
+                          ? Colors.black
+                          : Colors.white,
                   padding: const EdgeInsets.symmetric(horizontal: 5),
-                  backGroundColor: paintingNotifier.paintingType == PaintingType.neon ? Colors.white.withOpacity(0.9) : Colors.black12,
+                  backGroundColor:
+                      paintingNotifier.paintingType == PaintingType.neon
+                          ? Colors.white.withOpacity(0.9)
+                          : Colors.black12,
                   child: Transform.scale(
                       scale: 1.1,
                       child: ImageIcon(
-                        const AssetImage('assets/icons/neon.png', package: 'stories_editor'),
-                        color: paintingNotifier.paintingType == PaintingType.neon ? Colors.black : Colors.white,
-                      )
-                  ),
+                        const AssetImage('assets/icons/neon.png',
+                            package: 'stories_editor'),
+                        color:
+                            paintingNotifier.paintingType == PaintingType.neon
+                                ? Colors.black
+                                : Colors.white,
+                      )),
                 ),
 
                 /// done button
                 ToolButton(
-                  onTap: (){
+                  onTap: () {
                     controlNotifier.isPainting = !controlNotifier.isPainting;
                     paintingNotifier.resetDefaults();
                   },
@@ -104,12 +128,11 @@ class _TopPaintingToolsState extends State<TopPaintingTools> {
                   child: Transform.scale(
                       scale: 0.7,
                       child: const ImageIcon(
-                        AssetImage('assets/icons/check.png', package: 'stories_editor'),
+                        AssetImage('assets/icons/check.png',
+                            package: 'stories_editor'),
                         color: Colors.white,
-                      )
-                  ),
+                      )),
                 ),
-
               ],
             ),
           ),
