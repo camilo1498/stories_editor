@@ -22,6 +22,7 @@ import 'package:stories_editor/src/presentation/painting_view/widgets/sketcher.d
 import 'package:stories_editor/src/presentation/text_editor_view/TextEditor.dart';
 import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
 import 'package:stories_editor/src/presentation/utils/modal_sheets.dart';
+import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
 
 
@@ -287,7 +288,8 @@ class _MainViewState extends State<MainView> {
                   gridViewController: scrollProvider.gridController,
                   singlePick: true,
                   onlyImages: true,
-                  gridViewPhysics: const NeverScrollableScrollPhysics(),
+                  gridViewPhysics: itemProvider.draggableWidget.isEmpty
+                      ? const NeverScrollableScrollPhysics() : const ScrollPhysics(),
                   pathList: (path) {
                     controlNotifier.mediaPath = path[0]['path'];
                     if(controlNotifier.mediaPath.isNotEmpty){
@@ -304,6 +306,40 @@ class _MainViewState extends State<MainView> {
                     );
 
                   },
+                  appBarLeadingWidget: Padding(
+                    padding: const EdgeInsets.only(bottom: 15, right: 15),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: AnimatedOnTapButton(
+                        onTap: (){
+                          scrollProvider.pageController.animateToPage(
+                              0,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                          decoration: BoxDecoration(
+                            color: Colors.transparent,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 1.2,
+                            )
+                          ),
+                          child: const Text(
+                            'Cancel',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 15,
+                              fontWeight: FontWeight.w400
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
               ),
             );
