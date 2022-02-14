@@ -1,6 +1,34 @@
 # flutter stories editor
 This is a package created in the style of the instagram story creator, with which you can create images with images, texts, stickers (Gifs), finger drawing. They can be exported as an image to the gallery or shared directly to social networks.
 
+## Features
+[✔️] Draggable image
+
+[✔️] Draggable text
+
+[✔️] Draggable Gif/Sticker (giphy API)
+
+[✔️] Gradiente container background
+
+[✔️] Finger painting (normal/translucent/neon)
+
+[✔️] Custom colors, gradints and font families
+
+[✔️] Custom gallery picker (own package => [gallery_media_picker](https://pub.dev/packages/gallery_media_picker))
+
+[✔️] Save draft as image
+
+[✔️] Get draft local uri
+
+## Future features
+
+[❌] Save draft as a gif
+
+[❌] Color filters
+
+[❌] Text animations
+
+
 ## Demo
 
 ![Demo Gif video](https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/demo.gif)
@@ -8,7 +36,7 @@ This is a package created in the style of the instagram story creator, with whic
 
 ## Installation
 *This package has only tested in Android and some features in web*
-Add `stories_editor: 0.1.0` to your `pubspec.yaml` dependencies and then import it.
+Add `stories_editor: 0.1.5` to your `pubspec.yaml` dependencies and then import it.
 
 
 ```dart
@@ -25,18 +53,8 @@ import 'package:stories_editor/stories_editor.dart';
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE"/>
    ```
-2) add `MultiProvider` in your `runApp()` as bellow:
-```dart
-void main() {
-  runApp(
-    MultiProvider(
-      providers: StoriesEditorProvider().providers, /// is required to use it
-      child: const MyApp(),
-    )
-  );
-}
 ```
-3) Create a `StoriesEditor()` widget with the follow params:
+2) Create a `StoriesEditor()` widget with the follow params:
 
 ```dart
 StoriesEditor(
@@ -48,8 +66,8 @@ StoriesEditor(
     colorList: [] /// (List<Color>[]) optional param 
     gradientColors: [] /// (List<List<Color>>[]) optional param 
     middleBottomWidget: Container() /// (Widget) optional param, you can add your own logo or text in the bottom tool
-    fontList: [] /// (List<String>) optional param
-    fontPackage: '' /// (String) if you use a own font list is required add your name app package
+    fontFamilyList: [] /// (List<String>) optional param
+    isCustomFontList: '' /// (bool) if you use a own font list set value to "true"
 );
 ```
 
@@ -61,12 +79,7 @@ import 'package:share_plus/share_plus.dart';
 import 'package:stories_editor/stories_editor.dart';
 
 void main() {
-  runApp(
-    MultiProvider(
-      providers: StoriesEditorProvider().providers,
-      child: const MyApp(),
-    )
-  );
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -101,23 +114,21 @@ class _ExampleState extends State<Example> {
     return Scaffold(
         backgroundColor: Colors.black,
         resizeToAvoidBottomInset: false,
-        body: Container(
-          child: Center(
-            child: ElevatedButton(
-              onPressed: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context) => StoriesEditor(
-                  giphyKey: '[YOUR GIPHY API KEY]',
-                  onDone: (uri){
-                    print(uri);
-                    if(uri != null){
-                      Share.shareFiles([uri]);
-                    }
-                  },
-                ))
-                );
-              },
-              child: const Text('Open Stories Editor'),
-            ),
+        body: Center(
+          child: ElevatedButton(
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context) => StoriesEditor(
+                giphyKey: '[HERE YOUR API KEY]',
+                //fontFamilyList: ['Shizuru'],
+                //isCustomFontList: true,
+                onDone: (uri){
+                  debugPrint(uri);
+                  Share.shareFiles([uri]);
+                },
+              ))
+              );
+            },
+            child: const Text('Open Stories Editor'),
           ),
         )
     );
