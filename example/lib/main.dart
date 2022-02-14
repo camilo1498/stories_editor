@@ -41,7 +41,7 @@ class _ExampleState extends State<Example> {
           child: ElevatedButton(
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => StoriesEditor(
-                giphyKey: '3DDl6aWppe3jn2uDwBguFLnjZ0zL1jlX',
+                giphyKey: '[HERE YOUR API KEY]',
                 //fontFamilyList: ['Shizuru'],
                 //isCustomFontList: true,
                 onDone: (uri){
