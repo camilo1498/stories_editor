@@ -1,38 +1,43 @@
+// ignore_for_file: must_be_immutable
 library stories_editor;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'package:stories_editor/src/providers/photo_provider.dart';
-import 'package:photo_manager/photo_manager.dart';
-import 'package:stories_editor/src/views/main_view.dart';
-export 'package:stories_editor/src/providers/providers.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/gradient_notifier.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/scroll_notifier.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
+import 'package:stories_editor/src/presentation/main_view/main_view.dart';
+
+export 'package:stories_editor/stories_editor.dart';
 
 class StoriesEditor extends StatefulWidget {
-  /// giphy api key
-  final giphyKey;
   /// editor custom font families
-  List<String>? fontList;
+  final List<String>? fontFamilyList;
   /// editor custom font families package
-  String? fontPackage;
+  final bool? isCustomFontList;
+  /// giphy api key
+  final String giphyKey;
   /// editor custom color gradients
-  List<List<Color>>? gradientColors;
-  /// editos custom logo
-  Widget? middleBottomWidget;
+  final List<List<Color>>? gradientColors;
+  /// editor custom logo
+  final Widget? middleBottomWidget;
   /// on done
-  Function(String)? onDone;
+  final Function(String)? onDone;
   /// editor custom color palette list
   List<Color>? colorList;
-
   StoriesEditor({
     Key? key,
     required this.giphyKey,
+    required this.onDone,
     this.middleBottomWidget,
     this.colorList,
-    this.fontPackage,
-    this.fontList,
     this.gradientColors,
-    required this.onDone
+    this.fontFamilyList,
+    this.isCustomFontList,
   }) : super(key: key);
 
   @override
@@ -40,61 +45,47 @@ class StoriesEditor extends StatefulWidget {
 }
 
 class _StoriesEditorState extends State<StoriesEditor> {
-  /// instance of pickerDataProvider
-  PickerDataProvider imageProvider = PickerDataProvider();
 
   @override
   void initState() {
     Paint.enableDithering = true;
     WidgetsFlutterBinding.ensureInitialized();
-    Provider.debugCheckInvalidValueType = null;
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Colors.black,
     ));
     super.initState();
-    _getPermission();
   }
 
   @override
   void dispose() {
-    super.dispose();
-    PhotoManager.clearFileCache();
-  }
-
-  _getPermission() async{
-    var result = await PhotoManager.requestPermissionExtend();
-    if (result.isAuth) {
-      if(imageProvider.pathList.isEmpty){
-        PhotoManager.getAssetPathList(
-          /// load image only
-            type: RequestType.image
-        ).then((pathList){
-          /// don't delete setState
-          setState(() {
-            imageProvider.resetPathList(pathList);
-          });
-        });
-      }
-    } else {
-      /// if result is fail, you can call `PhotoManager.openSetting();`
-      /// to open android/ios application's setting to get permission
-      PhotoManager.openSetting();
+    if(mounted){
+      super.dispose();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MainView(
-      onDone: widget.onDone,
-      giphyKey: widget.giphyKey,
-      provider: imageProvider,
-      middleBottomWidget: widget.middleBottomWidget,
-      gradientColors: widget.gradientColors,
-      colorList: widget.colorList,
-      fontList: widget.fontList,
-      fontPackage: widget.fontPackage,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_) => ControlNotifier()),
+        ChangeNotifierProvider(create: (_) => ScrollNotifier()),
+        ChangeNotifierProvider(create: (_) => DraggableWidgetNotifier()),
+        ChangeNotifierProvider(create: (_) => GradientNotifier()),
+        ChangeNotifierProvider(create: (_) => PaintingNotifier()),
+        ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
+      ],
+      child: MainView(
+          giphyKey: widget.giphyKey,
+          onDone: widget.onDone,
+          fontList: widget.fontFamilyList,
+          isCustomFontList: widget.isCustomFontList,
+          middleBottomWidget: widget.middleBottomWidget,
+          gradientColors: widget.gradientColors,
+          colorList: widget.colorList
+      ),
     );
+
   }
 }
