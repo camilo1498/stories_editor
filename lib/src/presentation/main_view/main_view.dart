@@ -100,7 +100,7 @@ class _MainViewState extends State<MainView> {
             return SafeArea(
               child: ScrollablePageView(
                 scrollPhysics: controlNotifier.mediaPath.isEmpty && itemProvider.draggableWidget.isEmpty
-                    && !controlNotifier.isPainting,
+                    && !controlNotifier.isPainting && !controlNotifier.isTextEditing,
                 pageController: scrollProvider.pageController,
                 gridController: scrollProvider.gridController,
                 mainView: Stack(
@@ -219,8 +219,8 @@ class _MainViewState extends State<MainView> {
                           child: Text(
                               'Tap to type',
                               style: TextStyle(
-                                  fontFamily: controlNotifier.fontList![0],
-                                  package: controlNotifier.isCustomFontList ? null : 'stories_editor',
+                                  fontFamily: 'Alegreya',
+                                  package: 'stories_editor',
                                   fontWeight: FontWeight.w500,
                                   fontSize: 30,
                                   color: Colors.white.withOpacity(0.5),

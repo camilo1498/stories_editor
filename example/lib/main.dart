@@ -42,8 +42,8 @@ class _ExampleState extends State<Example> {
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => StoriesEditor(
                 giphyKey: '[HERE YOUR API KEY]',
-                //fontFamilyList: ['Shizuru'],
-                //isCustomFontList: true,
+                fontFamilyList: const ['Shizuru', 'Aladin'],
+                isCustomFontList: true,
                 onDone: (uri){
                   debugPrint(uri);
                   Share.shareFiles([uri]);
