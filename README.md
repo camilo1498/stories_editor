@@ -53,7 +53,7 @@ import 'package:stories_editor/stories_editor.dart';
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE"/>
    ```
-```
+
 2) Create a `StoriesEditor()` widget with the follow params:
 
 ```dart
