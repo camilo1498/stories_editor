@@ -69,7 +69,7 @@ StoriesEditor(
     fontFamilyList: [] /// (List<String>) optional param
     isCustomFontList: '' /// (bool) if you use a own font list set value to "true"
     onDoneButtonStyle: Container() /// (Widget) optional param, you can create your own button style
-    onBackPress: /// (Future<bool>) here you can add yor own style dialog
+    onBackPress: /// (Future<bool>) optional param, here you can add yor own style dialog
 );
 ```
 
