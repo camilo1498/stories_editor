@@ -68,6 +68,8 @@ StoriesEditor(
     middleBottomWidget: Container() /// (Widget) optional param, you can add your own logo or text in the bottom tool
     fontFamilyList: [] /// (List<String>) optional param
     isCustomFontList: '' /// (bool) if you use a own font list set value to "true"
+    onDoneButtonStyle: Container() /// (Widget) optional param, you can create your own button style
+    onBackPress: /// (Future<bool>) here you can add yor own style dialog
 );
 ```
 
@@ -119,8 +121,6 @@ class _ExampleState extends State<Example> {
             onPressed: (){
               Navigator.push(context, MaterialPageRoute(builder: (context) => StoriesEditor(
                 giphyKey: '[HERE YOUR API KEY]',
-                //fontFamilyList: ['Shizuru'],
-                //isCustomFontList: true,
                 onDone: (uri){
                   debugPrint(uri);
                   Share.shareFiles([uri]);
