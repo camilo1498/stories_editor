@@ -18,7 +18,7 @@ This is a package created in the style of the instagram story creator, with whic
 
 [✔️] Save draft as image
 
-[✔️] Get draft local uri
+[✔️] Get draft local path uri
 
 ## Future features
 
