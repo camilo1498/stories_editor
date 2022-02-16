@@ -58,6 +58,6 @@ class _ExampleState extends State<Example> {
   }
 
   // Future<bool> _popScope() async {
-  //   return true;
+  //   return true; /// use dialog
   // }
 }
