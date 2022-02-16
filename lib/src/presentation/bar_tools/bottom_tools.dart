@@ -10,7 +10,12 @@ import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.da
 class BottomTools extends StatelessWidget {
   final GlobalKey contentKey;
   final Function(String imageUri) onDone;
-  const BottomTools({Key? key, required this.contentKey, required this.onDone})
+  final Widget? onDoneButtonStyle;
+  const BottomTools(
+      {Key? key,
+      required this.contentKey,
+      required this.onDone,
+      this.onDoneButtonStyle})
       : super(key: key);
 
   @override
@@ -130,34 +135,35 @@ class BottomTools extends StatelessWidget {
                           } else {}
                         });
                       },
-                      child: Container(
-                        padding: const EdgeInsets.only(
-                            left: 12, right: 5, top: 4, bottom: 4),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(15),
-                            border:
-                                Border.all(color: Colors.white, width: 1.5)),
-                        child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: const [
-                              Text(
-                                'Share',
-                                style: TextStyle(
-                                    color: Colors.white,
-                                    letterSpacing: 1.5,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w400),
-                              ),
-                              Padding(
-                                padding: EdgeInsets.only(left: 5),
-                                child: Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: Colors.white,
-                                  size: 15,
-                                ),
-                              ),
-                            ]),
-                      )),
+                      child: onDoneButtonStyle ??
+                          Container(
+                            padding: const EdgeInsets.only(
+                                left: 12, right: 5, top: 4, bottom: 4),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15),
+                                border: Border.all(
+                                    color: Colors.white, width: 1.5)),
+                            child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: const [
+                                  Text(
+                                    'Share',
+                                    style: TextStyle(
+                                        color: Colors.white,
+                                        letterSpacing: 1.5,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.only(left: 5),
+                                    child: Icon(
+                                      Icons.arrow_forward_ios,
+                                      color: Colors.white,
+                                      size: 15,
+                                    ),
+                                  ),
+                                ]),
+                          )),
                 ),
               ),
             ],

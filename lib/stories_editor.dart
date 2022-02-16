@@ -33,18 +33,27 @@ class StoriesEditor extends StatefulWidget {
   /// on done
   final Function(String)? onDone;
 
+  /// on done button Text
+  final Widget? onDoneButtonStyle;
+
+  /// on back pressed
+  final Future<bool>? onBackPress;
+
   /// editor custom color palette list
   List<Color>? colorList;
-  StoriesEditor({
-    Key? key,
-    required this.giphyKey,
-    required this.onDone,
-    this.middleBottomWidget,
-    this.colorList,
-    this.gradientColors,
-    this.fontFamilyList,
-    this.isCustomFontList,
-  }) : super(key: key);
+
+  StoriesEditor(
+      {Key? key,
+      required this.giphyKey,
+      required this.onDone,
+      this.middleBottomWidget,
+      this.colorList,
+      this.gradientColors,
+      this.fontFamilyList,
+      this.isCustomFontList,
+      this.onBackPress,
+      this.onDoneButtonStyle})
+      : super(key: key);
 
   @override
   _StoriesEditorState createState() => _StoriesEditorState();
@@ -82,13 +91,16 @@ class _StoriesEditorState extends State<StoriesEditor> {
         ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
       ],
       child: MainView(
-          giphyKey: widget.giphyKey,
-          onDone: widget.onDone,
-          fontList: widget.fontFamilyList,
-          isCustomFontList: widget.isCustomFontList,
-          middleBottomWidget: widget.middleBottomWidget,
-          gradientColors: widget.gradientColors,
-          colorList: widget.colorList),
+        giphyKey: widget.giphyKey,
+        onDone: widget.onDone,
+        fontFamilyList: widget.fontFamilyList,
+        isCustomFontList: widget.isCustomFontList,
+        middleBottomWidget: widget.middleBottomWidget,
+        gradientColors: widget.gradientColors,
+        colorList: widget.colorList,
+        onDoneButtonStyle: widget.onDoneButtonStyle,
+        onBackPress: widget.onBackPress,
+      ),
     );
   }
 }

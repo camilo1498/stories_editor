@@ -26,23 +26,43 @@ import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.da
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
 
 class MainView extends StatefulWidget {
-  final String giphyKey;
-  List<String>? fontList;
-  bool? isCustomFontList;
-  List<List<Color>>? gradientColors;
-  Widget? middleBottomWidget;
-  Function(String)? onDone;
-  List<Color>? colorList;
+  /// editor custom font families
+  final List<String>? fontFamilyList;
 
+  /// editor custom font families package
+  final bool? isCustomFontList;
+
+  /// giphy api key
+  final String giphyKey;
+
+  /// editor custom color gradients
+  final List<List<Color>>? gradientColors;
+
+  /// editor custom logo
+  final Widget? middleBottomWidget;
+
+  /// on done
+  final Function(String)? onDone;
+
+  /// on done button Text
+  final Widget? onDoneButtonStyle;
+
+  /// on back pressed
+  final Future<bool>? onBackPress;
+
+  /// editor custom color palette list
+  List<Color>? colorList;
   MainView(
       {Key? key,
       required this.giphyKey,
+      required this.onDone,
       this.middleBottomWidget,
       this.colorList,
       this.isCustomFontList,
-      this.fontList,
+      this.fontFamilyList,
       this.gradientColors,
-      required this.onDone})
+      this.onBackPress,
+      this.onDoneButtonStyle})
       : super(key: key);
 
   @override
@@ -79,8 +99,8 @@ class _MainViewState extends State<MainView> {
       if (widget.gradientColors != null) {
         _control.gradientColors = widget.gradientColors;
       }
-      if (widget.fontList != null) {
-        _control.fontList = widget.fontList;
+      if (widget.fontFamilyList != null) {
+        _control.fontList = widget.fontFamilyList;
       }
       if (widget.colorList != null) {
         _control.colorList = widget.colorList;
@@ -285,15 +305,17 @@ class _MainViewState extends State<MainView> {
 
                     /// bottom tools
                     Align(
-                        alignment: Alignment.bottomCenter,
-                        child: BottomTools(
-                          contentKey: contentKey,
-                          onDone: (bytes) {
-                            setState(() {
-                              widget.onDone!(bytes);
-                            });
-                          },
-                        )),
+                      alignment: Alignment.bottomCenter,
+                      child: BottomTools(
+                        contentKey: contentKey,
+                        onDone: (bytes) {
+                          setState(() {
+                            widget.onDone!(bytes);
+                          });
+                        },
+                        onDoneButtonStyle: widget.onDoneButtonStyle,
+                      ),
+                    ),
 
                     /// show text editor
                     Visibility(
@@ -389,7 +411,8 @@ class _MainViewState extends State<MainView> {
 
     /// show close dialog
     else if (!controlNotifier.isTextEditing && !controlNotifier.isPainting) {
-      return exitDialog(context: context, contentKey: contentKey);
+      return widget.onBackPress ??
+          exitDialog(context: context, contentKey: contentKey);
     }
     return false;
   }
