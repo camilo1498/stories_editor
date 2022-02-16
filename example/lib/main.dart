@@ -48,16 +48,10 @@ class _ExampleState extends State<Example> {
                               debugPrint(uri);
                               Share.shareFiles([uri]);
                             },
-                            // onDoneButtonStyle: Center(child: Text('example', style: TextStyle(color: Colors.white),)), /// restart application to see changes
-                            //onBackPress: _popScope(), /// here you can add yor own style dialog
                           )));
             },
             child: const Text('Open Stories Editor'),
           ),
         ));
   }
-
-  // Future<bool> _popScope() async {
-  //   return true; /// use dialog
-  // }
 }
