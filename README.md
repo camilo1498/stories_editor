@@ -44,16 +44,28 @@ import 'package:stories_editor/stories_editor.dart';
 ```
 
 ## How to use
-1) add uses-permission `AndroidMAnifest.xml` file
-   ```xml
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="31" />
-    <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.VIBRATE"/>
-   ```
+1)
+   ### Android
+   add uses-permission `AndroidMAnifest.xml` file
+      ```xml
+       <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+       <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+           android:maxSdkVersion="31" />
+       <uses-permission android:name="android.permission.MANAGE_EXTERNAL_STORAGE" />
+       <uses-permission android:name="android.permission.INTERNET" />
+       <uses-permission android:name="android.permission.VIBRATE"/>
+      ```
 
+   ### ios
+   add this config to your `config.plist`
+      ```xml
+      <key>NSPhotoLibraryUsageDescription</key>
+      <string>Privacy - Photo Library Usage Description</string>
+      <key>NSMotionUsageDescription</key>
+      <string>Motion usage description</string>
+      <key>NSPhotoLibraryAddUsageDescription</key>
+      <string>NSPhotoLibraryAddUsageDescription</string>
+      ```
 2) Create a `StoriesEditor()` widget with the follow params:
 
 ```dart
