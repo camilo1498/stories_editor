@@ -8,11 +8,11 @@ This is a package created in the style of the instagram story creator, with whic
 
 [✔️] Draggable Gif/Sticker (giphy API)
 
-[✔️] Gradiente container background
+[✔️] Gradient container background
 
 [✔️] Finger painting (normal/translucent/neon)
 
-[✔️] Custom colors, gradints and font families
+[✔️] Custom colors, gradients and font families
 
 [✔️] Custom gallery picker (own package => [gallery_media_picker](https://pub.dev/packages/gallery_media_picker))
 
@@ -35,8 +35,8 @@ This is a package created in the style of the instagram story creator, with whic
 
 
 ## Installation
-*This package has only tested in Android and some features in web*
-Add `stories_editor: 0.1.5` to your `pubspec.yaml` dependencies and then import it.
+*This package has been tested in Android and ios, some features works on flutter web*
+Add `stories_editor: 0.1.8` to your `pubspec.yaml` dependencies and then import it.
 
 
 ```dart
@@ -82,6 +82,8 @@ StoriesEditor(
     isCustomFontList: '' /// (bool) if you use a own font list set value to "true"
     onDoneButtonStyle: Container() /// (Widget) optional param, you can create your own button style
     onBackPress: /// (Future<bool>) optional param, here you can add yor own style dialog
+    editorBackgroundColor: /// (Color) optional param, you can define your own background editor color
+    galleryThumbnailQuality: /// (int = 200) optional param, you can set the gallery thumbnail quality (higher is better but reduce the performance)
 );
 ```
 

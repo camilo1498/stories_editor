@@ -43,6 +43,7 @@ class _ExampleState extends State<Example> {
                       builder: (context) => StoriesEditor(
                             giphyKey: '[HERE YOUR API KEY]',
                             fontFamilyList: const ['Shizuru', 'Aladin'],
+                            galleryThumbnailQuality: 300,
                             isCustomFontList: true,
                             onDone: (uri) {
                               debugPrint(uri);

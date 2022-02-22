@@ -52,6 +52,12 @@ class MainView extends StatefulWidget {
   /// on back pressed
   final Future<bool>? onBackPress;
 
+  /// editor background color
+  Color? editorBackgroundColor;
+
+  /// gallery thumbnail quality
+  final int? galleryThumbnailQuality;
+
   /// editor custom color palette list
   List<Color>? colorList;
   MainView(
@@ -64,7 +70,9 @@ class MainView extends StatefulWidget {
       this.fontFamilyList,
       this.gradientColors,
       this.onBackPress,
-      this.onDoneButtonStyle})
+      this.onDoneButtonStyle,
+      this.editorBackgroundColor,
+      this.galleryThumbnailQuality})
       : super(key: key);
 
   @override
@@ -87,10 +95,10 @@ class _MainViewState extends State<MainView> {
   /// delete position
   bool _isDeletePosition = false;
   bool _inAction = false;
-  double yPosition = 0.0, xPosition = 0.0;
 
   /// screen size
-  var screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+  final _screenSize =
+      MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
 
   @override
   void initState() {
@@ -124,7 +132,9 @@ class _MainViewState extends State<MainView> {
     return WillPopScope(
       onWillPop: _popScope,
       child: Material(
-        color: Colors.transparent,
+        color: widget.editorBackgroundColor == Colors.transparent
+            ? Colors.black
+            : widget.editorBackgroundColor ?? Colors.black,
         child: Consumer6<
             ControlNotifier,
             DraggableWidgetNotifier,
@@ -160,9 +170,11 @@ class _MainViewState extends State<MainView> {
                         child: RepaintBoundary(
                           key: contentKey,
                           child: AnimatedContainer(
-                            width: screenSize.size.width,
-                            height: Platform.isIOS ? ( screenSize.size.height - 132) -  screenSize.viewPadding.top
-                              : ( screenSize.size.height - 132),
+                            width: _screenSize.size.width,
+                            height: Platform.isIOS
+                                ? (_screenSize.size.height - 135) -
+                                    _screenSize.viewPadding.top
+                                : (_screenSize.size.height - 132),
                             duration: const Duration(milliseconds: 200),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),
@@ -319,6 +331,7 @@ class _MainViewState extends State<MainView> {
                           });
                         },
                         onDoneButtonStyle: widget.onDoneButtonStyle,
+                        editorBackgroundColor: widget.editorBackgroundColor,
                       ),
                     ),
 
@@ -339,8 +352,10 @@ class _MainViewState extends State<MainView> {
                 ),
                 gallery: GalleryMediaPicker(
                   gridViewController: scrollProvider.gridController,
+                  thumbnailQuality: widget.galleryThumbnailQuality,
                   singlePick: true,
                   onlyImages: true,
+                  appBarColor: widget.editorBackgroundColor ?? Colors.black,
                   gridViewPhysics: itemProvider.draggableWidget.isEmpty
                       ? const NeverScrollableScrollPhysics()
                       : const ScrollPhysics(),
@@ -435,14 +450,14 @@ class _MainViewState extends State<MainView> {
 
   /// update item scale
   void _onScaleUpdate(ScaleUpdateDetails details) {
-    var _size = MediaQuery.of(context).size;
     if (_activeItem == null) {
       return;
     }
     final delta = details.focalPoint - _initPos;
 
-    final left = (delta.dx / _size.width) + _currentPos.dx;
-    final top = (delta.dy / _size.height) + _currentPos.dy;
+    final left = (delta.dx / _screenSize.size.width) + _currentPos.dx;
+    final top = (delta.dy / _screenSize.size.height) + _currentPos.dy;
+
     setState(() {
       _activeItem!.position = Offset(left, top);
       _activeItem!.rotation = details.rotation + _currentRotation;

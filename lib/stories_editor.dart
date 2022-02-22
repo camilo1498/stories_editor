@@ -40,9 +40,15 @@ class StoriesEditor extends StatefulWidget {
   final Future<bool>? onBackPress;
 
   /// editor custom color palette list
-  List<Color>? colorList;
+  final List<Color>? colorList;
 
-  StoriesEditor(
+  /// editor background color
+  final Color? editorBackgroundColor;
+
+  /// gallery thumbnail quality
+  final int? galleryThumbnailQuality;
+
+  const StoriesEditor(
       {Key? key,
       required this.giphyKey,
       required this.onDone,
@@ -52,7 +58,9 @@ class StoriesEditor extends StatefulWidget {
       this.fontFamilyList,
       this.isCustomFontList,
       this.onBackPress,
-      this.onDoneButtonStyle})
+      this.onDoneButtonStyle,
+      this.editorBackgroundColor,
+      this.galleryThumbnailQuality})
       : super(key: key);
 
   @override
@@ -100,6 +108,8 @@ class _StoriesEditorState extends State<StoriesEditor> {
         colorList: widget.colorList,
         onDoneButtonStyle: widget.onDoneButtonStyle,
         onBackPress: widget.onBackPress,
+        editorBackgroundColor: widget.editorBackgroundColor,
+        galleryThumbnailQuality: widget.galleryThumbnailQuality,
       ),
     );
   }

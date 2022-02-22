@@ -11,11 +11,15 @@ class BottomTools extends StatelessWidget {
   final GlobalKey contentKey;
   final Function(String imageUri) onDone;
   final Widget? onDoneButtonStyle;
+
+  /// editor background color
+  final Color? editorBackgroundColor;
   const BottomTools(
       {Key? key,
       required this.contentKey,
       required this.onDone,
-      this.onDoneButtonStyle})
+      this.onDoneButtonStyle,
+      this.editorBackgroundColor})
       : super(key: key);
 
   @override
@@ -25,8 +29,10 @@ class BottomTools extends StatelessWidget {
       builder: (_, controlNotifier, scrollNotifier, itemNotifier, __) {
         return Container(
           height: 95,
-          decoration: const BoxDecoration(
-            color: Colors.black,
+          decoration: BoxDecoration(
+            color: editorBackgroundColor == Colors.transparent
+                ? Colors.black
+                : editorBackgroundColor ?? Colors.black,
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,

@@ -127,7 +127,7 @@ packages:
       name: gallery_media_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.5"
+    version: "0.0.7"
   http:
     dependency: transitive
     description:
