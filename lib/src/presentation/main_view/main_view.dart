@@ -1,5 +1,7 @@
 // ignore_for_file: must_be_immutable
 
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_media_picker/gallery_media_picker.dart';
@@ -87,6 +89,9 @@ class _MainViewState extends State<MainView> {
   bool _inAction = false;
   double yPosition = 0.0, xPosition = 0.0;
 
+  /// screen size
+  var screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -116,8 +121,6 @@ class _MainViewState extends State<MainView> {
 
   @override
   Widget build(BuildContext context) {
-    /// screen size
-    var _size = MediaQuery.of(context).size;
     return WillPopScope(
       onWillPop: _popScope,
       child: Material(
@@ -132,6 +135,7 @@ class _MainViewState extends State<MainView> {
           builder: (context, controlNotifier, itemProvider, scrollProvider,
               colorProvider, paintingProvider, editingProvider, child) {
             return SafeArea(
+              //top: false,
               child: ScrollablePageView(
                 scrollPhysics: controlNotifier.mediaPath.isEmpty &&
                     itemProvider.draggableWidget.isEmpty &&
@@ -156,8 +160,9 @@ class _MainViewState extends State<MainView> {
                         child: RepaintBoundary(
                           key: contentKey,
                           child: AnimatedContainer(
-                            width: _size.width,
-                            height: _size.height - 132,
+                            width: screenSize.size.width,
+                            height: Platform.isIOS ? ( screenSize.size.height - 132) -  screenSize.viewPadding.top
+                              : ( screenSize.size.height - 132),
                             duration: const Duration(milliseconds: 200),
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(25),

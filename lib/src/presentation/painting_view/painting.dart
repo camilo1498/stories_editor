@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:perfect_freehand/perfect_freehand.dart';
@@ -41,17 +42,20 @@ class _PaintingState extends State<Painting> {
     /// instance of painting model
     PaintingModel? line;
 
+    /// screen size
+    var screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+
     /// on gestures start
     void _onPanStart(DragStartDetails details,
         PaintingNotifier paintingNotifier, ControlNotifier controlProvider) {
-      var _size = MediaQuery.of(context).size;
       final box = context.findRenderObject() as RenderBox;
       final offset = box.globalToLocal(details.globalPosition);
-      final point = Point(offset.dx, offset.dy - 33);
+      final point = Point(offset.dx, offset.dy);
       final points = [point];
 
       /// validate allow pan area
-      if (point.y >= 4 && point.y <= _size.height - 132) {
+      if (point.y >= 4 && point.y <=
+          (Platform.isIOS ? (screenSize.size.height - 132) - screenSize.viewPadding.top  : screenSize.size.height - 132)) {
         line = PaintingModel(
             points,
             paintingNotifier.lineWidth,
@@ -68,14 +72,14 @@ class _PaintingState extends State<Painting> {
     /// on gestures update
     void _onPanUpdate(DragUpdateDetails details,
         PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
-      var _size = MediaQuery.of(context).size;
       final box = context.findRenderObject() as RenderBox;
       final offset = box.globalToLocal(details.globalPosition);
-      final point = Point(offset.dx, offset.dy - 33);
+      final point = Point(offset.dx, offset.dy);
       final points = [...line!.points, point];
 
       /// validate allow pan area
-      if (point.y >= 6 && point.y <= _size.height - 140) {
+      if (point.y >= 6 && point.y <=
+          (Platform.isIOS ? (screenSize.size.height - 132) - screenSize.viewPadding.top : screenSize.size.height - 132)) {
         line = PaintingModel(
             points,
             paintingNotifier.lineWidth,
@@ -119,7 +123,8 @@ class _PaintingState extends State<Painting> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height - 132,
+                  height: Platform.isIOS ? (screenSize.size.height - 132) - screenSize.viewPadding.top
+                      : MediaQuery.of(context).size.height - 132,
                   child: StreamBuilder<PaintingModel>(
                       stream:
                           paintingNotifier.currentLineStreamController.stream,

@@ -28,7 +28,7 @@ Future takePicture(
 
     if (saveToGallery) {
       final result = await ImageGallerySaver.saveImage(pngBytes,
-          quality: 100, name: "stories_creator${DateTime.now()}");
+          quality: 100, name: "stories_creator${DateTime.now()}.png");
       if (result != null) {
         return true;
       } else {
