@@ -36,6 +36,7 @@ This is a package created in the style of the instagram story creator, with whic
 
 ## Installation
 *This package has been tested in Android and ios, some features works on flutter web*
+
 Add `stories_editor: 0.1.8` to your `pubspec.yaml` dependencies and then import it.
 
 
