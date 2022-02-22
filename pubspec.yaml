@@ -17,6 +17,11 @@ dependencies:
   image: ^3.1.0
   path_provider: ^2.0.8
   photo_view: ^0.13.0
+  # with this ref fix `Looking up a deactivated widget's ancestor is unsafe`.
+  #photo_view:
+  #  git:
+  #    url: https://github.com/bluefireteam/photo_view
+  #    ref: 8156907eecfa812b181a5a729d790f6d399f311b
   image_gallery_saver: ^1.7.1
   #own packages
   gallery_media_picker: ^0.0.7
