@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:align_positioned/align_positioned.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_n
 import 'package:stories_editor/src/domain/providers/notifiers/gradient_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
 import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/text_animation_type.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/file_image_bg.dart';
 
@@ -154,33 +156,73 @@ class DraggableWidget extends StatelessWidget {
   Widget _text(
       {required ControlNotifier controlNotifier,
       required PaintingStyle paintingStyle}) {
-    return Text(
-      draggableWidget.text,
-      textAlign: draggableWidget.textAlign,
-      style: TextStyle(
-          fontFamily: controlNotifier.fontList![draggableWidget.fontFamily],
-          package: controlNotifier.isCustomFontList ? null : 'stories_editor',
-          fontWeight: FontWeight.w500,
-          shadows: <Shadow>[
-            Shadow(
-                offset: const Offset(1.0, 1.0),
-                blurRadius: 3.0,
-                color: draggableWidget.textColor == Colors.black
-                    ? Colors.white54
-                    : Colors.black)
-          ]).copyWith(
-          color: draggableWidget.textColor,
-          fontSize:
-              draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
-          background: Paint()
-            ..strokeWidth = 20.0
-            ..color = draggableWidget.backGroundColor
-            ..style = paintingStyle
-            ..strokeJoin = StrokeJoin.round
-            ..filterQuality = FilterQuality.high
-            ..strokeCap = StrokeCap.round
-            ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1)),
-    );
+    if (draggableWidget.animationType == TextAnimationType.none) {
+      return Text(draggableWidget.text,
+          textAlign: draggableWidget.textAlign,
+          style: _textStyle(
+              controlNotifier: controlNotifier, paintingStyle: paintingStyle));
+    } else {
+      return DefaultTextStyle(
+        style: _textStyle(
+            controlNotifier: controlNotifier, paintingStyle: paintingStyle),
+        child: AnimatedTextKit(
+          repeatForever: true,
+          animatedTexts: [
+            if (draggableWidget.animationType == TextAnimationType.scale)
+              ScaleAnimatedText(draggableWidget.text,
+                  duration: const Duration(milliseconds: 600)),
+            if (draggableWidget.animationType == TextAnimationType.fade)
+              FadeAnimatedText(draggableWidget.text,
+                  duration: const Duration(milliseconds: 600)),
+            if (draggableWidget.animationType == TextAnimationType.typer)
+              TyperAnimatedText(draggableWidget.text,
+                  speed: const Duration(milliseconds: 500)),
+            if (draggableWidget.animationType == TextAnimationType.typeWriter)
+              TypewriterAnimatedText(
+                draggableWidget.text,
+                speed: const Duration(milliseconds: 500),
+              ),
+            if (draggableWidget.animationType == TextAnimationType.wavy)
+              WavyAnimatedText(
+                draggableWidget.text,
+                speed: const Duration(milliseconds: 500),
+              ),
+            if (draggableWidget.animationType == TextAnimationType.flicker)
+              FlickerAnimatedText(
+                draggableWidget.text,
+                speed: const Duration(milliseconds: 500),
+              ),
+          ],
+        ),
+      );
+    }
+  }
+
+  _textStyle(
+      {required ControlNotifier controlNotifier,
+      required PaintingStyle paintingStyle}) {
+    return TextStyle(
+        fontFamily: controlNotifier.fontList![draggableWidget.fontFamily],
+        package: controlNotifier.isCustomFontList ? null : 'stories_editor',
+        fontWeight: FontWeight.w500,
+        shadows: <Shadow>[
+          Shadow(
+              offset: const Offset(1.0, 1.0),
+              blurRadius: 3.0,
+              color: draggableWidget.textColor == Colors.black
+                  ? Colors.white54
+                  : Colors.black)
+        ]).copyWith(
+        color: draggableWidget.textColor,
+        fontSize: draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
+        background: Paint()
+          ..strokeWidth = 20.0
+          ..color = draggableWidget.backGroundColor
+          ..style = paintingStyle
+          ..strokeJoin = StrokeJoin.round
+          ..filterQuality = FilterQuality.high
+          ..strokeCap = StrokeCap.round
+          ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1));
   }
 
   _deleteTopOffset(size) {
@@ -222,9 +264,10 @@ class DraggableWidget extends StatelessWidget {
     _editorProvider.textAlign = item.textAlign;
     _editorProvider.textColor =
         controlNotifier.colorList!.indexOf(item.textColor);
+    _editorProvider.animationType = item.animationType;
+    _editorProvider.textList = item.textList;
     _itemProvider.draggableWidget
         .removeAt(_itemProvider.draggableWidget.indexOf(item));
-
     _editorProvider.fontFamilyController = PageController(
       initialPage: item.fontFamily,
       viewportFraction: .1,

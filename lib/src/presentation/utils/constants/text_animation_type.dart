@@ -1,4 +1,5 @@
 enum TextAnimationType {
+  none,
   fade,
   typer,
   typeWriter,

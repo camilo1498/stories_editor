@@ -20,6 +20,9 @@ class TextEditor extends StatefulWidget {
 }
 
 class _TextEditorState extends State<TextEditor> {
+  List<String> splitList = [];
+  String sequenceList = '';
+  String lastSequenceList = '';
   @override
   void initState() {
     WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
@@ -110,6 +113,18 @@ class _TextEditorState extends State<TextEditor> {
 
     /// create Text Item
     if (editorNotifier.text.trim().isNotEmpty) {
+      splitList = editorNotifier.text.split(' ');
+      for (int i = 0; i < splitList.length; i++) {
+        if (i == 0) {
+          editorNotifier.textList.add(splitList[0]);
+          sequenceList = splitList[0];
+        } else {
+          lastSequenceList = sequenceList;
+          editorNotifier.textList.add(sequenceList + ' ' + splitList[i]);
+          sequenceList = lastSequenceList + ' ' + splitList[i];
+        }
+      }
+      print(editorNotifier.textList);
       _editableItemNotifier.draggableWidget.add(EditableItem()
         ..type = ItemType.text
         ..text = editorNotifier.text.trim()
@@ -118,6 +133,8 @@ class _TextEditorState extends State<TextEditor> {
         ..fontFamily = editorNotifier.fontFamilyIndex
         ..fontSize = editorNotifier.textSize
         ..textAlign = editorNotifier.textAlign
+        ..textList = editorNotifier.textList
+        ..animationType = editorNotifier.animationType
         ..position = const Offset(0.0, 0.0));
       editorNotifier.setDefaults();
       controlNotifier.isTextEditing = !controlNotifier.isTextEditing;

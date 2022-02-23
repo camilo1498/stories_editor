@@ -70,6 +70,21 @@ class TopTextTools extends StatelessWidget {
                             ),
                           ),
                         )),
+                  ),
+                  ToolButton(
+                    onTap: editorNotifier.onAnimationChange,
+                    child: Transform.scale(
+                        scale: 0.7,
+                        child: const Center(
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 5, bottom: 3),
+                            child: ImageIcon(
+                              AssetImage('assets/icons/font_backGround.png',
+                                  package: 'stories_editor'),
+                              color: Colors.white,
+                            ),
+                          ),
+                        )),
                   )
                 ],
               ),

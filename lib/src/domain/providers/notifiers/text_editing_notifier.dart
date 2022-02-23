@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:stories_editor/src/presentation/utils/constants/text_animation_type.dart';
 
 class TextEditingNotifier extends ChangeNotifier {
   String _text = '';
+  List<String> _textList = [];
   int _textColor = 0;
   double _textSize = 25.0;
   int _fontFamilyIndex = 0;
   TextAlign _textAlign = TextAlign.center;
   Color _backGroundColor = Colors.transparent;
-
+  TextAnimationType _animationType = TextAnimationType.none;
   bool _isFontFamily = true;
 
   PageController _fontFamilyController = PageController(viewportFraction: .125);
@@ -27,6 +29,18 @@ class TextEditingNotifier extends ChangeNotifier {
     TextAlign.left
   ];
 
+  int _currentAnimation = 0;
+  final List<TextAnimationType> _animations = [
+    TextAnimationType.none,
+    TextAnimationType.fade,
+    TextAnimationType.typer,
+    TextAnimationType.typeWriter,
+    TextAnimationType.scale,
+    //TextAnimationType.colorize,
+    TextAnimationType.wavy,
+    TextAnimationType.flicker
+  ];
+
   String get text => _text;
   int get textColor => _textColor;
   double get textSize => _textSize;
@@ -36,6 +50,8 @@ class TextEditingNotifier extends ChangeNotifier {
   bool get isFontFamily => _isFontFamily;
   PageController get fontFamilyController => _fontFamilyController;
   TextEditingController get textController => _textController;
+  List<String> get textList => _textList;
+  TextAnimationType get animationType => _animationType;
 
   set text(String text) {
     _text = text;
@@ -90,6 +106,16 @@ class TextEditingNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
+  set textList(List<String> list) {
+    _textList = list;
+    notifyListeners();
+  }
+
+  set animationType(TextAnimationType animation) {
+    _animationType = animation;
+    notifyListeners();
+  }
+
   onBackGroundChange() {
     if (_currentColorBackground < _textColorBackGround.length - 1) {
       _currentColorBackground += 1;
@@ -114,6 +140,18 @@ class TextEditingNotifier extends ChangeNotifier {
     }
   }
 
+  onAnimationChange() {
+    if (_currentAnimation < _animations.length - 1) {
+      _currentAnimation += 1;
+      _animationType = _animations[_currentAnimation];
+      notifyListeners();
+    } else {
+      _currentAnimation = 0;
+      _animationType = _animations[_currentAnimation];
+      notifyListeners();
+    }
+  }
+
   setDefaults() {
     _text = '';
     _textController.text = '';
@@ -124,6 +162,8 @@ class TextEditingNotifier extends ChangeNotifier {
     _backGroundColor = Colors.transparent;
     _fontFamilyController = PageController(viewportFraction: .125);
     _isFontFamily = true;
+    _textList = [];
+    _animationType = TextAnimationType.none;
   }
 
   disposeController() {
