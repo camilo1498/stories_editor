@@ -59,6 +59,7 @@ class DraggableWidget extends StatelessWidget {
                         onTap: () =>
                             _onTap(context, draggableWidget, _controlProvider),
                         child: _text(
+                          background: true,
                             paintingStyle: PaintingStyle.fill,
                             controlNotifier: _controlProvider)),
                   ),
@@ -66,8 +67,32 @@ class DraggableWidget extends StatelessWidget {
                     ignoring: true,
                     child: Center(
                       child: _text(
+                        background: true,
                           paintingStyle: PaintingStyle.stroke,
                           controlNotifier: _controlProvider),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(right: 2.5,top: 2),
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: AnimatedOnTapButton(
+                              onTap: () =>
+                                  _onTap(context, draggableWidget, _controlProvider),
+                              child: _text(
+                                  paintingStyle: PaintingStyle.fill,
+                                  controlNotifier: _controlProvider)),
+                        ),
+                        IgnorePointer(
+                          ignoring: true,
+                          child: Center(
+                            child: _text(
+                                paintingStyle: PaintingStyle.stroke,
+                                controlNotifier: _controlProvider),
+                          ),
+                        )
+                      ],
                     ),
                   )
                 ],
@@ -155,16 +180,18 @@ class DraggableWidget extends StatelessWidget {
   /// text widget
   Widget _text(
       {required ControlNotifier controlNotifier,
-      required PaintingStyle paintingStyle}) {
+      required PaintingStyle paintingStyle,
+        bool background = false
+      }) {
     if (draggableWidget.animationType == TextAnimationType.none) {
       return Text(draggableWidget.text,
           textAlign: draggableWidget.textAlign,
           style: _textStyle(
-              controlNotifier: controlNotifier, paintingStyle: paintingStyle));
+              controlNotifier: controlNotifier, paintingStyle: paintingStyle,background: background));
     } else {
       return DefaultTextStyle(
         style: _textStyle(
-            controlNotifier: controlNotifier, paintingStyle: paintingStyle),
+            controlNotifier: controlNotifier, paintingStyle: paintingStyle, background: background),
         child: AnimatedTextKit(
           repeatForever: true,
           onTap: () => _onTap(context, draggableWidget, controlNotifier),
@@ -201,20 +228,23 @@ class DraggableWidget extends StatelessWidget {
 
   _textStyle(
       {required ControlNotifier controlNotifier,
-      required PaintingStyle paintingStyle}) {
+      required PaintingStyle paintingStyle,
+        bool background = false
+      }) {
     return TextStyle(
         fontFamily: controlNotifier.fontList![draggableWidget.fontFamily],
         package: controlNotifier.isCustomFontList ? null : 'stories_editor',
         fontWeight: FontWeight.w500,
-        shadows: <Shadow>[
-          Shadow(
-              offset: const Offset(1.0, 1.0),
-              blurRadius: 3.0,
-              color: draggableWidget.textColor == Colors.black
-                  ? Colors.white54
-                  : Colors.black)
-        ]).copyWith(
-        color: draggableWidget.textColor,
+        // shadows: <Shadow>[
+        //   Shadow(
+        //       offset: const Offset(0, 0),
+        //       //blurRadius: 3.0,
+        //       color: draggableWidget.textColor == Colors.black
+        //           ? Colors.white54
+        //           : Colors.black)
+        // ]
+    ).copyWith(
+        color: background ? Colors.black : draggableWidget.textColor,
         fontSize: draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
         background: Paint()
           ..strokeWidth = 20.0
@@ -267,6 +297,7 @@ class DraggableWidget extends StatelessWidget {
         controlNotifier.colorList!.indexOf(item.textColor);
     _editorProvider.animationType = item.animationType;
     _editorProvider.textList = item.textList;
+    _editorProvider.fontAnimationIndex = item.fontAnimationIndex;
     _itemProvider.draggableWidget
         .removeAt(_itemProvider.draggableWidget.indexOf(item));
     _editorProvider.fontFamilyController = PageController(

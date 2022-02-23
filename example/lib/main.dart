@@ -42,9 +42,9 @@ class _ExampleState extends State<Example> {
                   MaterialPageRoute(
                       builder: (context) => StoriesEditor(
                             giphyKey: '[HERE YOUR API KEY]',
-                            fontFamilyList: const ['Shizuru', 'Aladin'],
+                            //fontFamilyList: const ['Shizuru', 'Aladin'],
                             galleryThumbnailQuality: 300,
-                            isCustomFontList: true,
+                            //isCustomFontList: true,
                             onDone: (uri) {
                               debugPrint(uri);
                               Share.shareFiles([uri]);

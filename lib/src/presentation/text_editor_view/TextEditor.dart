@@ -4,6 +4,7 @@ import 'package:stories_editor/src/domain/models/editable_items.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
+import 'package:stories_editor/src/presentation/text_editor_view/widgets/animation_selector.dart';
 import 'package:stories_editor/src/presentation/text_editor_view/widgets/font_selector.dart';
 import 'package:stories_editor/src/presentation/text_editor_view/widgets/text_field_widget.dart';
 import 'package:stories_editor/src/presentation/text_editor_view/widgets/top_text_tools.dart';
@@ -78,7 +79,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font family selector (bottom)
                         Visibility(
-                          visible: editorNotifier.isFontFamily,
+                          visible: editorNotifier.isFontFamily && !editorNotifier.isTextAnimation,
                           child: const Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
@@ -90,12 +91,23 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font color selector (bottom)
                         Visibility(
-                            visible: !editorNotifier.isFontFamily,
+                            visible: !editorNotifier.isFontFamily && !editorNotifier.isTextAnimation,
                             child: const Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
                                 padding: EdgeInsets.only(bottom: 20),
                                 child: ColorSelector(),
+                              ),
+                            )),
+
+                        // font animation selector (bottom
+                        Visibility(
+                            visible: editorNotifier.isTextAnimation,
+                            child: const Align(
+                              alignment: Alignment.bottomCenter,
+                              child: Padding(
+                                padding: EdgeInsets.only(bottom: 20),
+                                child: AnimationSelector(),
                               ),
                             )),
                       ],
@@ -111,7 +123,7 @@ class _TextEditorState extends State<TextEditor> {
     final _editableItemNotifier =
         Provider.of<DraggableWidgetNotifier>(context, listen: false);
 
-    /// create Text Item
+    /// create text list
     if (editorNotifier.text.trim().isNotEmpty) {
       splitList = editorNotifier.text.split(' ');
       for (int i = 0; i < splitList.length; i++) {
@@ -124,7 +136,7 @@ class _TextEditorState extends State<TextEditor> {
           sequenceList = lastSequenceList + ' ' + splitList[i];
         }
       }
-      print(editorNotifier.textList);
+      /// create Text Item
       _editableItemNotifier.draggableWidget.add(EditableItem()
         ..type = ItemType.text
         ..text = editorNotifier.text.trim()
@@ -132,9 +144,10 @@ class _TextEditorState extends State<TextEditor> {
         ..textColor = controlNotifier.colorList![editorNotifier.textColor]
         ..fontFamily = editorNotifier.fontFamilyIndex
         ..fontSize = editorNotifier.textSize
+        ..fontAnimationIndex = editorNotifier.fontAnimationIndex
         ..textAlign = editorNotifier.textAlign
         ..textList = editorNotifier.textList
-        ..animationType = editorNotifier.animationType
+        ..animationType = editorNotifier.animationList[editorNotifier.fontAnimationIndex]
         ..position = const Offset(0.0, 0.0));
       editorNotifier.setDefaults();
       controlNotifier.isTextEditing = !controlNotifier.isTextEditing;

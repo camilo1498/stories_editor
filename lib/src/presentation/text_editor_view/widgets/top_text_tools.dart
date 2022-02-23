@@ -24,6 +24,15 @@ class TopTextTools extends StatelessWidget {
                     onTap: () {
                       editorNotifier.isFontFamily =
                           !editorNotifier.isFontFamily;
+                      editorNotifier.isTextAnimation = false;
+                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                        if(editorNotifier.fontFamilyController.hasClients){
+                          editorNotifier.fontFamilyController.animateToPage(
+                              editorNotifier.fontFamilyIndex,
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeIn
+                          );}
+                      });
                     },
                     child: Transform.scale(
                         scale: !editorNotifier.isFontFamily ? 0.8 : 1.3,
@@ -72,14 +81,39 @@ class TopTextTools extends StatelessWidget {
                         )),
                   ),
                   ToolButton(
-                    onTap: editorNotifier.onAnimationChange,
+                    onTap: () {
+                      editorNotifier.isTextAnimation =
+                      !editorNotifier.isTextAnimation;
+                      /// animate to selected animation page
+                      if(editorNotifier.isTextAnimation){
+                        WidgetsBinding.instance!.addPostFrameCallback((_) {
+                          if(editorNotifier.textAnimationController.hasClients){
+                            editorNotifier.textAnimationController.animateToPage(
+                                editorNotifier.fontAnimationIndex,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeIn
+                            );
+                          }
+                        });
+                      } else{
+                        WidgetsBinding.instance!.addPostFrameCallback((_) {
+                          if(editorNotifier.fontFamilyController.hasClients){
+                            editorNotifier.fontFamilyController.animateToPage(
+                                editorNotifier.fontFamilyIndex,
+                                duration: const Duration(milliseconds: 300),
+                                curve: Curves.easeIn
+                            );
+                          }
+                        });
+                      }
+                    },
                     child: Transform.scale(
                         scale: 0.7,
                         child: const Center(
                           child: Padding(
-                            padding: EdgeInsets.only(left: 5, bottom: 3),
+                            padding: EdgeInsets.all(0),
                             child: ImageIcon(
-                              AssetImage('assets/icons/font_backGround.png',
+                              AssetImage('assets/icons/video_trim.png',
                                   package: 'stories_editor'),
                               color: Colors.white,
                             ),
