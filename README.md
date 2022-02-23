@@ -29,9 +29,8 @@ This is a package created in the style of the instagram story creator, with whic
 [❌] Color filters
 
 
-
-
 ## Demo
+If you don't see the images go to the [github repository](https://github.com/camilo1498/stories_editor) and by the way give me a star :D
 
 <p float="left"> 
    <img src="https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/demo.gif" alt="showcase gif" title="custom view" width="200"/>
