@@ -20,7 +20,7 @@ This is a package created in the style of the instagram story creator, with whic
 
 [✔️] Get draft local path uri
 
-[✔️] Text animations
+[✔️] Text animations => [animated_text_kit](https://pub.dev/packages/animated_text_kit)
 
 ## Future features
 
@@ -33,11 +33,10 @@ This is a package created in the style of the instagram story creator, with whic
 
 ## Demo
 
-![Demo Gif video](https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/demo.gif)
-
-## Demo text animations [animated_text_kit](https://pub.dev/packages/animated_text_kit)
-
-![Animations Gif video](https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/text_animations.gif)
+<p float="left"> 
+   <img src="https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/demo.gif" alt="showcase gif" title="custom view" width="200"/>
+   <img src="https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/text_animations.gif" alt="showcase gif" title="custom view" width="200"/> 
+</p>
 
 ## Installation
 *This package has been tested in Android and ios, some features works on flutter web*
