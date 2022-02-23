@@ -167,6 +167,7 @@ class DraggableWidget extends StatelessWidget {
             controlNotifier: controlNotifier, paintingStyle: paintingStyle),
         child: AnimatedTextKit(
           repeatForever: true,
+          onTap: () => _onTap(context, draggableWidget, controlNotifier),
           animatedTexts: [
             if (draggableWidget.animationType == TextAnimationType.scale)
               ScaleAnimatedText(draggableWidget.text,
