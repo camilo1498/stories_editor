@@ -52,14 +52,13 @@ class DraggableWidget extends StatelessWidget {
               width: draggableWidget.deletePosition ? 100 : null,
               height: draggableWidget.deletePosition ? 100 : null,
               child: AnimatedOnTapButton(
-                onTap: () =>
-                    _onTap(context, draggableWidget, _controlProvider),
+                onTap: () => _onTap(context, draggableWidget, _controlProvider),
                 child: Stack(
                   alignment: Alignment.center,
                   children: [
                     Center(
                       child: _text(
-                        background: true,
+                          background: true,
                           paintingStyle: PaintingStyle.fill,
                           controlNotifier: _controlProvider),
                     ),
@@ -67,13 +66,13 @@ class DraggableWidget extends StatelessWidget {
                       ignoring: true,
                       child: Center(
                         child: _text(
-                          background: true,
+                            background: true,
                             paintingStyle: PaintingStyle.stroke,
                             controlNotifier: _controlProvider),
                       ),
                     ),
                     Padding(
-                      padding: const EdgeInsets.only(right: 2.5,top: 2),
+                      padding: const EdgeInsets.only(right: 2.5, top: 2),
                       child: Stack(
                         children: [
                           Center(
@@ -171,17 +170,20 @@ class DraggableWidget extends StatelessWidget {
   Widget _text(
       {required ControlNotifier controlNotifier,
       required PaintingStyle paintingStyle,
-        bool background = false
-      }) {
+      bool background = false}) {
     if (draggableWidget.animationType == TextAnimationType.none) {
       return Text(draggableWidget.text,
           textAlign: draggableWidget.textAlign,
           style: _textStyle(
-              controlNotifier: controlNotifier, paintingStyle: paintingStyle,background: background));
+              controlNotifier: controlNotifier,
+              paintingStyle: paintingStyle,
+              background: background));
     } else {
       return DefaultTextStyle(
         style: _textStyle(
-            controlNotifier: controlNotifier, paintingStyle: paintingStyle, background: background),
+            controlNotifier: controlNotifier,
+            paintingStyle: paintingStyle,
+            background: background),
         child: AnimatedTextKit(
           repeatForever: true,
           onTap: () => _onTap(context, draggableWidget, controlNotifier),
@@ -190,9 +192,8 @@ class DraggableWidget extends StatelessWidget {
               ScaleAnimatedText(draggableWidget.text,
                   duration: const Duration(milliseconds: 1200)),
             if (draggableWidget.animationType == TextAnimationType.fade)
-              ...draggableWidget.textList.map((item)
-                => FadeAnimatedText(item,
-                    duration: const Duration(milliseconds: 1200))),
+              ...draggableWidget.textList.map((item) => FadeAnimatedText(item,
+                  duration: const Duration(milliseconds: 1200))),
             if (draggableWidget.animationType == TextAnimationType.typer)
               TyperAnimatedText(draggableWidget.text,
                   speed: const Duration(milliseconds: 500)),
@@ -220,20 +221,19 @@ class DraggableWidget extends StatelessWidget {
   _textStyle(
       {required ControlNotifier controlNotifier,
       required PaintingStyle paintingStyle,
-        bool background = false
-      }) {
+      bool background = false}) {
     return TextStyle(
-        fontFamily: controlNotifier.fontList![draggableWidget.fontFamily],
-        package: controlNotifier.isCustomFontList ? null : 'stories_editor',
-        fontWeight: FontWeight.w500,
-        // shadows: <Shadow>[
-        //   Shadow(
-        //       offset: const Offset(0, 0),
-        //       //blurRadius: 3.0,
-        //       color: draggableWidget.textColor == Colors.black
-        //           ? Colors.white54
-        //           : Colors.black)
-        // ]
+      fontFamily: controlNotifier.fontList![draggableWidget.fontFamily],
+      package: controlNotifier.isCustomFontList ? null : 'stories_editor',
+      fontWeight: FontWeight.w500,
+      // shadows: <Shadow>[
+      //   Shadow(
+      //       offset: const Offset(0, 0),
+      //       //blurRadius: 3.0,
+      //       color: draggableWidget.textColor == Colors.black
+      //           ? Colors.white54
+      //           : Colors.black)
+      // ]
     ).copyWith(
         color: background ? Colors.black : draggableWidget.textColor,
         fontSize: draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,

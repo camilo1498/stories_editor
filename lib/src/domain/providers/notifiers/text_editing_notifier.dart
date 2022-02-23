@@ -15,7 +15,8 @@ class TextEditingNotifier extends ChangeNotifier {
   bool _isTextAnimation = false;
 
   PageController _fontFamilyController = PageController(viewportFraction: .125);
-  PageController _textAnimationController = PageController(viewportFraction: .125);
+  PageController _textAnimationController =
+      PageController(viewportFraction: .125);
   TextEditingController _textController = TextEditingController();
 
   int _currentColorBackground = 0;
@@ -88,7 +89,7 @@ class TextEditingNotifier extends ChangeNotifier {
   }
 
   set fontAnimationIndex(int fontIndex) {
-    _fontAnimationIndex= fontIndex;
+    _fontAnimationIndex = fontIndex;
     notifyListeners();
   }
 

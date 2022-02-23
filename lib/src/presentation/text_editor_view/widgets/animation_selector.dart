@@ -48,46 +48,56 @@ class AnimationSelector extends StatelessWidget {
                       border: Border.all(color: Colors.white)),
                   child: DefaultTextStyle(
                     style: TextStyle(
-                        fontFamily: controlNotifier.fontList![editorNotifier.fontFamilyIndex],
-                        package: controlNotifier.isCustomFontList
-                            ? null
-                            : 'stories_editor')
+                            fontFamily: controlNotifier
+                                .fontList![editorNotifier.fontFamilyIndex],
+                            package: controlNotifier.isCustomFontList
+                                ? null
+                                : 'stories_editor')
                         .copyWith(
-                        color: index == editorNotifier.fontAnimationIndex
-                            ? Colors.red
-                            : Colors.white,
-                        fontWeight: FontWeight.bold),
-                    child: editorNotifier.animationList[index] == TextAnimationType.none
+                            color: index == editorNotifier.fontAnimationIndex
+                                ? Colors.red
+                                : Colors.white,
+                            fontWeight: FontWeight.bold),
+                    child: editorNotifier.animationList[index] ==
+                            TextAnimationType.none
                         ? const Text('Aa')
                         : AnimatedTextKit(
-                      repeatForever: true,
-                      animatedTexts: [
-                        if (editorNotifier.animationList[index] == TextAnimationType.scale)
-                          ScaleAnimatedText('Aa',
-                              duration: const Duration(milliseconds: 600)),
-                        if (editorNotifier.animationList[index]  == TextAnimationType.fade)
-                          FadeAnimatedText('Aa',
-                              duration: const Duration(milliseconds: 600)),
-                        if (editorNotifier.animationList[index]  == TextAnimationType.typer)
-                          TyperAnimatedText('Aa',
-                              speed: const Duration(milliseconds: 500)),
-                        if (editorNotifier.animationList[index] == TextAnimationType.typeWriter)
-                          TypewriterAnimatedText(
-                            'Aa',
-                            speed: const Duration(milliseconds: 500),
+                            repeatForever: true,
+                            animatedTexts: [
+                              if (editorNotifier.animationList[index] ==
+                                  TextAnimationType.scale)
+                                ScaleAnimatedText('Aa',
+                                    duration:
+                                        const Duration(milliseconds: 600)),
+                              if (editorNotifier.animationList[index] ==
+                                  TextAnimationType.fade)
+                                FadeAnimatedText('Aa',
+                                    duration:
+                                        const Duration(milliseconds: 600)),
+                              if (editorNotifier.animationList[index] ==
+                                  TextAnimationType.typer)
+                                TyperAnimatedText('Aa',
+                                    speed: const Duration(milliseconds: 500)),
+                              if (editorNotifier.animationList[index] ==
+                                  TextAnimationType.typeWriter)
+                                TypewriterAnimatedText(
+                                  'Aa',
+                                  speed: const Duration(milliseconds: 500),
+                                ),
+                              if (editorNotifier.animationList[index] ==
+                                  TextAnimationType.wavy)
+                                WavyAnimatedText(
+                                  'Aa',
+                                  speed: const Duration(milliseconds: 500),
+                                ),
+                              if (editorNotifier.animationList[index] ==
+                                  TextAnimationType.flicker)
+                                FlickerAnimatedText(
+                                  'Aa',
+                                  speed: const Duration(milliseconds: 500),
+                                ),
+                            ],
                           ),
-                        if (editorNotifier.animationList[index]  == TextAnimationType.wavy)
-                          WavyAnimatedText(
-                            'Aa',
-                            speed: const Duration(milliseconds: 500),
-                          ),
-                        if (editorNotifier.animationList[index] == TextAnimationType.flicker)
-                          FlickerAnimatedText(
-                            'Aa',
-                            speed: const Duration(milliseconds: 500),
-                          ),
-                      ],
-                    ),
                   ),
                 ),
               );

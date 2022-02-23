@@ -79,7 +79,8 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font family selector (bottom)
                         Visibility(
-                          visible: editorNotifier.isFontFamily && !editorNotifier.isTextAnimation,
+                          visible: editorNotifier.isFontFamily &&
+                              !editorNotifier.isTextAnimation,
                           child: const Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
@@ -91,7 +92,8 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font color selector (bottom)
                         Visibility(
-                            visible: !editorNotifier.isFontFamily && !editorNotifier.isTextAnimation,
+                            visible: !editorNotifier.isFontFamily &&
+                                !editorNotifier.isTextAnimation,
                             child: const Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
@@ -136,6 +138,7 @@ class _TextEditorState extends State<TextEditor> {
           sequenceList = lastSequenceList + ' ' + splitList[i];
         }
       }
+
       /// create Text Item
       _editableItemNotifier.draggableWidget.add(EditableItem()
         ..type = ItemType.text
@@ -147,7 +150,8 @@ class _TextEditorState extends State<TextEditor> {
         ..fontAnimationIndex = editorNotifier.fontAnimationIndex
         ..textAlign = editorNotifier.textAlign
         ..textList = editorNotifier.textList
-        ..animationType = editorNotifier.animationList[editorNotifier.fontAnimationIndex]
+        ..animationType =
+            editorNotifier.animationList[editorNotifier.fontAnimationIndex]
         ..position = const Offset(0.0, 0.0));
       editorNotifier.setDefaults();
       controlNotifier.isTextEditing = !controlNotifier.isTextEditing;

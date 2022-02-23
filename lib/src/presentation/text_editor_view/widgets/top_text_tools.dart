@@ -26,12 +26,12 @@ class TopTextTools extends StatelessWidget {
                           !editorNotifier.isFontFamily;
                       editorNotifier.isTextAnimation = false;
                       WidgetsBinding.instance!.addPostFrameCallback((_) {
-                        if(editorNotifier.fontFamilyController.hasClients){
+                        if (editorNotifier.fontFamilyController.hasClients) {
                           editorNotifier.fontFamilyController.animateToPage(
                               editorNotifier.fontFamilyIndex,
                               duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeIn
-                          );}
+                              curve: Curves.easeIn);
+                        }
                       });
                     },
                     child: Transform.scale(
@@ -83,26 +83,27 @@ class TopTextTools extends StatelessWidget {
                   ToolButton(
                     onTap: () {
                       editorNotifier.isTextAnimation =
-                      !editorNotifier.isTextAnimation;
+                          !editorNotifier.isTextAnimation;
+
                       /// animate to selected animation page
-                      if(editorNotifier.isTextAnimation){
+                      if (editorNotifier.isTextAnimation) {
                         WidgetsBinding.instance!.addPostFrameCallback((_) {
-                          if(editorNotifier.textAnimationController.hasClients){
-                            editorNotifier.textAnimationController.animateToPage(
-                                editorNotifier.fontAnimationIndex,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeIn
-                            );
+                          if (editorNotifier
+                              .textAnimationController.hasClients) {
+                            editorNotifier.textAnimationController
+                                .animateToPage(
+                                    editorNotifier.fontAnimationIndex,
+                                    duration: const Duration(milliseconds: 300),
+                                    curve: Curves.easeIn);
                           }
                         });
-                      } else{
+                      } else {
                         WidgetsBinding.instance!.addPostFrameCallback((_) {
-                          if(editorNotifier.fontFamilyController.hasClients){
+                          if (editorNotifier.fontFamilyController.hasClients) {
                             editorNotifier.fontFamilyController.animateToPage(
                                 editorNotifier.fontFamilyIndex,
                                 duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeIn
-                            );
+                                curve: Curves.easeIn);
                           }
                         });
                       }
