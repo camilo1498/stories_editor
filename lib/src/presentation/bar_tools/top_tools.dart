@@ -107,17 +107,17 @@ class _TopToolsState extends State<TopTools> {
                       controlNotifier.isPainting = true;
                       //createLinePainting(context: context);
                     }),
-                ToolButton(
-                  child: ImageIcon(
-                    const AssetImage('assets/icons/photo_filter.png',
-                        package: 'stories_editor'),
-                    color: controlNotifier.isPhotoFilter ? Colors.black : Colors.white,
-                    size: 20,
-                  ),
-                  backGroundColor:  controlNotifier.isPhotoFilter ? Colors.white70 : Colors.black12,
-                  onTap: () => controlNotifier.isPhotoFilter =
-                  !controlNotifier.isPhotoFilter,
-                ),
+                // ToolButton(
+                //   child: ImageIcon(
+                //     const AssetImage('assets/icons/photo_filter.png',
+                //         package: 'stories_editor'),
+                //     color: controlNotifier.isPhotoFilter ? Colors.black : Colors.white,
+                //     size: 20,
+                //   ),
+                //   backGroundColor:  controlNotifier.isPhotoFilter ? Colors.white70 : Colors.black12,
+                //   onTap: () => controlNotifier.isPhotoFilter =
+                //   !controlNotifier.isPhotoFilter,
+                // ),
                 ToolButton(
                   child: const ImageIcon(
                     AssetImage('assets/icons/text.png',

@@ -20,19 +20,24 @@ This is a package created in the style of the instagram story creator, with whic
 
 [✔️] Get draft local path uri
 
+[✔️] Text animations
+
 ## Future features
 
 [❌] Save draft as a gif
 
 [❌] Color filters
 
-[❌] Text animations
+
 
 
 ## Demo
 
 ![Demo Gif video](https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/demo.gif)
 
+## Demo text animations [animated_text_kit](https://pub.dev/packages/animated_text_kit)
+
+![Animations Gif video](https://github.com/camilo1498/stories_editor/blob/main/stories%20editor%20screenshots/text_animations.gif)
 
 ## Installation
 *This package has been tested in Android and ios, some features works on flutter web*
@@ -72,10 +77,10 @@ import 'package:stories_editor/stories_editor.dart';
 ```dart
 StoriesEditor(
     giphyKey: '[YOUR GIPHY API KEY]', /// (String) required param
-     onDone: (String uri){
+    onDone: (String uri){
       /// uri is the local path of final render Uint8List
       /// here your code
-     },
+    },
     colorList: [] /// (List<Color>[]) optional param 
     gradientColors: [] /// (List<List<Color>>[]) optional param 
     middleBottomWidget: Container() /// (Widget) optional param, you can add your own logo or text in the bottom tool
@@ -151,6 +156,13 @@ class _ExampleState extends State<Example> {
 }
 
 ```
+
+### Issues
+
+1) Issue of photo_View: [photo_view#499](bluefireteam/photo_view#499)
+   Issue log => *To safely refer to a widget's ancestor in its dispose() method, save a reference to the ancestor by calling dependOnInheritedWidgetOfExactType() in the widget's didChangeDependencies() method.*
+
+
 
 ## ScreenShots
 

@@ -2,6 +2,7 @@
 
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:gallery_media_picker/gallery_media_picker.dart';
@@ -62,17 +63,17 @@ class MainView extends StatefulWidget {
   List<Color>? colorList;
   MainView(
       {Key? key,
-      required this.giphyKey,
-      required this.onDone,
-      this.middleBottomWidget,
-      this.colorList,
-      this.isCustomFontList,
-      this.fontFamilyList,
-      this.gradientColors,
-      this.onBackPress,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor,
-      this.galleryThumbnailQuality})
+        required this.giphyKey,
+        required this.onDone,
+        this.middleBottomWidget,
+        this.colorList,
+        this.isCustomFontList,
+        this.fontFamilyList,
+        this.gradientColors,
+        this.onBackPress,
+        this.onDoneButtonStyle,
+        this.editorBackgroundColor,
+        this.galleryThumbnailQuality})
       : super(key: key);
 
   @override
@@ -98,7 +99,7 @@ class _MainViewState extends State<MainView> {
 
   /// screen size
   final _screenSize =
-      MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+  MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
 
   @override
   void initState() {
@@ -158,12 +159,13 @@ class _MainViewState extends State<MainView> {
                   children: [
                     ///gradient container
                     /// this container will contain all widgets(image/texts/draws/sticker)
+                    /// wrap this widget with coloredFilter
                     GestureDetector(
                       onScaleStart: _onScaleStart,
                       onScaleUpdate: _onScaleUpdate,
                       onTap: () {
                         controlNotifier.isTextEditing =
-                            !controlNotifier.isTextEditing;
+                        !controlNotifier.isTextEditing;
                       },
                       child: Align(
                         alignment: Alignment.topCenter,
@@ -180,22 +182,22 @@ class _MainViewState extends State<MainView> {
                               child: AnimatedContainer(
                                 duration: const Duration(milliseconds: 200),
                                 decoration: BoxDecoration(
-                                    //borderRadius: BorderRadius.circular(25),
+                                  //borderRadius: BorderRadius.circular(25),
                                     gradient: controlNotifier.mediaPath.isEmpty
                                         ? LinearGradient(
-                                            colors: controlNotifier.gradientColors![
-                                                controlNotifier.gradientIndex],
-                                            begin: Alignment.topLeft,
-                                            end: Alignment.bottomRight,
-                                          )
+                                      colors: controlNotifier.gradientColors![
+                                      controlNotifier.gradientIndex],
+                                      begin: Alignment.topLeft,
+                                      end: Alignment.bottomRight,
+                                    )
                                         : LinearGradient(
-                                            colors: [
-                                              colorProvider.color1,
-                                              colorProvider.color2
-                                            ],
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                          )),
+                                      colors: [
+                                        colorProvider.color1,
+                                        colorProvider.color2
+                                      ],
+                                      begin: Alignment.topCenter,
+                                      end: Alignment.bottomCenter,
+                                    )),
                                 child: GestureDetector(
                                   onScaleStart: _onScaleStart,
                                   onScaleUpdate: _onScaleUpdate,
@@ -213,27 +215,27 @@ class _MainViewState extends State<MainView> {
                                       ///list items
                                       ...itemProvider.draggableWidget
                                           .map((editableItem) => DraggableWidget(
-                                                context: context,
-                                                draggableWidget: editableItem,
-                                                onPointerDown: (details) {
-                                                  _updateItemPosition(
-                                                    editableItem,
-                                                    details,
-                                                  );
-                                                },
-                                                onPointerUp: (details) {
-                                                  _deleteItemOnCoordinates(
-                                                    editableItem,
-                                                    details,
-                                                  );
-                                                },
-                                                onPointerMove: (details) {
-                                                  _deletePosition(
-                                                    editableItem,
-                                                    details,
-                                                  );
-                                                },
-                                              )),
+                                        context: context,
+                                        draggableWidget: editableItem,
+                                        onPointerDown: (details) {
+                                          _updateItemPosition(
+                                            editableItem,
+                                            details,
+                                          );
+                                        },
+                                        onPointerUp: (details) {
+                                          _deleteItemOnCoordinates(
+                                            editableItem,
+                                            details,
+                                          );
+                                        },
+                                        onPointerMove: (details) {
+                                          _deletePosition(
+                                            editableItem,
+                                            details,
+                                          );
+                                        },
+                                      )),
 
                                       /// finger paint
                                       IgnorePointer(
@@ -243,7 +245,7 @@ class _MainViewState extends State<MainView> {
                                           child: Container(
                                             decoration: BoxDecoration(
                                               borderRadius:
-                                                  BorderRadius.circular(25),
+                                              BorderRadius.circular(25),
                                             ),
                                             child: RepaintBoundary(
                                               child: SizedBox(
@@ -251,8 +253,8 @@ class _MainViewState extends State<MainView> {
                                                     .size
                                                     .width,
                                                 height: MediaQuery.of(context)
-                                                        .size
-                                                        .height -
+                                                    .size
+                                                    .height -
                                                     132,
                                                 child: StreamBuilder<
                                                     List<PaintingModel>>(
@@ -262,7 +264,7 @@ class _MainViewState extends State<MainView> {
                                                     return CustomPaint(
                                                       painter: Sketcher(
                                                         lines:
-                                                            paintingProvider.lines,
+                                                        paintingProvider.lines,
                                                       ),
                                                     );
                                                   },
@@ -272,39 +274,6 @@ class _MainViewState extends State<MainView> {
                                           ),
                                         ),
                                       ),
-
-                                      IgnorePointer(
-                                        ignoring: !controlNotifier.isPhotoFilter,
-                                        child: PageView(
-                                          scrollDirection: Axis.horizontal,
-                                          allowImplicitScrolling: false,
-                                          physics: const ClampingScrollPhysics(),
-                                          children: [
-                                            Container(),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                //borderRadius: BorderRadius.circular(25),
-                                                color: Colors.yellow.withOpacity(0.3),
-                                              ),
-
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                //borderRadius: BorderRadius.circular(25),
-                                                color: Colors.red.withOpacity(0.3),
-                                              ),
-
-                                            ),
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                //borderRadius: BorderRadius.circular(25),
-                                                color: Colors.green.withOpacity(0.3),
-                                              ),
-
-                                            ),
-                                          ],
-                                        ),
-                                      )
                                     ],
                                   ),
                                 ),
@@ -359,19 +328,20 @@ class _MainViewState extends State<MainView> {
                     ),
 
                     /// bottom tools
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: BottomTools(
-                        contentKey: contentKey,
-                        onDone: (bytes) {
-                          setState(() {
-                            widget.onDone!(bytes);
-                          });
-                        },
-                        onDoneButtonStyle: widget.onDoneButtonStyle,
-                        editorBackgroundColor: widget.editorBackgroundColor,
+                    if(!kIsWeb)
+                      Align(
+                        alignment: Alignment.bottomCenter,
+                        child: BottomTools(
+                          contentKey: contentKey,
+                          onDone: (bytes) {
+                            setState(() {
+                              widget.onDone!(bytes);
+                            });
+                          },
+                          onDoneButtonStyle: widget.onDoneButtonStyle,
+                          editorBackgroundColor: widget.editorBackgroundColor,
+                        ),
                       ),
-                    ),
 
                     /// show text editor
                     Visibility(
@@ -453,7 +423,7 @@ class _MainViewState extends State<MainView> {
   /// validate pop scope gesture
   Future<bool> _popScope() async {
     final controlNotifier =
-        Provider.of<ControlNotifier>(context, listen: false);
+    Provider.of<ControlNotifier>(context, listen: false);
 
     /// change to false text editing
     if (controlNotifier.isTextEditing) {
@@ -537,9 +507,9 @@ class _MainViewState extends State<MainView> {
     _inAction = false;
     if (item.type == ItemType.image) {
     } else if (item.type == ItemType.text &&
-            item.position.dy >= 0.265 &&
-            item.position.dx >= -0.122 &&
-            item.position.dx <= 0.122 ||
+        item.position.dy >= 0.265 &&
+        item.position.dx >= -0.122 &&
+        item.position.dx <= 0.122 ||
         item.type == ItemType.gif &&
             item.position.dy >= 0.21 &&
             item.position.dx >= -0.25 &&

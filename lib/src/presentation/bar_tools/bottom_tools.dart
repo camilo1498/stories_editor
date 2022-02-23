@@ -29,7 +29,7 @@ class BottomTools extends StatelessWidget {
       builder: (_, controlNotifier, scrollNotifier, itemNotifier, __) {
         return Container(
           height: 95,
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             color: Colors.transparent
           ),
           child: Row(

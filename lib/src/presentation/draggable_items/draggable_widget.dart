@@ -51,51 +51,41 @@ class DraggableWidget extends StatelessWidget {
               ),
               width: draggableWidget.deletePosition ? 100 : null,
               height: draggableWidget.deletePosition ? 100 : null,
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  Center(
-                    child: AnimatedOnTapButton(
-                        onTap: () =>
-                            _onTap(context, draggableWidget, _controlProvider),
-                        child: _text(
-                          background: true,
-                            paintingStyle: PaintingStyle.fill,
-                            controlNotifier: _controlProvider)),
-                  ),
-                  IgnorePointer(
-                    ignoring: true,
-                    child: Center(
+              child: AnimatedOnTapButton(
+                onTap: () =>
+                    _onTap(context, draggableWidget, _controlProvider),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Center(
                       child: _text(
                         background: true,
-                          paintingStyle: PaintingStyle.stroke,
+                          paintingStyle: PaintingStyle.fill,
                           controlNotifier: _controlProvider),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(right: 2.5,top: 2),
-                    child: Stack(
-                      children: [
-                        Center(
-                          child: AnimatedOnTapButton(
-                              onTap: () =>
-                                  _onTap(context, draggableWidget, _controlProvider),
-                              child: _text(
-                                  paintingStyle: PaintingStyle.fill,
-                                  controlNotifier: _controlProvider)),
-                        ),
-                        IgnorePointer(
-                          ignoring: true,
-                          child: Center(
+                    IgnorePointer(
+                      ignoring: true,
+                      child: Center(
+                        child: _text(
+                          background: true,
+                            paintingStyle: PaintingStyle.stroke,
+                            controlNotifier: _controlProvider),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(right: 2.5,top: 2),
+                      child: Stack(
+                        children: [
+                          Center(
                             child: _text(
-                                paintingStyle: PaintingStyle.stroke,
+                                paintingStyle: PaintingStyle.fill,
                                 controlNotifier: _controlProvider),
                           ),
-                        )
-                      ],
-                    ),
-                  )
-                ],
+                        ],
+                      ),
+                    )
+                  ],
+                ),
               ),
             ),
           ),
@@ -198,10 +188,11 @@ class DraggableWidget extends StatelessWidget {
           animatedTexts: [
             if (draggableWidget.animationType == TextAnimationType.scale)
               ScaleAnimatedText(draggableWidget.text,
-                  duration: const Duration(milliseconds: 600)),
+                  duration: const Duration(milliseconds: 1200)),
             if (draggableWidget.animationType == TextAnimationType.fade)
-              FadeAnimatedText(draggableWidget.text,
-                  duration: const Duration(milliseconds: 600)),
+              ...draggableWidget.textList.map((item)
+                => FadeAnimatedText(item,
+                    duration: const Duration(milliseconds: 1200))),
             if (draggableWidget.animationType == TextAnimationType.typer)
               TyperAnimatedText(draggableWidget.text,
                   speed: const Duration(milliseconds: 500)),
@@ -218,7 +209,7 @@ class DraggableWidget extends StatelessWidget {
             if (draggableWidget.animationType == TextAnimationType.flicker)
               FlickerAnimatedText(
                 draggableWidget.text,
-                speed: const Duration(milliseconds: 500),
+                speed: const Duration(milliseconds: 1200),
               ),
           ],
         ),

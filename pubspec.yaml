@@ -34,6 +34,7 @@ dependencies:
   fluttertoast: ^8.0.8
 
   animated_text_kit: ^4.2.1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
