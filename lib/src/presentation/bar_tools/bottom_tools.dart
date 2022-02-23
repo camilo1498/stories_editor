@@ -30,9 +30,7 @@ class BottomTools extends StatelessWidget {
         return Container(
           height: 95,
           decoration: BoxDecoration(
-            color: editorBackgroundColor == Colors.transparent
-                ? Colors.black
-                : editorBackgroundColor ?? Colors.black,
+            color: Colors.transparent
           ),
           child: Row(
             mainAxisSize: MainAxisSize.max,

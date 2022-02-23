@@ -63,6 +63,7 @@ flutter:
     - packages/stories_editor/assets/icons/stickers.png
     - packages/stories_editor/assets/icons/text.png
     - packages/stories_editor/assets/icons/trash.png
+    - packages/stories_editor/assets/icons/photo_filter.png
     - packages/stories_editor/assets/images/instagram_logo.png
 
   fonts:

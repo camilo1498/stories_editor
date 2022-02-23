@@ -167,109 +167,147 @@ class _MainViewState extends State<MainView> {
                       },
                       child: Align(
                         alignment: Alignment.topCenter,
-                        child: RepaintBoundary(
-                          key: contentKey,
-                          child: AnimatedContainer(
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(25),
+                          child: SizedBox(
                             width: _screenSize.size.width,
                             height: Platform.isIOS
                                 ? (_screenSize.size.height - 135) -
-                                    _screenSize.viewPadding.top
+                                _screenSize.viewPadding.top
                                 : (_screenSize.size.height - 132),
-                            duration: const Duration(milliseconds: 200),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(25),
-                                gradient: controlNotifier.mediaPath.isEmpty
-                                    ? LinearGradient(
-                                        colors: controlNotifier.gradientColors![
-                                            controlNotifier.gradientIndex],
-                                        begin: Alignment.topLeft,
-                                        end: Alignment.bottomRight,
-                                      )
-                                    : LinearGradient(
-                                        colors: [
-                                          colorProvider.color1,
-                                          colorProvider.color2
-                                        ],
-                                        begin: Alignment.topCenter,
-                                        end: Alignment.bottomCenter,
-                                      )),
-                            child: GestureDetector(
-                              onScaleStart: _onScaleStart,
-                              onScaleUpdate: _onScaleUpdate,
-                              child: Stack(
-                                alignment: Alignment.center,
-                                children: [
-                                  /// in this case photo view works as a main background container to manage
-                                  /// the gestures of all movable items.
-                                  PhotoView.customChild(
-                                    child: Container(),
-                                    backgroundDecoration: const BoxDecoration(
-                                        color: Colors.transparent),
-                                  ),
-
-                                  ///list items
-                                  ...itemProvider.draggableWidget
-                                      .map((editableItem) => DraggableWidget(
-                                            context: context,
-                                            draggableWidget: editableItem,
-                                            onPointerDown: (details) {
-                                              _updateItemPosition(
-                                                editableItem,
-                                                details,
-                                              );
-                                            },
-                                            onPointerUp: (details) {
-                                              _deleteItemOnCoordinates(
-                                                editableItem,
-                                                details,
-                                              );
-                                            },
-                                            onPointerMove: (details) {
-                                              _deletePosition(
-                                                editableItem,
-                                                details,
-                                              );
-                                            },
+                            child: RepaintBoundary(
+                              key: contentKey,
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 200),
+                                decoration: BoxDecoration(
+                                    //borderRadius: BorderRadius.circular(25),
+                                    gradient: controlNotifier.mediaPath.isEmpty
+                                        ? LinearGradient(
+                                            colors: controlNotifier.gradientColors![
+                                                controlNotifier.gradientIndex],
+                                            begin: Alignment.topLeft,
+                                            end: Alignment.bottomRight,
+                                          )
+                                        : LinearGradient(
+                                            colors: [
+                                              colorProvider.color1,
+                                              colorProvider.color2
+                                            ],
+                                            begin: Alignment.topCenter,
+                                            end: Alignment.bottomCenter,
                                           )),
+                                child: GestureDetector(
+                                  onScaleStart: _onScaleStart,
+                                  onScaleUpdate: _onScaleUpdate,
+                                  child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      /// in this case photo view works as a main background container to manage
+                                      /// the gestures of all movable items.
+                                      PhotoView.customChild(
+                                        child: Container(),
+                                        backgroundDecoration: const BoxDecoration(
+                                            color: Colors.transparent),
+                                      ),
 
-                                  /// finger paint
-                                  IgnorePointer(
-                                    ignoring: true,
-                                    child: Align(
-                                      alignment: Alignment.topCenter,
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(25),
-                                        ),
-                                        child: RepaintBoundary(
-                                          child: SizedBox(
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            height: MediaQuery.of(context)
+                                      ///list items
+                                      ...itemProvider.draggableWidget
+                                          .map((editableItem) => DraggableWidget(
+                                                context: context,
+                                                draggableWidget: editableItem,
+                                                onPointerDown: (details) {
+                                                  _updateItemPosition(
+                                                    editableItem,
+                                                    details,
+                                                  );
+                                                },
+                                                onPointerUp: (details) {
+                                                  _deleteItemOnCoordinates(
+                                                    editableItem,
+                                                    details,
+                                                  );
+                                                },
+                                                onPointerMove: (details) {
+                                                  _deletePosition(
+                                                    editableItem,
+                                                    details,
+                                                  );
+                                                },
+                                              )),
+
+                                      /// finger paint
+                                      IgnorePointer(
+                                        ignoring: true,
+                                        child: Align(
+                                          alignment: Alignment.topCenter,
+                                          child: Container(
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(25),
+                                            ),
+                                            child: RepaintBoundary(
+                                              child: SizedBox(
+                                                width: MediaQuery.of(context)
                                                     .size
-                                                    .height -
-                                                132,
-                                            child: StreamBuilder<
-                                                List<PaintingModel>>(
-                                              stream: paintingProvider
-                                                  .linesStreamController.stream,
-                                              builder: (context, snapshot) {
-                                                return CustomPaint(
-                                                  painter: Sketcher(
-                                                    lines:
-                                                        paintingProvider.lines,
-                                                  ),
-                                                );
-                                              },
+                                                    .width,
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height -
+                                                    132,
+                                                child: StreamBuilder<
+                                                    List<PaintingModel>>(
+                                                  stream: paintingProvider
+                                                      .linesStreamController.stream,
+                                                  builder: (context, snapshot) {
+                                                    return CustomPaint(
+                                                      painter: Sketcher(
+                                                        lines:
+                                                            paintingProvider.lines,
+                                                      ),
+                                                    );
+                                                  },
+                                                ),
+                                              ),
                                             ),
                                           ),
                                         ),
                                       ),
-                                    ),
+
+                                      IgnorePointer(
+                                        ignoring: !controlNotifier.isPhotoFilter,
+                                        child: PageView(
+                                          scrollDirection: Axis.horizontal,
+                                          allowImplicitScrolling: false,
+                                          physics: const ClampingScrollPhysics(),
+                                          children: [
+                                            Container(),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                //borderRadius: BorderRadius.circular(25),
+                                                color: Colors.yellow.withOpacity(0.3),
+                                              ),
+
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                //borderRadius: BorderRadius.circular(25),
+                                                color: Colors.red.withOpacity(0.3),
+                                              ),
+
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                //borderRadius: BorderRadius.circular(25),
+                                                color: Colors.green.withOpacity(0.3),
+                                              ),
+
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
                             ),
                           ),

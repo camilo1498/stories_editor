@@ -107,4 +107,11 @@ class ControlNotifier extends ChangeNotifier {
     _mediaPath = media;
     notifyListeners();
   }
+
+  bool _isPhotoFilter = false;
+  bool get isPhotoFilter => _isPhotoFilter;
+  set isPhotoFilter(bool filter) {
+    _isPhotoFilter = filter;
+    notifyListeners();
+  }
 }
