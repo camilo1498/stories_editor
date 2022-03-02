@@ -32,9 +32,13 @@ dependencies:
   align_positioned: ^3.0.0
   #message
   fluttertoast: ^8.0.8
-
+  # animations
   animated_text_kit: ^4.2.1
-
+  # rendering
+  ffmpeg_kit_flutter_min_gpl: ^4.5.1
+  # permission
+  permission_handler: ^8.1.4+2
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter

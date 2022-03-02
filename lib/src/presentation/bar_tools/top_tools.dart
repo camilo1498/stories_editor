@@ -12,7 +12,12 @@ import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
-  const TopTools({Key? key, required this.contentKey, required this.context})
+  final Function renderWidget;
+  const TopTools(
+      {Key? key,
+      required this.contentKey,
+      required this.context,
+      required this.renderWidget})
       : super(key: key);
 
   @override
@@ -74,15 +79,16 @@ class _TopToolsState extends State<TopTools> {
                     onTap: () async {
                       if (paintingNotifier.lines.isNotEmpty ||
                           itemNotifier.draggableWidget.isNotEmpty) {
-                        var response = await takePicture(
-                            contentKey: widget.contentKey,
-                            context: context,
-                            saveToGallery: true);
-                        if (response) {
-                          Fluttertoast.showToast(msg: 'Successfully saved');
-                        } else {
-                          Fluttertoast.showToast(msg: 'Error');
-                        }
+                        // var response = await takePicture(
+                        //     contentKey: widget.contentKey,
+                        //     context: context,
+                        //     saveToGallery: true);
+                        // if (response) {
+                        //   Fluttertoast.showToast(msg: 'Successfully saved');
+                        // } else {
+                        //   Fluttertoast.showToast(msg: 'Error');
+                        // }
+                        await widget.renderWidget();
                       }
                     }),
                 ToolButton(

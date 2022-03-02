@@ -114,4 +114,11 @@ class ControlNotifier extends ChangeNotifier {
     _isPhotoFilter = filter;
     notifyListeners();
   }
+
+  bool _isRenderingWidget = false;
+  bool get isRenderingWidget => _isRenderingWidget;
+  set isRenderingWidget(bool rendering) {
+    _isRenderingWidget = rendering;
+    notifyListeners();
+  }
 }
