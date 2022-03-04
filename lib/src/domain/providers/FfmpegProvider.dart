@@ -17,11 +17,11 @@ class FfmpegProvider with ChangeNotifier {
     if (await Permission.storage.request().isGranted) {
       /// mp4 output
       String mp4Command =
-          '-r 30 -i ${FfmpegPaths.imagesPath} -vf scale=1080:1920 -pix_fmt yuv420p -y ${FfmpegPaths.videoOutputPath}';
+          '-r 25 -i ${FfmpegPaths.imagesPath} -vf scale=1080:1920 -pix_fmt yuv420p -y ${FfmpegPaths.videoOutputPath}';
 
       /// 7mb gif output
       String gifCommand =
-          '-r 30 -i ${FfmpegPaths.imagesPath} -vf "scale=iw/2:ih/2" -y ${FfmpegPaths.gifOutputPath}';
+          '-r 25 -i ${FfmpegPaths.imagesPath} -vf "scale=iw/2:ih/2" -y ${FfmpegPaths.gifOutputPath}';
 
       var response = await FFmpegKit.execute(
               renderType == RenderType.gif ? gifCommand : mp4Command)

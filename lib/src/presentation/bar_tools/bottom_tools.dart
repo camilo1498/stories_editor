@@ -3,14 +3,18 @@ import 'package:gallery_media_picker/gallery_media_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
+import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/scroll_notifier.dart';
 import 'package:stories_editor/src/domain/sevices/save_as_image.dart';
+import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/text_animation_type.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 
 class BottomTools extends StatelessWidget {
   final GlobalKey contentKey;
   final Function(String imageUri) onDone;
   final Widget? onDoneButtonStyle;
+  final Function renderWidget;
 
   /// editor background color
   final Color? editorBackgroundColor;
@@ -18,6 +22,7 @@ class BottomTools extends StatelessWidget {
       {Key? key,
       required this.contentKey,
       required this.onDone,
+      required this.renderWidget,
       this.onDoneButtonStyle,
       this.editorBackgroundColor})
       : super(key: key);
@@ -25,8 +30,11 @@ class BottomTools extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var _size = MediaQuery.of(context).size;
-    return Consumer3<ControlNotifier, ScrollNotifier, DraggableWidgetNotifier>(
-      builder: (_, controlNotifier, scrollNotifier, itemNotifier, __) {
+    bool _createVideo = false;
+    return Consumer4<ControlNotifier, ScrollNotifier, DraggableWidgetNotifier,
+        PaintingNotifier>(
+      builder: (_, controlNotifier, scrollNotifier, itemNotifier,
+          paintingNotifier, __) {
         return Container(
           height: 95,
           decoration: const BoxDecoration(color: Colors.transparent),
@@ -123,49 +131,75 @@ class BottomTools extends StatelessWidget {
                 padding: const EdgeInsets.only(right: 15),
                 child: Transform.scale(
                   scale: 0.9,
-                  child: AnimatedOnTapButton(
-                      onTap: () async {
-                        String pngUri;
-                        await takePicture(
-                                contentKey: contentKey,
-                                context: context,
-                                saveToGallery: false)
-                            .then((bytes) {
-                          if (bytes != null) {
-                            pngUri = bytes;
-                            onDone(pngUri);
-                          } else {}
-                        });
-                      },
-                      child: onDoneButtonStyle ??
-                          Container(
-                            padding: const EdgeInsets.only(
-                                left: 12, right: 5, top: 4, bottom: 4),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                    color: Colors.white, width: 1.5)),
-                            child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Text(
-                                    'Share',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        letterSpacing: 1.5,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400),
-                                  ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 5),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
-                                      color: Colors.white,
-                                      size: 15,
-                                    ),
-                                  ),
-                                ]),
-                          )),
+                  child: StatefulBuilder(
+                    builder: (_, setState) {
+                      return AnimatedOnTapButton(
+                          onTap: () async {
+                            String pngUri;
+                            if (paintingNotifier.lines.isNotEmpty ||
+                                itemNotifier.draggableWidget.isNotEmpty) {
+                              for (var element
+                                  in itemNotifier.draggableWidget) {
+                                if (element.type == ItemType.gif ||
+                                    element.animationType !=
+                                        TextAnimationType.none) {
+                                  setState(() {
+                                    _createVideo = true;
+                                  });
+                                }
+                              }
+                              if (_createVideo) {
+                                debugPrint('creating video');
+                                await renderWidget();
+                              } else {
+                                debugPrint('creating image');
+                                await takePicture(
+                                        contentKey: contentKey,
+                                        context: context,
+                                        saveToGallery: false)
+                                    .then((bytes) {
+                                  if (bytes != null) {
+                                    pngUri = bytes;
+                                    onDone(pngUri);
+                                  } else {}
+                                });
+                              }
+                            }
+                            setState(() {
+                              _createVideo = false;
+                            });
+                          },
+                          child: onDoneButtonStyle ??
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 12, right: 5, top: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color: Colors.white, width: 1.5)),
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Text(
+                                        'Share',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            letterSpacing: 1.5,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ]),
+                              ));
+                    },
+                  ),
                 ),
               ),
             ],

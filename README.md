@@ -22,9 +22,10 @@ This is a package created in the style of the instagram story creator, with whic
 
 [✔️] Text animations => [animated_text_kit](https://pub.dev/packages/animated_text_kit)
 
+[✔️] Save draft as a gif
+
 ## Future features
 
-[❌] Save draft as a gif
 
 [❌] Color filters
 
@@ -46,6 +47,19 @@ Add `stories_editor: 0.1.8` to your `pubspec.yaml` dependencies and then import 
 ```dart
 import 'package:stories_editor/stories_editor.dart';
 ```
+## Apk release build
+
+This package uses Ffmpeg to render and create the corresponding video/gif, due to that the size of the application is almost three times larger than normal, to avoid this you must use the following command to split each file in its respective "abi".
+
+`flutter build apk --split-per-abi`
+
+This command results in three APK files:
+
+`<app dir>/build/app/outputs/apk/release/app-armeabi-v7a-release.apk`
+
+`<app dir>/build/app/outputs/apk/release/app-arm64-v8a-release.apk`
+
+`<app dir>/build/app/outputs/apk/release/app-x86_64-release.apk`
 
 ## How to use
 1)
