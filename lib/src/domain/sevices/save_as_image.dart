@@ -15,7 +15,7 @@ Future takePicture(
     RenderRepaintBoundary boundary =
         contentKey.currentContext.findRenderObject();
 
-    ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+    ui.Image image = await boundary.toImage(pixelRatio: 3);
 
     ByteData? byteData = await image.toByteData(format: ui.ImageByteFormat.png);
     Uint8List pngBytes = byteData!.buffer.asUint8List();

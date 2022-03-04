@@ -23,21 +23,21 @@ dependencies:
   #    url: https://github.com/bluefireteam/photo_view
   #    ref: 8156907eecfa812b181a5a729d790f6d399f311b
   image_gallery_saver: ^1.7.1
-  #own packages
+  # position
+  align_positioned: ^3.0.0
+  # own packages
   gallery_media_picker: ^0.0.7
   modal_gif_picker: ^0.0.1
   # painting
   perfect_freehand: ^1.0.4
-  # positioning
-  align_positioned: ^3.0.0
-  #message
-  fluttertoast: ^8.0.8
   # animations
   animated_text_kit: ^4.2.1
   # rendering
   ffmpeg_kit_flutter_min_gpl: ^4.5.1
   # permission
   permission_handler: ^8.1.4+2
+  # toast
+  fluttertoast: ^8.0.9
   
 dev_dependencies:
   flutter_test:

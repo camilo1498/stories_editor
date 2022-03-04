@@ -78,7 +78,7 @@ class WidgetRecorderController extends ChangeNotifier {
     final renderObject = _containerKey.currentContext?.findRenderObject();
     notifyListeners();
     if (renderObject is RenderRepaintBoundary) {
-      final image = await renderObject.toImage(pixelRatio: 3);
+      final image = await renderObject.toImage(pixelRatio: 2);
       return image;
     } else {
       FlutterError.reportError(_noRenderObject());

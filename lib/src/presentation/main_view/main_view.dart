@@ -361,7 +361,8 @@ class _MainViewState extends State<MainView> {
                                     context: context,
                                     renderWidget: () => startRecording(
                                         controlNotifier: controlNotifier,
-                                        renderingNotifier: renderingNotifier),
+                                        renderingNotifier: renderingNotifier,
+                                        saveOnGallery: true),
                                   )),
                             ),
 
@@ -379,6 +380,10 @@ class _MainViewState extends State<MainView> {
                                 alignment: Alignment.bottomCenter,
                                 child: BottomTools(
                                   contentKey: contentKey,
+                                  renderWidget: () => startRecording(
+                                      controlNotifier: controlNotifier,
+                                      renderingNotifier: renderingNotifier,
+                                      saveOnGallery: false),
                                   onDone: (bytes) {
                                     setState(() {
                                       widget.onDone!(bytes);
@@ -475,9 +480,11 @@ class _MainViewState extends State<MainView> {
     );
   }
 
+  /// recording and save mp4 widget
   void startRecording(
       {required ControlNotifier controlNotifier,
-      required RenderingNotifier renderingNotifier}) {
+      required RenderingNotifier renderingNotifier,
+      required bool saveOnGallery}) {
     Duration seg = const Duration(seconds: 1);
     _recorderController.start(
         controlNotifier: controlNotifier, renderingNotifier: renderingNotifier);
@@ -493,26 +500,35 @@ class _MainViewState extends State<MainView> {
             controlNotifier: controlNotifier,
             renderingNotifier: renderingNotifier);
         if (path['success']) {
-          setState(() {
-            renderingNotifier.renderState = RenderState.saving;
-          });
-          await ImageGallerySaver.saveFile(path['outPath'],
-                  name: "${DateTime.now()}")
-              .then((value) {
-            if (value['isSuccess']) {
-              debugPrint(value['filePath']);
-              Fluttertoast.showToast(msg: 'Recording successfully saved');
-            } else {
-              debugPrint('Gallery saver error: ${value['errorMessage']}');
-              Fluttertoast.showToast(msg: 'Gallery saver error');
-            }
-          }).whenComplete(() {
+          if (saveOnGallery) {
+            setState(() {
+              renderingNotifier.renderState = RenderState.saving;
+            });
+            await ImageGallerySaver.saveFile(path['outPath'],
+                    name: "${DateTime.now()}")
+                .then((value) {
+              if (value['isSuccess']) {
+                debugPrint(value['filePath']);
+                Fluttertoast.showToast(msg: 'Recording successfully saved');
+              } else {
+                debugPrint('Gallery saver error: ${value['errorMessage']}');
+                Fluttertoast.showToast(msg: 'Gallery saver error');
+              }
+            }).whenComplete(() {
+              setState(() {
+                controlNotifier.isRenderingWidget = false;
+                renderingNotifier.renderState = RenderState.none;
+                renderingNotifier.recordingDuration = 10;
+              });
+            });
+          } else {
             setState(() {
               controlNotifier.isRenderingWidget = false;
               renderingNotifier.renderState = RenderState.none;
               renderingNotifier.recordingDuration = 10;
+              widget.onDone!(path['outPath']);
             });
-          });
+          }
         } else {
           setState(() {
             renderingNotifier.renderState = RenderState.none;
@@ -531,6 +547,10 @@ class _MainViewState extends State<MainView> {
   Future<bool> _popScope() async {
     final controlNotifier =
         Provider.of<ControlNotifier>(context, listen: false);
+    final renderingNotifier =
+        Provider.of<RenderingNotifier>(context, listen: false);
+    final itemNotifier =
+        Provider.of<DraggableWidgetNotifier>(context, listen: false);
 
     /// change to false text editing
     if (controlNotifier.isTextEditing) {
