@@ -17,7 +17,7 @@ class RenderingNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  int _recordingDuration = 1;
+  int _recordingDuration = 10;
   int get recordingDuration => _recordingDuration;
   set recordingDuration(int time) {
     _recordingDuration = time;
