@@ -35,7 +35,7 @@ dependencies:
   # rendering
   ffmpeg_kit_flutter_min_gpl: ^4.5.1
   # permission
-  permission_handler: ^8.1.4+2
+  permission_handler: ^9.2.0
   # toast
   fluttertoast: ^8.0.9
   
