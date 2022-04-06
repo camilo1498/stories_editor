@@ -44,10 +44,9 @@ class BottomTools extends StatelessWidget {
             children: [
               /// preview gallery
               Container(
-                width: _size.width / 3,
                 height: _size.width / 3,
-                padding: const EdgeInsets.only(left: 15),
                 alignment: Alignment.centerLeft,
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: SizedBox(
                   child: _preViewContainer(
                     /// if [model.imagePath] is null/empty return preview image
@@ -95,13 +94,14 @@ class BottomTools extends StatelessWidget {
 
               /// center logo
               controlNotifier.middleBottomWidget != null
-                  ? Center(
-                      child: Container(
-                          width: _size.width / 3,
-                          height: 80,
-                          alignment: Alignment.bottomCenter,
-                          child: controlNotifier.middleBottomWidget),
-                    )
+                  ? Expanded(
+                    child: Center(
+                        child: Container(
+                            height: 80,
+                            alignment: Alignment.bottomCenter,
+                            child: controlNotifier.middleBottomWidget),
+                      ),
+                  )
                   : Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -126,9 +126,9 @@ class BottomTools extends StatelessWidget {
 
               /// save final image to gallery
               Container(
-                width: _size.width / 3,
+                height: _size.width / 3,
                 alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(right: 15),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
                 child: Transform.scale(
                   scale: 0.9,
                   child: StatefulBuilder(

@@ -73,8 +73,6 @@ class MainView extends StatefulWidget {
   final String? customSaveDraftBtn;
   final String? customCancelBtn;
 
- 
-
   /// editor custom color palette list
   List<Color>? colorList;
   MainView(
@@ -95,8 +93,7 @@ class MainView extends StatefulWidget {
       this.customDiscardBtn,
       this.customExitMessage,
       this.customExitTitle,
-      this.customSaveDraftBtn
-      })
+      this.customSaveDraftBtn})
       : super(key: key);
 
   @override
@@ -156,7 +153,10 @@ class _MainViewState extends State<MainView> {
   @override
   Widget build(BuildContext context) {
     String _introText = "Tap to type";
-    _introText = widget.introText!;
+
+    if (widget.introText != null) {
+      _introText = widget.introText!;
+    }
 
     return WillPopScope(
       onWillPop: _popScope,
@@ -493,7 +493,11 @@ class _MainViewState extends State<MainView> {
 
     /// show close dialog
     else if (!controlNotifier.isTextEditing && !controlNotifier.isPainting) {
-      return widget.onBackPress ?? exitDialog(context: context, contentKey: contentKey, );
+      return widget.onBackPress ??
+          exitDialog(
+            context: context,
+            contentKey: contentKey,
+          );
     }
     return false;
   }
