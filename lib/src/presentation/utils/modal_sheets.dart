@@ -13,10 +13,8 @@ import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 
 /// create item of type GIF
-Future createGiphyItem(
-    {required BuildContext context, required giphyKey}) async {
-  final _editableItem =
-      Provider.of<DraggableWidgetNotifier>(context, listen: false);
+Future createGiphyItem({required BuildContext context, required giphyKey}) async {
+  final _editableItem = Provider.of<DraggableWidgetNotifier>(context, listen: false);
   _editableItem.giphy = await ModalGifPicker.pickModalSheetGif(
     context: context,
     apiKey: giphyKey,
@@ -38,7 +36,15 @@ Future createGiphyItem(
 }
 
 /// custom exit dialog
-Future<bool> exitDialog({required context, required contentKey}) async {
+Future<bool> exitDialog({
+  required context,
+  required contentKey,
+  String customExitTitle = 'Discard Edits?',
+  String customExitMessage = "If you go back now, you'll lose all the edits you've made.",
+  String customDiscardBtn = "Discard",
+  String customSaveDraftBtn= 'Save Draft',
+  String customCancelBtn = 'Cancel',
+}) async {
   return (await showDialog(
         context: context,
         barrierColor: Colors.black38,
@@ -51,8 +57,7 @@ Future<bool> exitDialog({required context, required contentKey}) async {
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Container(
-              padding: const EdgeInsets.only(
-                  top: 25, bottom: 5, right: 20, left: 20),
+              padding: const EdgeInsets.only(top: 25, bottom: 5, right: 20, left: 20),
               alignment: Alignment.center,
               height: 280,
               decoration: BoxDecoration(
@@ -60,32 +65,21 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                   color: HexColor.fromHex('#262626'),
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
-                    BoxShadow(
-                        color: Colors.white10,
-                        offset: Offset(0, 1),
-                        blurRadius: 4),
+                    BoxShadow(color: Colors.white10, offset: Offset(0, 1), blurRadius: 4),
                   ]),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  const Text(
-                    'Discard Edits?',
-                    style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                        letterSpacing: 0.5),
+                   Text(
+                   customExitTitle,
+                     style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: 0.5),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "If you go back now, you'll lose all the edits you've made.",
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white54,
-                        letterSpacing: 0.1),
+                   Text(
+                   customExitMessage,
+                    style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white54, letterSpacing: 0.1),
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(
@@ -99,12 +93,8 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                       Navigator.of(context).pop(true);
                     },
                     child: Text(
-                      'Discard',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.redAccent.shade200,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.1),
+                     customDiscardBtn,
+                      style: TextStyle(fontSize: 16, color: Colors.redAccent.shade200, fontWeight: FontWeight.bold, letterSpacing: 0.1),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -118,21 +108,13 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                   /// save and exit
                   AnimatedOnTapButton(
                     onTap: () async {
-                      final _paintingProvider =
-                          Provider.of<PaintingNotifier>(context, listen: false);
-                      final _widgetProvider =
-                          Provider.of<DraggableWidgetNotifier>(context,
-                              listen: false);
-                      if (_paintingProvider.lines.isNotEmpty ||
-                          _widgetProvider.draggableWidget.isNotEmpty) {
+                      final _paintingProvider = Provider.of<PaintingNotifier>(context, listen: false);
+                      final _widgetProvider = Provider.of<DraggableWidgetNotifier>(context, listen: false);
+                      if (_paintingProvider.lines.isNotEmpty || _widgetProvider.draggableWidget.isNotEmpty) {
                         /// save image
-                        var response = await takePicture(
-                            contentKey: contentKey,
-                            context: context,
-                            saveToGallery: true);
+                        var response = await takePicture(contentKey: contentKey, context: context, saveToGallery: true);
                         if (response) {
-                          _dispose(
-                              context: context, message: 'Successfully saved');
+                          _dispose(context: context, message: 'Successfully saved');
                         } else {
                           _dispose(context: context, message: 'Error');
                         }
@@ -140,13 +122,9 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                         _dispose(context: context, message: 'Draft Empty');
                       }
                     },
-                    child: const Text(
-                      'Save Draft',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5),
+                    child:  Text(
+                      customSaveDraftBtn,
+                      style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -162,13 +140,9 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                     onTap: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5),
+                    child:  Text(
+                      customCancelBtn,
+                      style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                       textAlign: TextAlign.center,
                     ),
                   ),
@@ -182,13 +156,10 @@ Future<bool> exitDialog({required context, required contentKey}) async {
 }
 
 _resetDefaults({required BuildContext context}) {
-  final _paintingProvider =
-      Provider.of<PaintingNotifier>(context, listen: false);
-  final _widgetProvider =
-      Provider.of<DraggableWidgetNotifier>(context, listen: false);
+  final _paintingProvider = Provider.of<PaintingNotifier>(context, listen: false);
+  final _widgetProvider = Provider.of<DraggableWidgetNotifier>(context, listen: false);
   final _controlProvider = Provider.of<ControlNotifier>(context, listen: false);
-  final _editingProvider =
-      Provider.of<TextEditingNotifier>(context, listen: false);
+  final _editingProvider = Provider.of<TextEditingNotifier>(context, listen: false);
   _paintingProvider.lines.clear();
   _widgetProvider.draggableWidget.clear();
   _widgetProvider.setDefaults();
