@@ -35,6 +35,19 @@ Future createGiphyItem({required BuildContext context, required giphyKey}) async
   }
 }
 
+bool isSomeModification(
+  BuildContext context,
+) {
+  final _paintingProvider = Provider.of<PaintingNotifier>(context, listen: false);
+  final _widgetProvider = Provider.of<DraggableWidgetNotifier>(context, listen: false);
+ 
+  if (!_paintingProvider.lines.isNotEmpty && !_widgetProvider.draggableWidget.isNotEmpty) {
+    return false;
+  } else {
+    return true;
+  }
+}
+
 /// custom exit dialog
 Future<bool> exitDialog({
   required context,
@@ -42,9 +55,10 @@ Future<bool> exitDialog({
   String customExitTitle = 'Discard Edits?',
   String customExitMessage = "If you go back now, you'll lose all the edits you've made.",
   String customDiscardBtn = "Discard",
-  String customSaveDraftBtn= 'Save Draft',
+  String customSaveDraftBtn = 'Save Draft',
   String customCancelBtn = 'Cancel',
 }) async {
+
   return (await showDialog(
         context: context,
         barrierColor: Colors.black38,
@@ -70,15 +84,15 @@ Future<bool> exitDialog({
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                   Text(
-                   customExitTitle,
-                     style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: 0.5),
+                  Text(
+                    customExitTitle,
+                    style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white, letterSpacing: 0.5),
                   ),
                   const SizedBox(
                     height: 20,
                   ),
-                   Text(
-                   customExitMessage,
+                  Text(
+                    customExitMessage,
                     style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w400, color: Colors.white54, letterSpacing: 0.1),
                     textAlign: TextAlign.center,
                   ),
@@ -93,7 +107,7 @@ Future<bool> exitDialog({
                       Navigator.of(context).pop(true);
                     },
                     child: Text(
-                     customDiscardBtn,
+                      customDiscardBtn,
                       style: TextStyle(fontSize: 16, color: Colors.redAccent.shade200, fontWeight: FontWeight.bold, letterSpacing: 0.1),
                       textAlign: TextAlign.center,
                     ),
@@ -122,7 +136,7 @@ Future<bool> exitDialog({
                         _dispose(context: context, message: 'Draft Empty');
                       }
                     },
-                    child:  Text(
+                    child: Text(
                       customSaveDraftBtn,
                       style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                       textAlign: TextAlign.center,
@@ -140,7 +154,7 @@ Future<bool> exitDialog({
                     onTap: () {
                       Navigator.of(context).pop(false);
                     },
-                    child:  Text(
+                    child: Text(
                       customCancelBtn,
                       style: const TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 0.5),
                       textAlign: TextAlign.center,

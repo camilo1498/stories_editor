@@ -15,12 +15,7 @@ class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
   final Function renderWidget;
-  const TopTools(
-      {Key? key,
-      required this.contentKey,
-      required this.context,
-      required this.renderWidget})
-      : super(key: key);
+  const TopTools({Key? key, required this.contentKey, required this.context, required this.renderWidget}) : super(key: key);
 
   @override
   _TopToolsState createState() => _TopToolsState();
@@ -30,8 +25,7 @@ class _TopToolsState extends State<TopTools> {
   bool _createVideo = false;
   @override
   Widget build(BuildContext context) {
-    return Consumer3<ControlNotifier, PaintingNotifier,
-        DraggableWidgetNotifier>(
+    return Consumer3<ControlNotifier, PaintingNotifier, DraggableWidgetNotifier>(
       builder: (_, controlNotifier, paintingNotifier, itemNotifier, __) {
         return SafeArea(
           child: Container(
@@ -49,10 +43,10 @@ class _TopToolsState extends State<TopTools> {
                     ),
                     backGroundColor: Colors.black12,
                     onTap: () async {
-                      var res = await exitDialog(
-                          context: widget.context,
-                          contentKey: widget.contentKey);
-                      if (res) {
+                      bool isModification = isSomeModification(context);
+                      if (isModification) {
+                        await exitDialog(context: widget.context, contentKey: widget.contentKey);
+                      } else {
                         Navigator.pop(context);
                       }
                     }),
@@ -60,8 +54,7 @@ class _TopToolsState extends State<TopTools> {
                   _selectColor(
                       controlProvider: controlNotifier,
                       onTap: () {
-                        if (controlNotifier.gradientIndex >=
-                            controlNotifier.gradientColors!.length - 1) {
+                        if (controlNotifier.gradientIndex >= controlNotifier.gradientColors!.length - 1) {
                           setState(() {
                             controlNotifier.gradientIndex = 0;
                           });
@@ -73,18 +66,15 @@ class _TopToolsState extends State<TopTools> {
                       }),
                 ToolButton(
                     child: const ImageIcon(
-                      AssetImage('assets/icons/download.png',
-                          package: 'stories_editor'),
+                      AssetImage('assets/icons/download.png', package: 'stories_editor'),
                       color: Colors.white,
                       size: 20,
                     ),
                     backGroundColor: Colors.black12,
                     onTap: () async {
-                      if (paintingNotifier.lines.isNotEmpty ||
-                          itemNotifier.draggableWidget.isNotEmpty) {
+                      if (paintingNotifier.lines.isNotEmpty || itemNotifier.draggableWidget.isNotEmpty) {
                         for (var element in itemNotifier.draggableWidget) {
-                          if (element.type == ItemType.gif ||
-                              element.animationType != TextAnimationType.none) {
+                          if (element.type == ItemType.gif || element.animationType != TextAnimationType.none) {
                             setState(() {
                               _createVideo = true;
                             });
@@ -95,10 +85,7 @@ class _TopToolsState extends State<TopTools> {
                           await widget.renderWidget();
                         } else {
                           debugPrint('creating image');
-                          var response = await takePicture(
-                              contentKey: widget.contentKey,
-                              context: context,
-                              saveToGallery: true);
+                          var response = await takePicture(contentKey: widget.contentKey, context: context, saveToGallery: true);
                           if (response) {
                             Fluttertoast.showToast(msg: 'Successfully saved');
                           } else {
@@ -112,18 +99,15 @@ class _TopToolsState extends State<TopTools> {
                     }),
                 ToolButton(
                     child: const ImageIcon(
-                      AssetImage('assets/icons/stickers.png',
-                          package: 'stories_editor'),
+                      AssetImage('assets/icons/stickers.png', package: 'stories_editor'),
                       color: Colors.white,
                       size: 20,
                     ),
                     backGroundColor: Colors.black12,
-                    onTap: () => createGiphyItem(
-                        context: context, giphyKey: controlNotifier.giphyKey)),
+                    onTap: () => createGiphyItem(context: context, giphyKey: controlNotifier.giphyKey)),
                 ToolButton(
                     child: const ImageIcon(
-                      AssetImage('assets/icons/draw.png',
-                          package: 'stories_editor'),
+                      AssetImage('assets/icons/draw.png', package: 'stories_editor'),
                       color: Colors.white,
                       size: 20,
                     ),
@@ -145,14 +129,12 @@ class _TopToolsState extends State<TopTools> {
                 // ),
                 ToolButton(
                   child: const ImageIcon(
-                    AssetImage('assets/icons/text.png',
-                        package: 'stories_editor'),
+                    AssetImage('assets/icons/text.png', package: 'stories_editor'),
                     color: Colors.white,
                     size: 20,
                   ),
                   backGroundColor: Colors.black12,
-                  onTap: () => controlNotifier.isTextEditing =
-                      !controlNotifier.isTextEditing,
+                  onTap: () => controlNotifier.isTextEditing = !controlNotifier.isTextEditing,
                 ),
               ],
             ),
@@ -179,10 +161,7 @@ class _TopToolsState extends State<TopTools> {
             height: 30,
             decoration: BoxDecoration(
               gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: controlProvider
-                      .gradientColors![controlProvider.gradientIndex]),
+                  begin: Alignment.topLeft, end: Alignment.bottomRight, colors: controlProvider.gradientColors![controlProvider.gradientIndex]),
               shape: BoxShape.circle,
             ),
           ),
