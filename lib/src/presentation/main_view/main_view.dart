@@ -300,6 +300,7 @@ class _MainViewState extends State<MainView> {
                                 child: Align(
                                   alignment: const Alignment(0, -0.1),
                                   child: Text(_introText,
+                                  textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontFamily: 'Alegreya',
                                           package: 'stories_editor',
