@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:flutter/material.dart';
 import 'package:gallery_media_picker/gallery_media_picker.dart';
 import 'package:provider/provider.dart';
@@ -19,22 +21,15 @@ class BottomTools extends StatelessWidget {
   /// editor background color
   final Color? editorBackgroundColor;
   const BottomTools(
-      {Key? key,
-      required this.contentKey,
-      required this.onDone,
-      required this.renderWidget,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor})
+      {Key? key, required this.contentKey, required this.onDone, required this.renderWidget, this.onDoneButtonStyle, this.editorBackgroundColor})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     var _size = MediaQuery.of(context).size;
     bool _createVideo = false;
-    return Consumer4<ControlNotifier, ScrollNotifier, DraggableWidgetNotifier,
-        PaintingNotifier>(
-      builder: (_, controlNotifier, scrollNotifier, itemNotifier,
-          paintingNotifier, __) {
+    return Consumer4<ControlNotifier, ScrollNotifier, DraggableWidgetNotifier, PaintingNotifier>(
+      builder: (_, controlNotifier, scrollNotifier, itemNotifier, paintingNotifier, __) {
         return Container(
           height: 95,
           decoration: const BoxDecoration(color: Colors.transparent),
@@ -57,10 +52,7 @@ class BottomTools extends StatelessWidget {
                               onTap: () {
                                 /// scroll to gridView page
                                 if (controlNotifier.mediaPath.isEmpty) {
-                                  scrollNotifier.pageController.animateToPage(1,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.ease);
+                                  scrollNotifier.pageController.animateToPage(1, duration: const Duration(milliseconds: 300), curve: Curves.ease);
                                 }
                               },
                               child: const CoverThumbnail(
@@ -95,13 +87,10 @@ class BottomTools extends StatelessWidget {
               /// center logo
               controlNotifier.middleBottomWidget != null
                   ? Expanded(
-                    child: Center(
-                        child: Container(
-                            height: 80,
-                            alignment: Alignment.bottomCenter,
-                            child: controlNotifier.middleBottomWidget),
+                      child: Center(
+                        child: Container(height: 80, alignment: Alignment.bottomCenter, child: controlNotifier.middleBottomWidget),
                       ),
-                  )
+                    )
                   : Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -114,11 +103,7 @@ class BottomTools extends StatelessWidget {
                           ),
                           const Text(
                             'Stories Creator',
-                            style: TextStyle(
-                                color: Colors.white38,
-                                letterSpacing: 1.5,
-                                fontSize: 9.2,
-                                fontWeight: FontWeight.bold),
+                            style: TextStyle(color: Colors.white38, letterSpacing: 1.5, fontSize: 9.2, fontWeight: FontWeight.bold),
                           ),
                         ],
                       ),
@@ -133,71 +118,63 @@ class BottomTools extends StatelessWidget {
                   scale: 0.9,
                   child: StatefulBuilder(
                     builder: (_, setState) {
-                      return AnimatedOnTapButton(
-                          onTap: () async {
-                            String pngUri;
-                            if (paintingNotifier.lines.isNotEmpty ||
-                                itemNotifier.draggableWidget.isNotEmpty) {
-                              for (var element
-                                  in itemNotifier.draggableWidget) {
-                                if (element.type == ItemType.gif ||
-                                    element.animationType !=
-                                        TextAnimationType.none) {
-                                  setState(() {
-                                    _createVideo = true;
-                                  });
-                                }
-                              }
-                              if (_createVideo) {
+                      onTapDone() async {
+                        String pngUri;
+                        if (paintingNotifier.lines.isNotEmpty || itemNotifier.draggableWidget.isNotEmpty) {
+                          for (var element in itemNotifier.draggableWidget) {
+                            if (element.type == ItemType.gif || element.animationType != TextAnimationType.none) {
+                              setState(() {
+                                _createVideo = true;
+                              });
+                            }
+                          }
+                          /*if (_createVideo) {
                                 debugPrint('creating video');
                                 await renderWidget();
-                              } else {
-                                debugPrint('creating image');
-                                await takePicture(
-                                        contentKey: contentKey,
-                                        context: context,
-                                        saveToGallery: false)
-                                    .then((bytes) {
-                                  if (bytes != null) {
-                                    pngUri = bytes;
-                                    onDone(pngUri);
-                                  } else {}
-                                });
-                              }
-                            }
-                            setState(() {
-                              _createVideo = false;
-                            });
+                              } else {*/
+                          debugPrint('creating image');
+                          await takePicture(contentKey: contentKey, context: context, saveToGallery: false).then((bytes) {
+                            if (bytes != null) {
+                              pngUri = bytes;
+                              onDone(pngUri);
+                            } else {}
+                          });
+                          //}
+                        }
+                        setState(() {
+                          _createVideo = false;
+                        });
+                      }
+
+                      return AnimatedOnTapButton(
+                          onTap: () async {
+                            onTapDone();
                           },
-                          child: onDoneButtonStyle ??
-                              Container(
-                                padding: const EdgeInsets.only(
-                                    left: 12, right: 5, top: 4, bottom: 4),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    border: Border.all(
-                                        color: Colors.white, width: 1.5)),
-                                child: Row(
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: const [
-                                      Text(
-                                        'Share',
-                                        style: TextStyle(
-                                            color: Colors.white,
-                                            letterSpacing: 1.5,
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400),
+                          child: InkWell(
+                            onTap: () {
+                              onTapDone();
+                            },
+                            child: onDoneButtonStyle ??
+                                Container(
+                                  padding: const EdgeInsets.only(left: 12, right: 5, top: 4, bottom: 4),
+                                  decoration:
+                                      BoxDecoration(borderRadius: BorderRadius.circular(15), border: Border.all(color: Colors.white, width: 1.5)),
+                                  child: Row(mainAxisSize: MainAxisSize.min, children: const [
+                                    Text(
+                                      'Share',
+                                      style: TextStyle(color: Colors.white, letterSpacing: 1.5, fontSize: 16, fontWeight: FontWeight.w400),
+                                    ),
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 5),
+                                      child: Icon(
+                                        Icons.arrow_forward_ios,
+                                        color: Colors.white,
+                                        size: 15,
                                       ),
-                                      Padding(
-                                        padding: EdgeInsets.only(left: 5),
-                                        child: Icon(
-                                          Icons.arrow_forward_ios,
-                                          color: Colors.white,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    ]),
-                              ));
+                                    ),
+                                  ]),
+                                ),
+                          ));
                     },
                   ),
                 ),
@@ -213,9 +190,7 @@ class BottomTools extends StatelessWidget {
     return Container(
       height: 45,
       width: 45,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
-          border: Border.all(width: 1.4, color: Colors.white)),
+      decoration: BoxDecoration(borderRadius: BorderRadius.circular(10), border: Border.all(width: 1.4, color: Colors.white)),
       child: child,
     );
   }
