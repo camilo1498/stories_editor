@@ -26,7 +26,10 @@ dependencies:
   # position
   align_positioned: ^3.0.0
   # own packages
-  gallery_media_picker: ^0.0.7
+  gallery_media_picker:
+    git:
+      url: https://github.com/phuongtinhbien/gallery_media_picker.git
+      ref: 564efea0925449616f4d4016b9f7479018066734
   modal_gif_picker: ^0.0.1
   # painting
   perfect_freehand: ^1.0.4
@@ -38,15 +41,13 @@ dependencies:
   permission_handler: ^9.2.0
   # toast
   fluttertoast: ^8.0.9
-  
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
 
-
 flutter:
-
   assets:
     - packages/stories_editor/assets/icons/align_center.png
     - packages/stories_editor/assets/icons/align_left.png
@@ -73,7 +74,6 @@ flutter:
     - packages/stories_editor/assets/images/instagram_logo.png
 
   fonts:
-
     - family: Alegreya
       fonts:
         - asset: packages/stories_editor/assets/fonts/Alegreya-VariableFont_wght.ttf

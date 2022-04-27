@@ -374,8 +374,9 @@ class _MainViewState extends State<MainView> {
                           appBarColor: widget.editorBackgroundColor ?? Colors.black,
                           gridViewPhysics:
                               itemProvider.draggableWidget.isEmpty ? const NeverScrollableScrollPhysics() : const ScrollPhysics(),
-                          pathList: (path) {
-                            controlNotifier.mediaPath = path[0]['path'];
+                          pathList: (path) async {
+                            final file = await path[0].file;
+                            if (file != null) controlNotifier.mediaPath = file.path;
                             if (controlNotifier.mediaPath.isNotEmpty) {
                               itemProvider.draggableWidget.insert(
                                   0,
