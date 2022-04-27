@@ -28,9 +28,8 @@ class _TextEditorState extends State<TextEditor> {
   String lastSequenceList = '';
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
-      final _editorNotifier =
-          Provider.of<TextEditingNotifier>(widget.context, listen: false);
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      final _editorNotifier = Provider.of<TextEditingNotifier>(widget.context, listen: false);
       _editorNotifier
         ..textController.text = _editorNotifier.text
         ..fontFamilyController = PageController(viewportFraction: .125);
@@ -51,8 +50,7 @@ class _TextEditorState extends State<TextEditor> {
                 /// onTap => Close view and create/modify item object
                 onTap: () => _onTap(context, controlNotifier, editorNotifier),
                 child: Container(
-                    decoration:
-                        BoxDecoration(color: Colors.black.withOpacity(0.5)),
+                    decoration: BoxDecoration(color: Colors.black.withOpacity(0.5)),
                     height: _size.height,
                     width: _size.width,
                     child: Stack(
@@ -74,15 +72,13 @@ class _TextEditorState extends State<TextEditor> {
                           child: Align(
                               alignment: Alignment.topCenter,
                               child: TopTextTools(
-                                onDone: () => _onTap(
-                                    context, controlNotifier, editorNotifier),
+                                onDone: () => _onTap(context, controlNotifier, editorNotifier),
                               )),
                         ),
 
                         /// font family selector (bottom)
                         Visibility(
-                          visible: editorNotifier.isFontFamily &&
-                              !editorNotifier.isTextAnimation,
+                          visible: editorNotifier.isFontFamily && !editorNotifier.isTextAnimation,
                           child: const Align(
                             alignment: Alignment.bottomCenter,
                             child: Padding(
@@ -94,8 +90,7 @@ class _TextEditorState extends State<TextEditor> {
 
                         /// font color selector (bottom)
                         Visibility(
-                            visible: !editorNotifier.isFontFamily &&
-                                !editorNotifier.isTextAnimation,
+                            visible: !editorNotifier.isFontFamily && !editorNotifier.isTextAnimation,
                             child: const Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
@@ -122,10 +117,8 @@ class _TextEditorState extends State<TextEditor> {
         ));
   }
 
-  void _onTap(context, ControlNotifier controlNotifier,
-      TextEditingNotifier editorNotifier) {
-    final _editableItemNotifier =
-        Provider.of<DraggableWidgetNotifier>(context, listen: false);
+  void _onTap(context, ControlNotifier controlNotifier, TextEditingNotifier editorNotifier) {
+    final _editableItemNotifier = Provider.of<DraggableWidgetNotifier>(context, listen: false);
 
     /// create text list
     if (editorNotifier.text.trim().isNotEmpty) {
@@ -152,8 +145,7 @@ class _TextEditorState extends State<TextEditor> {
         ..fontAnimationIndex = editorNotifier.fontAnimationIndex
         ..textAlign = editorNotifier.textAlign
         ..textList = editorNotifier.textList
-        ..animationType =
-            editorNotifier.animationList[editorNotifier.fontAnimationIndex]
+        ..animationType = editorNotifier.animationList[editorNotifier.fontAnimationIndex]
         ..position = const Offset(0.0, 0.0));
       editorNotifier.setDefaults();
       controlNotifier.isTextEditing = !controlNotifier.isTextEditing;

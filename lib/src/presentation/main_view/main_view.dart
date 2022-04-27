@@ -118,14 +118,14 @@ class _MainViewState extends State<MainView> {
   bool _inAction = false;
 
   /// screen size
-  final _screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+  final _screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
   /// recorder controller
   final WidgetRecorderController _recorderController = WidgetRecorderController();
 
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       var _control = Provider.of<ControlNotifier>(context, listen: false);
 
       /// initialize control variable provider
@@ -300,7 +300,7 @@ class _MainViewState extends State<MainView> {
                                 child: Align(
                                   alignment: const Alignment(0, -0.1),
                                   child: Text(_introText,
-                                  textAlign: TextAlign.center,
+                                      textAlign: TextAlign.center,
                                       style: TextStyle(
                                           fontFamily: 'Alegreya',
                                           package: 'stories_editor',
@@ -321,8 +321,8 @@ class _MainViewState extends State<MainView> {
                                   child: TopTools(
                                     contentKey: contentKey,
                                     context: context,
-                                    renderWidget: () =>
-                                        startRecording(controlNotifier: controlNotifier, renderingNotifier: renderingNotifier, saveOnGallery: true),
+                                    renderWidget: () => startRecording(
+                                        controlNotifier: controlNotifier, renderingNotifier: renderingNotifier, saveOnGallery: true),
                                   )),
                             ),
 
@@ -339,8 +339,8 @@ class _MainViewState extends State<MainView> {
                                 alignment: Alignment.bottomCenter,
                                 child: BottomTools(
                                   contentKey: contentKey,
-                                  renderWidget: () =>
-                                      startRecording(controlNotifier: controlNotifier, renderingNotifier: renderingNotifier, saveOnGallery: false),
+                                  renderWidget: () => startRecording(
+                                      controlNotifier: controlNotifier, renderingNotifier: renderingNotifier, saveOnGallery: false),
                                   onDone: (bytes) {
                                     setState(() {
                                       widget.onDone!(bytes);
@@ -372,7 +372,8 @@ class _MainViewState extends State<MainView> {
                           singlePick: true,
                           onlyImages: true,
                           appBarColor: widget.editorBackgroundColor ?? Colors.black,
-                          gridViewPhysics: itemProvider.draggableWidget.isEmpty ? const NeverScrollableScrollPhysics() : const ScrollPhysics(),
+                          gridViewPhysics:
+                              itemProvider.draggableWidget.isEmpty ? const NeverScrollableScrollPhysics() : const ScrollPhysics(),
                           pathList: (path) {
                             controlNotifier.mediaPath = path[0]['path'];
                             if (controlNotifier.mediaPath.isNotEmpty) {
@@ -382,7 +383,8 @@ class _MainViewState extends State<MainView> {
                                     ..type = ItemType.image
                                     ..position = const Offset(0.0, 0));
                             }
-                            scrollProvider.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                            scrollProvider.pageController
+                                .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                           },
                           appBarLeadingWidget: Padding(
                             padding: const EdgeInsets.only(bottom: 15, right: 15),
@@ -390,7 +392,8 @@ class _MainViewState extends State<MainView> {
                               alignment: Alignment.bottomRight,
                               child: AnimatedOnTapButton(
                                 onTap: () {
-                                  scrollProvider.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                                  scrollProvider.pageController
+                                      .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                                 },
                                 child: Container(
                                   padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -424,7 +427,8 @@ class _MainViewState extends State<MainView> {
   }
 
   /// recording and save mp4 widget
-  void startRecording({required ControlNotifier controlNotifier, required RenderingNotifier renderingNotifier, required bool saveOnGallery}) {
+  void startRecording(
+      {required ControlNotifier controlNotifier, required RenderingNotifier renderingNotifier, required bool saveOnGallery}) {
     Duration seg = const Duration(seconds: 1);
     _recorderController.start(controlNotifier: controlNotifier, renderingNotifier: renderingNotifier);
     Timer.periodic(seg, (timer) async {

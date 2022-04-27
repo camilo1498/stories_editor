@@ -20,15 +20,13 @@ class WidgetRecorderController extends ChangeNotifier {
   final GlobalKey _containerKey;
 
   /// frame callback
-  final SchedulerBinding _binding = SchedulerBinding.instance!;
+  final SchedulerBinding _binding = SchedulerBinding.instance;
 
   /// save frames
   final List<ui.Image> _frames = [];
 
   /// start render
-  void start(
-      {required ControlNotifier controlNotifier,
-      required RenderingNotifier renderingNotifier}) {
+  void start({required ControlNotifier controlNotifier, required RenderingNotifier renderingNotifier}) {
     controlNotifier.isRenderingWidget = true;
     renderingNotifier.renderState = RenderState.preparing;
     _binding.addPostFrameCallback(
@@ -40,17 +38,14 @@ class WidgetRecorderController extends ChangeNotifier {
   }
 
   /// stop render
-  void stop(
-      {required ControlNotifier controlNotifier,
-      required RenderingNotifier renderingNotifier}) {
+  void stop({required ControlNotifier controlNotifier, required RenderingNotifier renderingNotifier}) {
     renderingNotifier.renderState = RenderState.preparing;
     controlNotifier.isRenderingWidget = false;
     notifyListeners();
   }
 
   /// add frame to list
-  void _postFrameCallback(Duration timestamp, ControlNotifier controlNotifier,
-      RenderingNotifier renderingNotifier) async {
+  void _postFrameCallback(Duration timestamp, ControlNotifier controlNotifier, RenderingNotifier renderingNotifier) async {
     if (controlNotifier.isRenderingWidget == false) {
       return;
     } else {
@@ -101,9 +96,7 @@ class WidgetRecorderController extends ChangeNotifier {
   }
 
   /// export widget
-  Future<Map<String, dynamic>> export(
-      {required ControlNotifier controlNotifier,
-      required RenderingNotifier renderingNotifier}) async {
+  Future<Map<String, dynamic>> export({required ControlNotifier controlNotifier, required RenderingNotifier renderingNotifier}) async {
     /// paths
     String dir;
     String imagePath;
@@ -143,8 +136,7 @@ class WidgetRecorderController extends ChangeNotifier {
     notifyListeners();
 
     /// render frames.png to video/gif
-    var response = await FfmpegProvider()
-        .mergeIntoVideo(renderType: renderingNotifier.renderType);
+    var response = await FfmpegProvider().mergeIntoVideo(renderType: renderingNotifier.renderType);
 
     /// return
     return response;

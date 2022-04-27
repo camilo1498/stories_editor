@@ -22,15 +22,12 @@ class TopTextTools extends StatelessWidget {
                   /// font family / font color
                   ToolButton(
                     onTap: () {
-                      editorNotifier.isFontFamily =
-                          !editorNotifier.isFontFamily;
+                      editorNotifier.isFontFamily = !editorNotifier.isFontFamily;
                       editorNotifier.isTextAnimation = false;
-                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (editorNotifier.fontFamilyController.hasClients) {
-                          editorNotifier.fontFamilyController.animateToPage(
-                              editorNotifier.fontFamilyIndex,
-                              duration: const Duration(milliseconds: 300),
-                              curve: Curves.easeIn);
+                          editorNotifier.fontFamilyController.animateToPage(editorNotifier.fontFamilyIndex,
+                              duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                         }
                       });
                     },
@@ -38,8 +35,7 @@ class TopTextTools extends StatelessWidget {
                         scale: !editorNotifier.isFontFamily ? 0.8 : 1.3,
                         child: !editorNotifier.isFontFamily
                             ? const ImageIcon(
-                                AssetImage('assets/icons/text.png',
-                                    package: 'stories_editor'),
+                                AssetImage('assets/icons/text.png', package: 'stories_editor'),
                                 size: 20,
                                 color: Colors.white,
                               )
@@ -73,8 +69,7 @@ class TopTextTools extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.only(left: 5, bottom: 3),
                             child: ImageIcon(
-                              AssetImage('assets/icons/font_backGround.png',
-                                  package: 'stories_editor'),
+                              AssetImage('assets/icons/font_backGround.png', package: 'stories_editor'),
                               color: Colors.white,
                             ),
                           ),
@@ -82,28 +77,21 @@ class TopTextTools extends StatelessWidget {
                   ),
                   ToolButton(
                     onTap: () {
-                      editorNotifier.isTextAnimation =
-                          !editorNotifier.isTextAnimation;
+                      editorNotifier.isTextAnimation = !editorNotifier.isTextAnimation;
 
                       /// animate to selected animation page
                       if (editorNotifier.isTextAnimation) {
-                        WidgetsBinding.instance!.addPostFrameCallback((_) {
-                          if (editorNotifier
-                              .textAnimationController.hasClients) {
-                            editorNotifier.textAnimationController
-                                .animateToPage(
-                                    editorNotifier.fontAnimationIndex,
-                                    duration: const Duration(milliseconds: 300),
-                                    curve: Curves.easeIn);
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
+                          if (editorNotifier.textAnimationController.hasClients) {
+                            editorNotifier.textAnimationController.animateToPage(editorNotifier.fontAnimationIndex,
+                                duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                           }
                         });
                       } else {
-                        WidgetsBinding.instance!.addPostFrameCallback((_) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
                           if (editorNotifier.fontFamilyController.hasClients) {
-                            editorNotifier.fontFamilyController.animateToPage(
-                                editorNotifier.fontFamilyIndex,
-                                duration: const Duration(milliseconds: 300),
-                                curve: Curves.easeIn);
+                            editorNotifier.fontFamilyController.animateToPage(editorNotifier.fontFamilyIndex,
+                                duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                           }
                         });
                       }
@@ -114,8 +102,7 @@ class TopTextTools extends StatelessWidget {
                           child: Padding(
                             padding: EdgeInsets.all(0),
                             child: ImageIcon(
-                              AssetImage('assets/icons/video_trim.png',
-                                  package: 'stories_editor'),
+                              AssetImage('assets/icons/video_trim.png', package: 'stories_editor'),
                               color: Colors.white,
                             ),
                           ),
@@ -132,8 +119,7 @@ class TopTextTools extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.only(right: 10, top: 10),
                     child: Container(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 6, horizontal: 12),
+                      padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 12),
                       decoration: BoxDecoration(
                           color: Colors.transparent,
                           border: Border.all(color: Colors.white, width: 1.5),
