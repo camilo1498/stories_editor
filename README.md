@@ -75,7 +75,7 @@ This command results in three APK files:
       ```
 
    ### ios
-   add this config to your `config.plist`
+   add this config to your `Info.plist`
       ```xml
       <key>NSPhotoLibraryUsageDescription</key>
       <string>Privacy - Photo Library Usage Description</string>
