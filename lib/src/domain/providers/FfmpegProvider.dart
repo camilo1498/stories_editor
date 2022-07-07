@@ -2,6 +2,7 @@
 
 import 'package:ffmpeg_kit_flutter_min_gpl/ffmpeg_kit.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:stories_editor/src/presentation/utils/constants/directory_path.dart';
 import 'package:stories_editor/src/presentation/utils/constants/render_type.dart';
@@ -15,13 +16,17 @@ class FfmpegProvider with ChangeNotifier {
     notifyListeners();
 
     if (await Permission.storage.request().isGranted) {
+      var tempDir = await getTemporaryDirectory();
+      var tempDirPath = tempDir.path;
+      var dir = '$tempDirPath/stories_editor';
+
       /// mp4 output
       String mp4Command =
-          '-r 25 -i ${FfmpegPaths.imagesPath} -vf scale=1080:1920 -pix_fmt yuv420p -y ${FfmpegPaths.videoOutputPath}';
+          '-r 25 -i $dir/%0d.png -vf scale=720:1280 -pix_fmt yuv420p -y $dir/output.mp4';
 
       /// 7mb gif output
       String gifCommand =
-          '-r 25 -i ${FfmpegPaths.imagesPath} -vf "scale=iw/2:ih/2" -y ${FfmpegPaths.gifOutputPath}';
+          '-r 25 -i $dir/%0d.png -vf "scale=iw/2:ih/2" -y $dir/output.mp4';
 
       var response = await FFmpegKit.execute(
               renderType == RenderType.gif ? gifCommand : mp4Command)
@@ -38,8 +43,8 @@ class FfmpegProvider with ChangeNotifier {
             'success': true,
             'msg': 'Widget was render successfully.',
             'outPath': renderType == RenderType.gif
-                ? FfmpegPaths.gifOutputPath
-                : FfmpegPaths.videoOutputPath
+                ? '$dir/output.gif'
+                : '$dir/output.mp4'
           };
         } else if (res.getValue() == 1) {
           return {'success': false, 'msg': 'Widget was render unsuccessfully.'};
