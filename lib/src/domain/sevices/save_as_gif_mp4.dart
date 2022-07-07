@@ -109,14 +109,17 @@ class WidgetRecorderController extends ChangeNotifier {
     String imagePath;
 
     /// get application temp directory
-    Directory appDocDirectory = await getTemporaryDirectory();
-    dir = appDocDirectory.path;
+    var tempDir = await getTemporaryDirectory();
+    var tempDirPath = tempDir.path;
+    dir = '$tempDirPath/stories_editor';
+    final res = await Directory(dir).create(recursive: true);
 
     /// delete last directory
-    appDocDirectory.deleteSync(recursive: true);
+    Directory myDir = Directory(dir);
+    myDir.deleteSync(recursive: true);
 
     /// create new directory
-    appDocDirectory.create();
+    myDir.create(recursive: true);
     renderingNotifier.renderState = RenderState.preparing;
     notifyListeners();
 
@@ -129,7 +132,7 @@ class WidgetRecorderController extends ChangeNotifier {
       Uint8List pngBytes = val!.buffer.asUint8List();
 
       /// create temp path for every frame
-      imagePath = '$dir/$i.png';
+      imagePath = '${myDir.path}/$i.png';
 
       /// create image frame in the temp directory
       File capturedFile = File(imagePath);

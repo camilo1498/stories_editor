@@ -70,6 +70,13 @@ class StoriesEditor extends StatefulWidget {
   final String? saveDraftAlertErrorText;
   final String? saveDraftAlertEmptyText;
 
+  // Saving or publish texts for i18n
+  final String? framesText;
+  final String? prepairingText;
+  final String? renderingText;
+  final String? recordingSuccessText;
+  final String? recordingErrorText;
+
   const StoriesEditor({
     Key? key,
     required this.giphyKey,
@@ -94,6 +101,11 @@ class StoriesEditor extends StatefulWidget {
     this.saveDraftAlertSavedText,
     this.saveDraftAlertErrorText,
     this.saveDraftAlertEmptyText,
+    this.framesText,
+    this.prepairingText,
+    this.renderingText,
+    this.recordingSuccessText,
+    this.recordingErrorText,
   }) : super(key: key);
 
   @override
@@ -156,6 +168,11 @@ class _StoriesEditorState extends State<StoriesEditor> {
         saveDraftAlertSavedText: widget.saveDraftAlertSavedText,
         saveDraftAlertErrorText: widget.saveDraftAlertErrorText,
         saveDraftAlertEmptyText: widget.saveDraftAlertEmptyText,
+        framesText: widget.framesText,
+        prepairingText: widget.prepairingText,
+        renderingText: widget.renderingText,
+        recordingSuccessText: widget.recordingSuccessText,
+        recordingErrorText: widget.recordingErrorText,
       ),
     );
   }

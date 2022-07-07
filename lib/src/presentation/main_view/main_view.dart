@@ -90,6 +90,13 @@ class MainView extends StatefulWidget {
   final String? saveDraftAlertErrorText;
   final String? saveDraftAlertEmptyText;
 
+  // Saving or publish texts
+  final String? framesText;
+  final String? prepairingText;
+  final String? renderingText;
+  final String? recordingSuccessText;
+  final String? recordingErrorText;
+
   MainView({
     Key? key,
     required this.giphyKey,
@@ -114,6 +121,11 @@ class MainView extends StatefulWidget {
     this.saveDraftAlertSavedText,
     this.saveDraftAlertErrorText,
     this.saveDraftAlertEmptyText,
+    this.framesText,
+    this.prepairingText,
+    this.renderingText,
+    this.recordingSuccessText,
+    this.recordingErrorText,
   }) : super(key: key);
 
   @override
@@ -521,7 +533,11 @@ class _MainViewState extends State<MainView> {
                           ),
                         ),
                       ),
-                      const RenderingIndicator()
+                      RenderingIndicator(
+                        framesText: widget.framesText,
+                        prepairingText: widget.prepairingText,
+                        renderingText: widget.renderingText,
+                      )
                     ],
                   ),
                 );
@@ -562,10 +578,13 @@ class _MainViewState extends State<MainView> {
                 .then((value) {
               if (value['isSuccess']) {
                 debugPrint(value['filePath']);
-                Fluttertoast.showToast(msg: 'Recording successfully saved');
+                Fluttertoast.showToast(
+                    msg: widget.recordingSuccessText ??
+                        'Recording successfully saved');
               } else {
                 debugPrint('Gallery saver error: ${value['errorMessage']}');
-                Fluttertoast.showToast(msg: 'Gallery saver error');
+                Fluttertoast.showToast(
+                    msg: widget.recordingErrorText ?? 'Gallery saver error');
               }
             }).whenComplete(() {
               setState(() {

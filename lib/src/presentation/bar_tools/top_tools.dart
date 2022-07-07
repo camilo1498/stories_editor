@@ -131,9 +131,12 @@ class _TopToolsState extends State<TopTools> {
                               context: context,
                               saveToGallery: true);
                           if (response) {
-                            Fluttertoast.showToast(msg: 'Successfully saved');
+                            Fluttertoast.showToast(
+                                msg: widget.saveDraftAlertSavedText ??
+                                    'Successfully saved');
                           } else {
-                            Fluttertoast.showToast(msg: 'Error');
+                            Fluttertoast.showToast(
+                                msg: widget.saveDraftAlertErrorText ?? 'Error');
                           }
                         }
                       }

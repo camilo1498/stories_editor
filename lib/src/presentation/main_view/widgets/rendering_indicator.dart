@@ -5,8 +5,15 @@ import 'package:stories_editor/src/domain/providers/notifiers/rendering_notifier
 import 'package:stories_editor/src/presentation/utils/constants/render_state.dart';
 
 class RenderingIndicator extends StatelessWidget {
+  final String? framesText;
+  final String? prepairingText;
+  final String? renderingText;
+
   const RenderingIndicator({
     Key? key,
+    this.framesText,
+    this.prepairingText,
+    this.renderingText,
   }) : super(key: key);
 
   @override
@@ -18,7 +25,7 @@ class RenderingIndicator extends StatelessWidget {
           color: Colors.transparent,
           child: Center(
             child: Container(
-              width: 80,
+              width: 120,
               decoration: BoxDecoration(
                   color: Colors.black54,
                   borderRadius: BorderRadius.circular(10)),
@@ -42,16 +49,14 @@ class RenderingIndicator extends StatelessWidget {
                     padding: const EdgeInsets.only(top: 8),
                     child: Text(
                       renderingNotifier.renderState.name == 'frames'
-                          ? renderingNotifier.renderState.name +
-                              ' ' +
+                          ? (framesText ?? 'frames\n') +
                               renderingNotifier.totalFrames.toString()
                           : renderingNotifier.renderState.name == 'preparing'
-                              ? renderingNotifier.renderState.name +
-                                  ' ' +
+                              ? (prepairingText ?? 'preparing\n') +
                                   renderingNotifier.currentFrames.toString() +
                                   '/' +
                                   renderingNotifier.totalFrames.toString()
-                              : renderingNotifier.renderState.name,
+                              : renderingText ?? 'rendering',
                       textAlign: TextAlign.center,
                       style: const TextStyle(
                         color: Colors.white,
