@@ -68,20 +68,53 @@ class MainView extends StatefulWidget {
 
   /// editor custom color palette list
   List<Color>? colorList;
-  MainView(
-      {Key? key,
-      required this.giphyKey,
-      required this.onDone,
-      this.middleBottomWidget,
-      this.colorList,
-      this.isCustomFontList,
-      this.fontFamilyList,
-      this.gradientColors,
-      this.onBackPress,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor,
-      this.galleryThumbnailQuality})
-      : super(key: key);
+
+  // discard changes dialog texts for i18n
+  final String? discardDialogTitleText;
+  final String? discardDialogDetailText;
+  final String? discardDialogDiscardButtonText;
+  final String? discardDialogSaveDraftButtonText;
+  final String? discardDialogCancelButtonText;
+
+  // Homepage 'Tap to type' text for i18n
+  final String? tapToTypeText;
+
+  // General 'Done' button text for i18n
+  final String? doneButtonText;
+
+  // 'Share' button text for i18n
+  final String? shareButtonText;
+
+  // Save draft alert messages for i18n
+  final String? saveDraftAlertSavedText;
+  final String? saveDraftAlertErrorText;
+  final String? saveDraftAlertEmptyText;
+
+  MainView({
+    Key? key,
+    required this.giphyKey,
+    required this.onDone,
+    this.middleBottomWidget,
+    this.colorList,
+    this.isCustomFontList,
+    this.fontFamilyList,
+    this.gradientColors,
+    this.onBackPress,
+    this.onDoneButtonStyle,
+    this.editorBackgroundColor,
+    this.galleryThumbnailQuality,
+    this.discardDialogTitleText,
+    this.discardDialogDetailText,
+    this.discardDialogDiscardButtonText,
+    this.discardDialogSaveDraftButtonText,
+    this.discardDialogCancelButtonText,
+    this.tapToTypeText,
+    this.doneButtonText,
+    this.shareButtonText,
+    this.saveDraftAlertSavedText,
+    this.saveDraftAlertErrorText,
+    this.saveDraftAlertEmptyText,
+  }) : super(key: key);
 
   @override
   _MainViewState createState() => _MainViewState();
@@ -333,7 +366,8 @@ class _MainViewState extends State<MainView> {
                                 ignoring: true,
                                 child: Align(
                                   alignment: const Alignment(0, -0.1),
-                                  child: Text('Tap to type',
+                                  child: Text(
+                                      widget.tapToTypeText ?? 'Tap to type',
                                       style: TextStyle(
                                           fontFamily: 'Alegreya',
                                           package: 'stories_editor',
@@ -359,6 +393,22 @@ class _MainViewState extends State<MainView> {
                                   child: TopTools(
                                     contentKey: contentKey,
                                     context: context,
+                                    discardDialogTitleText:
+                                        widget.discardDialogTitleText,
+                                    discardDialogDetailText:
+                                        widget.discardDialogDetailText,
+                                    discardDialogCancelButtonText:
+                                        widget.discardDialogCancelButtonText,
+                                    discardDialogDiscardButtonText:
+                                        widget.discardDialogDiscardButtonText,
+                                    discardDialogSaveDraftButtonText:
+                                        widget.discardDialogSaveDraftButtonText,
+                                    saveDraftAlertSavedText:
+                                        widget.saveDraftAlertSavedText,
+                                    saveDraftAlertErrorText:
+                                        widget.saveDraftAlertErrorText,
+                                    saveDraftAlertEmptyText:
+                                        widget.saveDraftAlertEmptyText,
                                     renderWidget: () => startRecording(
                                         controlNotifier: controlNotifier,
                                         renderingNotifier: renderingNotifier,
@@ -379,6 +429,7 @@ class _MainViewState extends State<MainView> {
                               Align(
                                 alignment: Alignment.bottomCenter,
                                 child: BottomTools(
+                                  shareButtonText: widget.shareButtonText,
                                   contentKey: contentKey,
                                   renderWidget: () => startRecording(
                                       controlNotifier: controlNotifier,
@@ -399,6 +450,7 @@ class _MainViewState extends State<MainView> {
                             Visibility(
                               visible: controlNotifier.isTextEditing,
                               child: TextEditor(
+                                doneText: widget.doneButtonText,
                                 context: context,
                               ),
                             ),
@@ -455,9 +507,10 @@ class _MainViewState extends State<MainView> {
                                         color: Colors.white,
                                         width: 1.2,
                                       )),
-                                  child: const Text(
-                                    'Cancel',
-                                    style: TextStyle(
+                                  child: Text(
+                                    widget.discardDialogCancelButtonText ??
+                                        'Cancel',
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontSize: 15,
                                         fontWeight: FontWeight.w400),
@@ -547,6 +600,7 @@ class _MainViewState extends State<MainView> {
   Future<bool> _popScope() async {
     final controlNotifier =
         Provider.of<ControlNotifier>(context, listen: false);
+
     /// change to false text editing
     if (controlNotifier.isTextEditing) {
       controlNotifier.isTextEditing = !controlNotifier.isTextEditing;
@@ -561,8 +615,19 @@ class _MainViewState extends State<MainView> {
 
     /// show close dialog
     else if (!controlNotifier.isTextEditing && !controlNotifier.isPainting) {
+      print(widget.discardDialogTitleText);
       return widget.onBackPress ??
-          exitDialog(context: context, contentKey: contentKey);
+          exitDialog(
+            context: context,
+            contentKey: contentKey,
+            discardDialogTitleText: widget.discardDialogTitleText,
+            discardDialogDetailText: widget.discardDialogDetailText,
+            discardDialogCancelButtonText: widget.discardDialogCancelButtonText,
+            discardDialogDiscardButtonText:
+                widget.discardDialogDiscardButtonText,
+            discardDialogSaveDraftButtonText:
+                widget.discardDialogSaveDraftButtonText,
+          );
     }
     return false;
   }

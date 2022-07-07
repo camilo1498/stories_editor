@@ -5,7 +5,9 @@ import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 
 class TopTextTools extends StatelessWidget {
   final void Function() onDone;
-  const TopTextTools({Key? key, required this.onDone}) : super(key: key);
+  final String? doneText;
+  const TopTextTools({Key? key, required this.onDone, this.doneText})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -138,9 +140,9 @@ class TopTextTools extends StatelessWidget {
                           color: Colors.transparent,
                           border: Border.all(color: Colors.white, width: 1.5),
                           borderRadius: BorderRadius.circular(15)),
-                      child: const Text(
-                        'Done',
-                        style: TextStyle(
+                      child: Text(
+                        doneText ?? 'Done',
+                        style: const TextStyle(
                           color: Colors.white,
                           fontSize: 15,
                           fontWeight: FontWeight.w500,

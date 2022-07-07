@@ -15,12 +15,28 @@ class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
   final Function renderWidget;
-  const TopTools(
-      {Key? key,
-      required this.contentKey,
-      required this.context,
-      required this.renderWidget})
-      : super(key: key);
+  final String? discardDialogTitleText;
+  final String? discardDialogDetailText;
+  final String? discardDialogDiscardButtonText;
+  final String? discardDialogSaveDraftButtonText;
+  final String? discardDialogCancelButtonText;
+  final String? saveDraftAlertSavedText;
+  final String? saveDraftAlertErrorText;
+  final String? saveDraftAlertEmptyText;
+  const TopTools({
+    Key? key,
+    required this.contentKey,
+    required this.context,
+    required this.renderWidget,
+    this.discardDialogTitleText,
+    this.discardDialogDetailText,
+    this.discardDialogDiscardButtonText,
+    this.discardDialogSaveDraftButtonText,
+    this.discardDialogCancelButtonText,
+    this.saveDraftAlertSavedText,
+    this.saveDraftAlertErrorText,
+    this.saveDraftAlertEmptyText,
+  }) : super(key: key);
 
   @override
   _TopToolsState createState() => _TopToolsState();
@@ -51,7 +67,22 @@ class _TopToolsState extends State<TopTools> {
                     onTap: () async {
                       var res = await exitDialog(
                           context: widget.context,
-                          contentKey: widget.contentKey);
+                          contentKey: widget.contentKey,
+                          discardDialogTitleText: widget.discardDialogTitleText,
+                          discardDialogDetailText:
+                              widget.discardDialogDetailText,
+                          discardDialogDiscardButtonText:
+                              widget.discardDialogDiscardButtonText,
+                          discardDialogSaveDraftButtonText:
+                              widget.discardDialogSaveDraftButtonText,
+                          discardDialogCancelButtonText:
+                              widget.discardDialogCancelButtonText,
+                          saveDraftAlertSavedText:
+                              widget.saveDraftAlertSavedText,
+                          saveDraftAlertErrorText:
+                              widget.saveDraftAlertErrorText,
+                          saveDraftAlertEmptyText:
+                              widget.saveDraftAlertEmptyText);
                       if (res) {
                         Navigator.pop(context);
                       }

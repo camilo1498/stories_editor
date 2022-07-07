@@ -38,7 +38,18 @@ Future createGiphyItem(
 }
 
 /// custom exit dialog
-Future<bool> exitDialog({required context, required contentKey}) async {
+Future<bool> exitDialog({
+  required context,
+  required contentKey,
+  discardDialogTitleText,
+  discardDialogDetailText,
+  discardDialogDiscardButtonText,
+  discardDialogSaveDraftButtonText,
+  discardDialogCancelButtonText,
+  saveDraftAlertSavedText,
+  saveDraftAlertErrorText,
+  saveDraftAlertEmptyText,
+}) async {
   return (await showDialog(
         context: context,
         barrierColor: Colors.black38,
@@ -48,29 +59,28 @@ Future<bool> exitDialog({required context, required contentKey}) async {
           elevation: 0,
           insetAnimationDuration: const Duration(milliseconds: 300),
           insetAnimationCurve: Curves.ease,
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Container(
-              padding: const EdgeInsets.only(
-                  top: 25, bottom: 5, right: 20, left: 20),
-              alignment: Alignment.center,
-              height: 280,
-              decoration: BoxDecoration(
-                  shape: BoxShape.rectangle,
-                  color: HexColor.fromHex('#262626'),
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: const [
-                    BoxShadow(
-                        color: Colors.white10,
-                        offset: Offset(0, 1),
-                        blurRadius: 4),
-                  ]),
+          child: Container(
+            padding:
+                const EdgeInsets.only(top: 25, bottom: 5, right: 20, left: 20),
+            alignment: Alignment.center,
+            constraints: BoxConstraints(minHeight: 280, maxHeight: 330),
+            decoration: BoxDecoration(
+                shape: BoxShape.rectangle,
+                color: HexColor.fromHex('#262626'),
+                borderRadius: BorderRadius.circular(20),
+                boxShadow: const [
+                  BoxShadow(
+                      color: Colors.white10,
+                      offset: Offset(0, 1),
+                      blurRadius: 4),
+                ]),
+            child: SingleChildScrollView(
               child: Column(
-                mainAxisSize: MainAxisSize.min,
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: <Widget>[
-                  const Text(
-                    'Discard Edits?',
-                    style: TextStyle(
+                  Text(
+                    discardDialogTitleText ?? 'Discard Edits?',
+                    style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
                         color: Colors.white,
@@ -79,9 +89,10 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                   const SizedBox(
                     height: 20,
                   ),
-                  const Text(
-                    "If you go back now, you'll lose all the edits you've made.",
-                    style: TextStyle(
+                  Text(
+                    discardDialogDetailText ??
+                        "If you go back now, you'll lose all the edits you've made.",
+                    style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Colors.white54,
@@ -99,7 +110,7 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                       Navigator.of(context).pop(true);
                     },
                     child: Text(
-                      'Discard',
+                      discardDialogDiscardButtonText ?? 'Discard',
                       style: TextStyle(
                           fontSize: 16,
                           color: Colors.redAccent.shade200,
@@ -132,17 +143,23 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                             saveToGallery: true);
                         if (response) {
                           _dispose(
-                              context: context, message: 'Successfully saved');
+                              context: context,
+                              message: saveDraftAlertSavedText ??
+                                  'Successfully saved');
                         } else {
-                          _dispose(context: context, message: 'Error');
+                          _dispose(
+                              context: context,
+                              message: saveDraftAlertErrorText ?? 'Error');
                         }
                       } else {
-                        _dispose(context: context, message: 'Draft Empty');
+                        _dispose(
+                            context: context,
+                            message: saveDraftAlertEmptyText ?? 'Draft Empty');
                       }
                     },
-                    child: const Text(
-                      'Save Draft',
-                      style: TextStyle(
+                    child: Text(
+                      discardDialogSaveDraftButtonText ?? 'Save Draft',
+                      style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,
@@ -162,9 +179,9 @@ Future<bool> exitDialog({required context, required contentKey}) async {
                     onTap: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: const Text(
-                      'Cancel',
-                      style: TextStyle(
+                    child: Text(
+                      discardDialogCancelButtonText ?? 'Cancel',
+                      style: const TextStyle(
                           fontSize: 16,
                           color: Colors.white,
                           fontWeight: FontWeight.bold,

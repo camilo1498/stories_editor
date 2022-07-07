@@ -49,20 +49,52 @@ class StoriesEditor extends StatefulWidget {
   /// gallery thumbnail quality
   final int? galleryThumbnailQuality;
 
-  const StoriesEditor(
-      {Key? key,
-      required this.giphyKey,
-      required this.onDone,
-      this.middleBottomWidget,
-      this.colorList,
-      this.gradientColors,
-      this.fontFamilyList,
-      this.isCustomFontList,
-      this.onBackPress,
-      this.onDoneButtonStyle,
-      this.editorBackgroundColor,
-      this.galleryThumbnailQuality})
-      : super(key: key);
+  // discard changes dialog texts for i18n
+  final String? discardDialogTitleText;
+  final String? discardDialogDetailText;
+  final String? discardDialogDiscardButtonText;
+  final String? discardDialogSaveDraftButtonText;
+  final String? discardDialogCancelButtonText;
+
+  // Homepage 'Tap to type' text for i18n
+  final String? tapToTypeText;
+
+  // General 'Done' button text for i18n
+  final String? doneButtonText;
+
+  // 'Share' button text for i18n
+  final String? shareButtonText;
+
+  // Save draft alert messages for i18n
+  final String? saveDraftAlertSavedText;
+  final String? saveDraftAlertErrorText;
+  final String? saveDraftAlertEmptyText;
+
+  const StoriesEditor({
+    Key? key,
+    required this.giphyKey,
+    required this.onDone,
+    this.middleBottomWidget,
+    this.colorList,
+    this.gradientColors,
+    this.fontFamilyList,
+    this.isCustomFontList,
+    this.onBackPress,
+    this.onDoneButtonStyle,
+    this.editorBackgroundColor,
+    this.galleryThumbnailQuality,
+    this.discardDialogTitleText,
+    this.discardDialogDetailText,
+    this.discardDialogDiscardButtonText,
+    this.discardDialogSaveDraftButtonText,
+    this.discardDialogCancelButtonText,
+    this.tapToTypeText,
+    this.doneButtonText,
+    this.shareButtonText,
+    this.saveDraftAlertSavedText,
+    this.saveDraftAlertErrorText,
+    this.saveDraftAlertEmptyText,
+  }) : super(key: key);
 
   @override
   _StoriesEditorState createState() => _StoriesEditorState();
@@ -112,6 +144,18 @@ class _StoriesEditorState extends State<StoriesEditor> {
         onBackPress: widget.onBackPress,
         editorBackgroundColor: widget.editorBackgroundColor,
         galleryThumbnailQuality: widget.galleryThumbnailQuality,
+        discardDialogTitleText: widget.discardDialogTitleText,
+        discardDialogDetailText: widget.discardDialogDetailText,
+        discardDialogDiscardButtonText: widget.discardDialogDiscardButtonText,
+        discardDialogSaveDraftButtonText:
+            widget.discardDialogSaveDraftButtonText,
+        discardDialogCancelButtonText: widget.discardDialogCancelButtonText,
+        tapToTypeText: widget.tapToTypeText,
+        doneButtonText: widget.doneButtonText,
+        shareButtonText: widget.shareButtonText,
+        saveDraftAlertSavedText: widget.saveDraftAlertSavedText,
+        saveDraftAlertErrorText: widget.saveDraftAlertErrorText,
+        saveDraftAlertEmptyText: widget.saveDraftAlertEmptyText,
       ),
     );
   }
