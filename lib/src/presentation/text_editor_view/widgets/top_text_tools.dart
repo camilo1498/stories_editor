@@ -25,7 +25,7 @@ class TopTextTools extends StatelessWidget {
                       editorNotifier.isFontFamily =
                           !editorNotifier.isFontFamily;
                       editorNotifier.isTextAnimation = false;
-                      WidgetsBinding.instance!.addPostFrameCallback((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) {
                         if (editorNotifier.fontFamilyController.hasClients) {
                           editorNotifier.fontFamilyController.animateToPage(
                               editorNotifier.fontFamilyIndex,
@@ -87,7 +87,7 @@ class TopTextTools extends StatelessWidget {
 
                       /// animate to selected animation page
                       if (editorNotifier.isTextAnimation) {
-                        WidgetsBinding.instance!.addPostFrameCallback((_) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
                           if (editorNotifier
                               .textAnimationController.hasClients) {
                             editorNotifier.textAnimationController
@@ -98,7 +98,7 @@ class TopTextTools extends StatelessWidget {
                           }
                         });
                       } else {
-                        WidgetsBinding.instance!.addPostFrameCallback((_) {
+                        WidgetsBinding.instance.addPostFrameCallback((_) {
                           if (editorNotifier.fontFamilyController.hasClients) {
                             editorNotifier.fontFamilyController.animateToPage(
                                 editorNotifier.fontFamilyIndex,

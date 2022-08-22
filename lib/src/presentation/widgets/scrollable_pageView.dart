@@ -89,7 +89,7 @@ class _ScrollablePageViewState extends State<ScrollablePageView> {
 
   @override
   Widget build(BuildContext context) {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {});
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {});
     return RawGestureDetector(
         gestures: <Type, GestureRecognizerFactory>{
           VerticalDragGestureRecognizer: GestureRecognizerFactoryWithHandlers<

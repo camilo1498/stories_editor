@@ -134,14 +134,14 @@ packages:
       name: gallery_media_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.7"
+    version: "0.0.8"
   http:
     dependency: transitive
     description:
       name: http
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.4"
+    version: "0.13.5"
   http_parser:
     dependency: transitive
     description:
@@ -218,7 +218,7 @@ packages:
       name: modal_gif_picker
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.1"
+    version: "0.0.2"
   nested:
     dependency: transitive
     description:
@@ -232,7 +232,7 @@ packages:
       name: oktoast
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.1.5"
+    version: "3.2.0"
   path:
     dependency: transitive
     description:
@@ -344,7 +344,7 @@ packages:
       name: photo_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "1.3.10"
+    version: "2.2.1"
   photo_view:
     dependency: transitive
     description:
@@ -569,4 +569,4 @@ packages:
     version: "6.1.0"
 sdks:
   dart: ">=2.17.0 <3.0.0"
-  flutter: ">=2.8.0"
+  flutter: ">=3.0.0"

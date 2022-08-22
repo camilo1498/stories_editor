@@ -22,7 +22,7 @@ class Painting extends StatefulWidget {
 class _PaintingState extends State<Painting> {
   @override
   void initState() {
-    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<PaintingNotifier>(context, listen: false)
         ..linesStreamController =
             StreamController<List<PaintingModel>>.broadcast()
@@ -43,7 +43,7 @@ class _PaintingState extends State<Painting> {
     PaintingModel? line;
 
     /// screen size
-    var screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance!.window);
+    var screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
     /// on gestures start
     void _onPanStart(DragStartDetails details,
@@ -155,7 +155,7 @@ class _PaintingState extends State<Painting> {
         return WillPopScope(
           onWillPop: () async {
             controlNotifier.isPainting = false;
-            WidgetsBinding.instance!.addPostFrameCallback((timeStamp) {
+            WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
               paintingNotifier.closeConnection();
             });
             return true;
