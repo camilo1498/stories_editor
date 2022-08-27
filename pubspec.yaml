@@ -69,6 +69,32 @@ flutter:
     - packages/stories_editor/assets/icons/photo_filter.png
     - packages/stories_editor/assets/icons/video_trim.png
     - packages/stories_editor/assets/images/instagram_logo.png
+    - packages/stories_editor/assets/stickers/01_Cuppy_smile.png
+    - packages/stories_editor/assets/stickers/02_Cuppy_lol.png
+    - packages/stories_editor/assets/stickers/03_Cuppy_rofl.png
+    - packages/stories_editor/assets/stickers/04_Cuppy_sad.png
+    - packages/stories_editor/assets/stickers/05_Cuppy_cry.png
+    - packages/stories_editor/assets/stickers/06_Cuppy_love.png
+    - packages/stories_editor/assets/stickers/07_Cuppy_hate.png
+    - packages/stories_editor/assets/stickers/08_Cuppy_lovewithmug.png
+    - packages/stories_editor/assets/stickers/09_Cuppy_lovewithcookie.png
+    - packages/stories_editor/assets/stickers/10_Cuppy_hmm.png
+    - packages/stories_editor/assets/stickers/11_Cuppy_upset.png
+    - packages/stories_editor/assets/stickers/12_Cuppy_angry.png
+    - packages/stories_editor/assets/stickers/13_Cuppy_curious.png
+    - packages/stories_editor/assets/stickers/14_Cuppy_weird.png
+    - packages/stories_editor/assets/stickers/15_Cuppy_bluescreen.png
+    - packages/stories_editor/assets/stickers/16_Cuppy_angry.png
+    - packages/stories_editor/assets/stickers/17_Cuppy_tired.png
+    - packages/stories_editor/assets/stickers/18_Cuppy_workhard.png
+    - packages/stories_editor/assets/stickers/19_Cuppy_shine.png
+    - packages/stories_editor/assets/stickers/20_Cuppy_disgusting.png
+    - packages/stories_editor/assets/stickers/21_Cuppy_hi.png
+    - packages/stories_editor/assets/stickers/22_Cuppy_bye.png
+    - packages/stories_editor/assets/stickers/23_Cuppy_greentea.png
+    - packages/stories_editor/assets/stickers/24_Cuppy_phone.png
+    - packages/stories_editor/assets/stickers/25_Cuppy_battery.png
+    - packages/stories_editor/assets/stickers/tray_Cuppy.png
 
   fonts:
 

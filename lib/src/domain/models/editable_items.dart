@@ -25,5 +25,5 @@ class EditableItem {
   TextAnimationType animationType = TextAnimationType.none;
 
   /// Gif
-  GiphyGif gif = GiphyGif(id: '0');
+  String sticker = '';
 }

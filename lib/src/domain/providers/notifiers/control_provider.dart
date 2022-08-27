@@ -4,14 +4,7 @@ import 'package:stories_editor/src/presentation/utils/constants/font_family.dart
 import 'package:stories_editor/src/presentation/utils/constants/gradients.dart';
 
 class ControlNotifier extends ChangeNotifier {
-  String _giphyKey = '';
 
-  /// is required add your giphy API KEY
-  String get giphyKey => _giphyKey;
-  set giphyKey(String key) {
-    _giphyKey = key;
-    notifyListeners();
-  }
 
   int _gradientIndex = 0;
 

@@ -10,10 +10,11 @@ class DraggableWidgetNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  GiphyGif? _gif;
-  GiphyGif? get giphy => _gif;
-  set giphy(GiphyGif? giphy) {
-    _gif = giphy;
+  String? _sticker;
+  String? get sticker => _sticker;
+
+  set sticker(String? sticker) {
+    _sticker = sticker;
     notifyListeners();
   }
 

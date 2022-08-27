@@ -54,61 +54,42 @@ class _ExampleState extends State<Example> {
         backgroundColor: Colors.black,
         resizeToAvoidBottomInset: false,
         body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Center(
-                child: Text('Background color',
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold
+          child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => StoriesEditor(
+                    //fontFamilyList: const ['Shizuru', 'Aladin'],
+                    galleryThumbnailQuality: 300,
+                    //isCustomFontList: true,
+                    middleBottomWidget: const SizedBox.shrink(),
+                    onDoneButtonStyle: Container(
+                      height: 50,
+                      width: 120,
+                      decoration: BoxDecoration(
+                        border: Border.all(width: 2.0, color: Colors.white),
+                        borderRadius: BorderRadius.circular(32),
+                      ),
+                      child: const Center(
+                        child: Text(
+                          'Share',
+                          style: TextStyle(
+                            fontSize: 24,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+                    ),
+                    onDone: (uri) {
+                      print(uri.isEmpty);
+                      // Share.shareFiles([uri]);
+                    },
                   ),
                 ),
-              ),
-              const SizedBox(height: 20),
-              SizedBox(
-                width: MediaQuery.of(context).size.width,
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      ...colors.map((color) {
-                        return _colorPalette(
-                            color: color,
-                            onTap: () {
-                              setState(() {
-                                colorIndex = colors.indexOf(color);
-                              });
-                            });
-                      })
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 50),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => StoriesEditor(
-                            giphyKey: '[HERE YOU GIPHY API KEY]',
-                            //fontFamilyList: const ['Shizuru', 'Aladin'],
-                            galleryThumbnailQuality: 300,
-                            editorBackgroundColor: colors[colorIndex],
-                            //isCustomFontList: true,
-                            onDone: (uri) {
-                              debugPrint(uri);
-                              Share.shareFiles([uri]);
-                            },
-                          )));
-                },
-                child: const Text('Open Stories Editor'),
-              ),
-            ],
+              );
+            },
+            child: const Text('Open Stories Editor'),
           ),
         ));
   }
