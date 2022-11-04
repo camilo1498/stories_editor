@@ -3,6 +3,7 @@ library stories_editor;
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
@@ -89,27 +90,30 @@ class _StoriesEditorState extends State<StoriesEditor> {
 
   @override
   Widget build(BuildContext context) {
-    return MultiProvider(
-      providers: [
-        ChangeNotifierProvider(create: (_) => ControlNotifier()),
-        ChangeNotifierProvider(create: (_) => ScrollNotifier()),
-        ChangeNotifierProvider(create: (_) => DraggableWidgetNotifier()),
-        ChangeNotifierProvider(create: (_) => GradientNotifier()),
-        ChangeNotifierProvider(create: (_) => PaintingNotifier()),
-        ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
-      ],
-      child: MainView(
-        giphyKey: widget.giphyKey,
-        onDone: widget.onDone,
-        fontFamilyList: widget.fontFamilyList,
-        isCustomFontList: widget.isCustomFontList,
-        middleBottomWidget: widget.middleBottomWidget,
-        gradientColors: widget.gradientColors,
-        colorList: widget.colorList,
-        onDoneButtonStyle: widget.onDoneButtonStyle,
-        onBackPress: widget.onBackPress,
-        editorBackgroundColor: widget.editorBackgroundColor,
-        galleryThumbnailQuality: widget.galleryThumbnailQuality,
+    return ScreenUtilInit(
+      designSize: const Size(1080, 1920),
+      builder: (_, __) => MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ControlNotifier()),
+          ChangeNotifierProvider(create: (_) => ScrollNotifier()),
+          ChangeNotifierProvider(create: (_) => DraggableWidgetNotifier()),
+          ChangeNotifierProvider(create: (_) => GradientNotifier()),
+          ChangeNotifierProvider(create: (_) => PaintingNotifier()),
+          ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
+        ],
+        child: MainView(
+          giphyKey: widget.giphyKey,
+          onDone: widget.onDone,
+          fontFamilyList: widget.fontFamilyList,
+          isCustomFontList: widget.isCustomFontList,
+          middleBottomWidget: widget.middleBottomWidget,
+          gradientColors: widget.gradientColors,
+          colorList: widget.colorList,
+          onDoneButtonStyle: widget.onDoneButtonStyle,
+          onBackPress: widget.onBackPress,
+          editorBackgroundColor: widget.editorBackgroundColor,
+          galleryThumbnailQuality: widget.galleryThumbnailQuality,
+        ),
       ),
     );
   }
