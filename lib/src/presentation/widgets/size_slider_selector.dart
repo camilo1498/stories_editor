@@ -33,7 +33,8 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
                 height: 300,
                 child: CustomPaint(
                   painter: RPSCustomPainter(),
-                  size: Size(screenUtil.screenHeight, (screenUtil.screenWidth).toDouble()),
+                  size: Size(screenUtil.screenHeight,
+                      (screenUtil.screenWidth).toDouble()),
                 )),
 
             /// slider decoration with animations

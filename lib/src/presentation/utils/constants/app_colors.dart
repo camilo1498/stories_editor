@@ -31,7 +31,10 @@ class AppColors {
       const Color.fromRGBO(31, 179, 237, 1),
       const Color.fromRGBO(17, 106, 197, 1)
     ],
-    [const Color.fromRGBO(240, 19, 77, 1), const Color.fromRGBO(228, 0, 124, 1)],
+    [
+      const Color.fromRGBO(240, 19, 77, 1),
+      const Color.fromRGBO(228, 0, 124, 1)
+    ],
     [
       const Color.fromRGBO(255, 190, 32, 1),
       const Color.fromRGBO(251, 112, 71, 1)

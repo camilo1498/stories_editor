@@ -4,13 +4,13 @@ import 'package:stories_editor/src/domain/models/editable_items.dart';
 import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 
 class DeleteItem extends StatelessWidget {
-  const DeleteItem({
-    Key? key,
-    required EditableItem? activeItem,
-    required this.isDeletePosition,
-    required this.animationsDuration,
-    this.deletedItem
-  })  : _activeItem = activeItem,
+  const DeleteItem(
+      {Key? key,
+      required EditableItem? activeItem,
+      required this.isDeletePosition,
+      required this.animationsDuration,
+      this.deletedItem})
+      : _activeItem = activeItem,
         super(key: key);
 
   final EditableItem? _activeItem;
@@ -23,14 +23,15 @@ class DeleteItem extends StatelessWidget {
     final ScreenUtil screenUtil = ScreenUtil();
 
     return Positioned(
-      bottom: 40.h,
+        bottom: 40.h,
         right: 0,
         left: 0,
         child: AnimatedScale(
           curve: Curves.easeIn,
           duration: const Duration(milliseconds: 200),
-          scale: _activeItem != null && _activeItem!.type != ItemType.image ? 1.0 : 0.0,
-
+          scale: _activeItem != null && _activeItem!.type != ItemType.image
+              ? 1.0
+              : 0.0,
           child: SizedBox(
             width: screenUtil.screenWidth,
             child: Center(
@@ -40,18 +41,19 @@ class DeleteItem extends StatelessWidget {
                   Container(
                     width: 90.w,
                     height: 90.w,
-                   decoration: const BoxDecoration(
-                     shape: BoxShape.circle,
-                   ),
-                    child: deletedItem == null ? Transform.scale(
-                      scale: 1,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(360),
-                        child: deletedItem ,
-                      ),
-                    ) : const SizedBox(),
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                    ),
+                    child: deletedItem == null
+                        ? Transform.scale(
+                            scale: 1,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(360),
+                              child: deletedItem,
+                            ),
+                          )
+                        : const SizedBox(),
                   ),
-
                   AnimatedContainer(
                     alignment: Alignment.center,
                     duration: animationsDuration,

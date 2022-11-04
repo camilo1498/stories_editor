@@ -55,7 +55,8 @@ class ColorSelector extends StatelessWidget {
                   child: Row(
                     children: [
                       ...controlProvider.colorList!.map((color) {
-                        final int index = controlProvider.colorList!.indexOf(color);
+                        final int index =
+                            controlProvider.colorList!.indexOf(color);
                         return AnimatedOnTapButton(
                           onTap: () {
                             if (controlProvider.isPainting) {
@@ -73,8 +74,8 @@ class ColorSelector extends StatelessWidget {
                               decoration: BoxDecoration(
                                   color: controlProvider.colorList![index],
                                   shape: BoxShape.circle,
-                                  border: Border.all(color: Colors.white, width: 1.5)
-                              ),
+                                  border: Border.all(
+                                      color: Colors.white, width: 1.5)),
                             ),
                           ),
                         );

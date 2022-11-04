@@ -49,10 +49,11 @@ class BottomTools extends StatelessWidget {
                                   onTap: () {
                                     /// scroll to gridView page
                                     if (controlNotifier.mediaPath.isEmpty) {
-                                      scrollNotifier.pageController.animateToPage(1,
-                                          duration:
-                                              const Duration(milliseconds: 300),
-                                          curve: Curves.ease);
+                                      scrollNotifier.pageController
+                                          .animateToPage(1,
+                                              duration: const Duration(
+                                                  milliseconds: 300),
+                                              curve: Curves.ease);
                                     }
                                   },
                                   child: const CoverThumbnail(
@@ -86,38 +87,38 @@ class BottomTools extends StatelessWidget {
                 ),
 
                 /// center logo
-               if(controlNotifier.middleBottomWidget != null)
-                 Expanded(
-                   child: Center(
-                     child: Container(
-                         alignment: Alignment.bottomCenter,
-                         child: controlNotifier.middleBottomWidget),
-                   ),
-                 )
-                 else
-                 Expanded(
-                   child: Center(
-                     child: Column(
-                       mainAxisSize: MainAxisSize.min,
-                       children: [
-                         Image.asset(
-                           'assets/images/instagram_logo.png',
-                           package: 'stories_editor',
-                           color: Colors.white,
-                           height: 42,
-                         ),
-                         const Text(
-                           'Stories Creator',
-                           style: TextStyle(
-                               color: Colors.white38,
-                               letterSpacing: 1.5,
-                               fontSize: 9.2,
-                               fontWeight: FontWeight.bold),
-                         ),
-                       ],
-                     ),
-                   ),
-                 ),
+                if (controlNotifier.middleBottomWidget != null)
+                  Expanded(
+                    child: Center(
+                      child: Container(
+                          alignment: Alignment.bottomCenter,
+                          child: controlNotifier.middleBottomWidget),
+                    ),
+                  )
+                else
+                  Expanded(
+                    child: Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Image.asset(
+                            'assets/images/instagram_logo.png',
+                            package: 'stories_editor',
+                            color: Colors.white,
+                            height: 42,
+                          ),
+                          const Text(
+                            'Stories Creator',
+                            style: TextStyle(
+                                color: Colors.white38,
+                                letterSpacing: 1.5,
+                                fontSize: 9.2,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
 
                 /// save final image to gallery
                 Expanded(
