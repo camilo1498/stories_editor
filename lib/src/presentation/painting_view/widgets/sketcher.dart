@@ -104,9 +104,9 @@ class Sketcher extends CustomPainter {
 
       final path = Path();
 
-      if (outlinePoints != null && outlinePoints.isEmpty) {
+      if (outlinePoints.isEmpty) {
         return;
-      } else if (outlinePoints!.length < 2) {
+      } else if (outlinePoints.length < 2) {
         /// If the path only has one line, draw a dot.
         path.addOval(Rect.fromCircle(
             center: Offset(outlinePoints[0].x, outlinePoints[0].y), radius: 1));

@@ -24,10 +24,9 @@ class ColorSelector extends StatelessWidget {
             children: [
               /// current selected color
               Container(
-                height: screenUtil.screenWidth * 0.1,
-                width: screenUtil.screenWidth * 0.1,
+                height: 120.w,
+                width: 120.w,
                 alignment: Alignment.center,
-                margin: const EdgeInsets.all(2),
                 decoration: BoxDecoration(
                     color: controlProvider.isPainting
                         ? controlProvider.colorList![paintingProvider.lineColor]
@@ -50,34 +49,40 @@ class ColorSelector extends StatelessWidget {
 
               /// color list
               Expanded(
-                child: ListView.builder(
-                  itemCount: controlProvider.colorList!.length,
-                  shrinkWrap: true,
+                child: SingleChildScrollView(
+                  physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return AnimatedOnTapButton(
-                      onTap: () {
-                        if (controlProvider.isPainting) {
-                          paintingProvider.lineColor = index;
-                        } else {
-                          editorProvider.textColor = index;
-                        }
-                      },
-                      child: Container(
-                        height: screenUtil.screenWidth * 0.08,
-                        width: screenUtil.screenHeight * 0.08,
-                        alignment: Alignment.center,
-                        margin: const EdgeInsets.all(2),
-                        decoration: BoxDecoration(
-                            color: controlProvider.colorList![index],
-                            shape: BoxShape.circle,
-                            border:
-                                Border.all(color: Colors.white, width: 1.5)),
-                      ),
-                    );
-                  },
+                  child: Row(
+                    children: [
+                      ...controlProvider.colorList!.map((color) {
+                        final int index = controlProvider.colorList!.indexOf(color);
+                        return AnimatedOnTapButton(
+                          onTap: () {
+                            if (controlProvider.isPainting) {
+                              paintingProvider.lineColor = index;
+                            } else {
+                              editorProvider.textColor = index;
+                            }
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 10.w),
+                            child: Container(
+                              height: 100.w,
+                              width: 100.w,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                  color: controlProvider.colorList![index],
+                                  shape: BoxShape.circle,
+                                  border: Border.all(color: Colors.white, width: 1.5)
+                              ),
+                            ),
+                          ),
+                        );
+                      })
+                    ],
+                  ),
                 ),
-              )
+              ),
             ],
           ),
         );

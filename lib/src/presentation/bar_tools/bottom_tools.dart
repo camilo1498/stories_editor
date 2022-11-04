@@ -25,151 +25,154 @@ class BottomTools extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScreenUtil screenUtil = ScreenUtil();
     return Consumer3<ControlNotifier, ScrollNotifier, DraggableWidgetNotifier>(
       builder: (_, controlNotifier, scrollNotifier, itemNotifier, __) {
         return Container(
-          height: 95,
           decoration: const BoxDecoration(color: Colors.transparent),
-          child: Row(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              /// preview gallery
-              Container(
-                width: screenUtil.screenWidth / 3,
-                height: screenUtil.screenWidth / 3,
-                padding: const EdgeInsets.only(left: 15),
-                alignment: Alignment.centerLeft,
-                child: SizedBox(
-                  child: _preViewContainer(
-                    /// if [model.imagePath] is null/empty return preview image
-                    child: controlNotifier.mediaPath.isEmpty
-                        ? ClipRRect(
-                            borderRadius: BorderRadius.circular(8),
-                            child: GestureDetector(
-                              onTap: () {
-                                /// scroll to gridView page
-                                if (controlNotifier.mediaPath.isEmpty) {
-                                  scrollNotifier.pageController.animateToPage(1,
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      curve: Curves.ease);
-                                }
-                              },
-                              child: const CoverThumbnail(
-                                thumbnailQuality: 150,
-                              ),
-                            ))
-
-                        /// return clear [imagePath] provider
-                        : GestureDetector(
-                            onTap: () {
-                              /// clear image url variable
-                              controlNotifier.mediaPath = '';
-                              itemNotifier.draggableWidget.removeAt(0);
-                            },
-                            child: Container(
-                              height: 45,
-                              width: 45,
-                              color: Colors.transparent,
-                              child: Transform.scale(
-                                scale: 0.7,
-                                child: const Icon(
-                                  Icons.delete,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            ),
-                          ),
-                  ),
-                ),
-              ),
-
-              /// center logo
-              controlNotifier.middleBottomWidget != null
-                  ? Center(
-                      child: Container(
-                          width: screenUtil.screenWidth / 3,
-                          height: 80,
-                          alignment: Alignment.bottomCenter,
-                          child: controlNotifier.middleBottomWidget),
-                    )
-                  : Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(
-                            'assets/images/instagram_logo.png',
-                            package: 'stories_editor',
-                            color: Colors.white,
-                            height: 42,
-                          ),
-                          const Text(
-                            'Stories Creator',
-                            style: TextStyle(
-                                color: Colors.white38,
-                                letterSpacing: 1.5,
-                                fontSize: 9.2,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-
-              /// save final image to gallery
-              Container(
-                width: screenUtil.screenWidth / 3,
-                alignment: Alignment.centerRight,
-                padding: const EdgeInsets.only(right: 15),
-                child: Transform.scale(
-                  scale: 0.9,
-                  child: AnimatedOnTapButton(
-                      onTap: () async {
-                        String pngUri;
-                        await takePicture(
-                                contentKey: contentKey,
-                                context: context,
-                                saveToGallery: false)
-                            .then((bytes) {
-                          if (bytes != null) {
-                            pngUri = bytes;
-                            onDone(pngUri);
-                          } else {}
-                        });
-                      },
-                      child: onDoneButtonStyle ??
-                          Container(
-                            padding: const EdgeInsets.only(
-                                left: 12, right: 5, top: 4, bottom: 4),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15),
-                                border: Border.all(
-                                    color: Colors.white, width: 1.5)),
-                            child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: const [
-                                  Text(
-                                    'Share',
-                                    style: TextStyle(
-                                        color: Colors.white,
-                                        letterSpacing: 1.5,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w400),
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 30.w, vertical: 40.h),
+            child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                /// preview gallery
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                      child: _preViewContainer(
+                        /// if [model.imagePath] is null/empty return preview image
+                        child: controlNotifier.mediaPath.isEmpty
+                            ? ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: GestureDetector(
+                                  onTap: () {
+                                    /// scroll to gridView page
+                                    if (controlNotifier.mediaPath.isEmpty) {
+                                      scrollNotifier.pageController.animateToPage(1,
+                                          duration:
+                                              const Duration(milliseconds: 300),
+                                          curve: Curves.ease);
+                                    }
+                                  },
+                                  child: const CoverThumbnail(
+                                    thumbnailQuality: 150,
                                   ),
-                                  Padding(
-                                    padding: EdgeInsets.only(left: 5),
-                                    child: Icon(
-                                      Icons.arrow_forward_ios,
+                                ))
+
+                            /// return clear [imagePath] provider
+                            : GestureDetector(
+                                onTap: () {
+                                  /// clear image url variable
+                                  controlNotifier.mediaPath = '';
+                                  itemNotifier.draggableWidget.removeAt(0);
+                                },
+                                child: Container(
+                                  height: 45,
+                                  width: 45,
+                                  color: Colors.transparent,
+                                  child: Transform.scale(
+                                    scale: 0.7,
+                                    child: const Icon(
+                                      Icons.delete,
                                       color: Colors.white,
-                                      size: 15,
                                     ),
                                   ),
-                                ]),
-                          )),
+                                ),
+                              ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
+
+                /// center logo
+               if(controlNotifier.middleBottomWidget != null)
+                 Expanded(
+                   child: Center(
+                     child: Container(
+                         alignment: Alignment.bottomCenter,
+                         child: controlNotifier.middleBottomWidget),
+                   ),
+                 )
+                 else
+                 Expanded(
+                   child: Center(
+                     child: Column(
+                       mainAxisSize: MainAxisSize.min,
+                       children: [
+                         Image.asset(
+                           'assets/images/instagram_logo.png',
+                           package: 'stories_editor',
+                           color: Colors.white,
+                           height: 42,
+                         ),
+                         const Text(
+                           'Stories Creator',
+                           style: TextStyle(
+                               color: Colors.white38,
+                               letterSpacing: 1.5,
+                               fontSize: 9.2,
+                               fontWeight: FontWeight.bold),
+                         ),
+                       ],
+                     ),
+                   ),
+                 ),
+
+                /// save final image to gallery
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerRight,
+                    child: Transform.scale(
+                      scale: 0.9,
+                      child: AnimatedOnTapButton(
+                          onTap: () async {
+                            String pngUri;
+                            await takePicture(
+                                    contentKey: contentKey,
+                                    context: context,
+                                    saveToGallery: false)
+                                .then((bytes) {
+                              if (bytes != null) {
+                                pngUri = bytes;
+                                onDone(pngUri);
+                              } else {}
+                            });
+                          },
+                          child: onDoneButtonStyle ??
+                              Container(
+                                padding: const EdgeInsets.only(
+                                    left: 12, right: 5, top: 4, bottom: 4),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(
+                                        color: Colors.white, width: 1.5)),
+                                child: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: const [
+                                      Text(
+                                        'Share',
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            letterSpacing: 1.5,
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400),
+                                      ),
+                                      Padding(
+                                        padding: EdgeInsets.only(left: 5),
+                                        child: Icon(
+                                          Icons.arrow_forward_ios,
+                                          color: Colors.white,
+                                          size: 15,
+                                        ),
+                                      ),
+                                    ]),
+                              )),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },

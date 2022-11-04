@@ -251,10 +251,10 @@ class DraggableWidget extends StatelessWidget {
     double top = 0.0;
     final ScreenUtil screenUtil = ScreenUtil();
     if (draggableWidget.type == ItemType.text) {
-      top = screenUtil.screenWidth / 1.3;
+      top = screenUtil.screenWidth / 1.2;
       return top;
     } else if (draggableWidget.type == ItemType.gif) {
-      top = screenUtil.screenWidth / 1.3;
+      top = screenUtil.screenWidth / 1.18;
       return top;
     }
   }

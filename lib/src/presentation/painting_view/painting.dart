@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:perfect_freehand/perfect_freehand.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/models/painting_model.dart';
@@ -179,12 +180,12 @@ class _PaintingState extends State<Painting> {
                 /// top painting tools
                 const SafeArea(child: TopPaintingTools()),
 
-                /// color picker
-                const Align(
+                /// bottom color picker
+                Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding: EdgeInsets.only(bottom: 110),
-                    child: ColorSelector(),
+                    padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
+                    child: const ColorSelector(),
                   ),
                 ),
               ],

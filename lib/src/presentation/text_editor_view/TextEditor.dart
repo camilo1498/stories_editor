@@ -79,40 +79,49 @@ class _TextEditorState extends State<TextEditor> {
                         ),
 
                         /// font family selector (bottom)
-                        Visibility(
-                          visible: editorNotifier.isFontFamily &&
-                              !editorNotifier.isTextAnimation,
-                          child: const Align(
-                            alignment: Alignment.bottomCenter,
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 20),
-                              child: FontSelector(),
-                            ),
-                          ),
-                        ),
-
-                        /// font color selector (bottom)
-                        Visibility(
-                            visible: !editorNotifier.isFontFamily &&
+                        Positioned(
+                          bottom: screenUtil.screenHeight * 0.21,
+                          child: Visibility(
+                            visible: editorNotifier.isFontFamily &&
                                 !editorNotifier.isTextAnimation,
                             child: const Align(
                               alignment: Alignment.bottomCenter,
                               child: Padding(
                                 padding: EdgeInsets.only(bottom: 20),
-                                child: ColorSelector(),
+                                child: FontSelector(),
                               ),
-                            )),
+                            ),
+                          ),
+                        ),
 
-                        // font animation selector (bottom
-                        Visibility(
-                            visible: editorNotifier.isTextAnimation,
-                            child: const Align(
-                              alignment: Alignment.bottomCenter,
-                              child: Padding(
-                                padding: EdgeInsets.only(bottom: 20),
-                                child: AnimationSelector(),
-                              ),
-                            )),
+                        /// font color selector (bottom)
+                        Positioned(
+                          bottom: screenUtil.screenHeight * 0.21,
+                          child: Visibility(
+                              visible: !editorNotifier.isFontFamily &&
+                                  !editorNotifier.isTextAnimation,
+                              child: const Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: ColorSelector(),
+                                ),
+                              )),
+                        ),
+
+                        /// font animation selector (bottom
+                        Positioned(
+                          bottom: screenUtil.screenHeight * 0.21,
+                          child: Visibility(
+                              visible: editorNotifier.isTextAnimation,
+                              child: const Align(
+                                alignment: Alignment.bottomCenter,
+                                child: Padding(
+                                  padding: EdgeInsets.only(bottom: 20),
+                                  child: AnimationSelector(),
+                                ),
+                              )),
+                        ),
                       ],
                     )),
               ),
