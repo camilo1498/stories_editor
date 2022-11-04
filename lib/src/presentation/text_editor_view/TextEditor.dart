@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/models/editable_items.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
@@ -8,7 +9,7 @@ import 'package:stories_editor/src/presentation/text_editor_view/widgets/animati
 import 'package:stories_editor/src/presentation/text_editor_view/widgets/font_selector.dart';
 import 'package:stories_editor/src/presentation/text_editor_view/widgets/text_field_widget.dart';
 import 'package:stories_editor/src/presentation/text_editor_view/widgets/top_text_tools.dart';
-import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 import 'package:stories_editor/src/presentation/widgets/color_selector.dart';
 import 'package:stories_editor/src/presentation/widgets/size_slider_selector.dart';
 
@@ -38,7 +39,7 @@ class _TextEditorState extends State<TextEditor> {
 
   @override
   Widget build(BuildContext context) {
-    var _size = MediaQuery.of(context).size;
+    final ScreenUtil screenUtil = ScreenUtil();
     return Material(
         color: Colors.transparent,
         child: Consumer2<ControlNotifier, TextEditingNotifier>(
@@ -51,8 +52,8 @@ class _TextEditorState extends State<TextEditor> {
                 child: Container(
                     decoration:
                         BoxDecoration(color: Colors.black.withOpacity(0.5)),
-                    height: _size.height,
-                    width: _size.width,
+                    height: screenUtil.screenHeight,
+                    width: screenUtil.screenWidth,
                     child: Stack(
                       children: [
                         /// text field

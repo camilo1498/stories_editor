@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:stories_editor/src/domain/models/editable_items.dart';
-import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 
 class DeleteItem extends StatelessWidget {
   const DeleteItem({
@@ -17,14 +18,14 @@ class DeleteItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _mediaQuery = MediaQuery.of(context);
+    final ScreenUtil screenUtil = ScreenUtil();
 
     return Visibility(
       visible: _activeItem != null && _activeItem!.type != ItemType.image,
       child: Positioned(
           bottom: 130,
           child: SizedBox(
-            width: _mediaQuery.size.width,
+            width: screenUtil.screenWidth,
             child: Center(
               child: AnimatedContainer(
                 alignment: Alignment.center,

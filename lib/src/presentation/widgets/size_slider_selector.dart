@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/painting_notifier.dart';
@@ -16,7 +17,7 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
   bool _showIndicator = false;
   @override
   Widget build(BuildContext context) {
-    var _size = MediaQuery.of(context).size;
+    final ScreenUtil screenUtil = ScreenUtil();
 
     /// change consumer to class parameter and use this widget for text_size and fingerPaint_size
     return Consumer3<TextEditingNotifier, ControlNotifier, PaintingNotifier>(
@@ -32,7 +33,7 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
                 height: 300,
                 child: CustomPaint(
                   painter: RPSCustomPainter(),
-                  size: Size(_size.height, (_size.width).toDouble()),
+                  size: Size(screenUtil.screenHeight, (screenUtil.screenWidth).toDouble()),
                 )),
 
             /// slider decoration with animations

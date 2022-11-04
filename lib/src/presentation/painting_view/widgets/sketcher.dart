@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:perfect_freehand/perfect_freehand.dart';
 import 'package:stories_editor/src/domain/models/painting_model.dart';
-import 'package:stories_editor/src/presentation/utils/constants/painting_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 
 class Sketcher extends CustomPainter {
   final List<PaintingModel> lines;
@@ -104,9 +104,9 @@ class Sketcher extends CustomPainter {
 
       final path = Path();
 
-      if (outlinePoints.isEmpty) {
+      if (outlinePoints != null && outlinePoints.isEmpty) {
         return;
-      } else if (outlinePoints.length < 2) {
+      } else if (outlinePoints!.length < 2) {
         /// If the path only has one line, draw a dot.
         path.addOval(Rect.fromCircle(
             center: Offset(outlinePoints[0].x, outlinePoints[0].y), radius: 1));

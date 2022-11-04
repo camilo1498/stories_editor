@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:stories_editor/src/presentation/utils/constants/colors.dart';
+import 'package:stories_editor/src/presentation/utils/constants/app_colors.dart';
 import 'package:stories_editor/src/presentation/utils/constants/font_family.dart';
-import 'package:stories_editor/src/presentation/utils/constants/gradients.dart';
 
 class ControlNotifier extends ChangeNotifier {
   String _giphyKey = '';
@@ -46,7 +45,7 @@ class ControlNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<String>? _fontList = fontFamilyList;
+  List<String>? _fontList = AppFonts.fontFamilyList;
 
   /// here you can define your own font family list
   List<String>? get fontList => _fontList;
@@ -64,7 +63,7 @@ class ControlNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<List<Color>>? _gradientColors = gradientBackgroundColors;
+  List<List<Color>>? _gradientColors = AppColors.gradientBackgroundColors;
 
   /// here you can define your own background gradients
   List<List<Color>>? get gradientColors => _gradientColors;
@@ -91,7 +90,7 @@ class ControlNotifier extends ChangeNotifier {
     notifyListeners();
   }
 
-  List<Color>? _colorList = defaultColors;
+  List<Color>? _colorList = AppColors.defaultColors;
 
   /// you can add your own color palette list
   List<Color>? get colorList => _colorList;

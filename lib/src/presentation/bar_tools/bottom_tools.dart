@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:gallery_media_picker/gallery_media_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
@@ -24,7 +25,7 @@ class BottomTools extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _size = MediaQuery.of(context).size;
+    final ScreenUtil screenUtil = ScreenUtil();
     return Consumer3<ControlNotifier, ScrollNotifier, DraggableWidgetNotifier>(
       builder: (_, controlNotifier, scrollNotifier, itemNotifier, __) {
         return Container(
@@ -36,8 +37,8 @@ class BottomTools extends StatelessWidget {
             children: [
               /// preview gallery
               Container(
-                width: _size.width / 3,
-                height: _size.width / 3,
+                width: screenUtil.screenWidth / 3,
+                height: screenUtil.screenWidth / 3,
                 padding: const EdgeInsets.only(left: 15),
                 alignment: Alignment.centerLeft,
                 child: SizedBox(
@@ -89,7 +90,7 @@ class BottomTools extends StatelessWidget {
               controlNotifier.middleBottomWidget != null
                   ? Center(
                       child: Container(
-                          width: _size.width / 3,
+                          width: screenUtil.screenWidth / 3,
                           height: 80,
                           alignment: Alignment.bottomCenter,
                           child: controlNotifier.middleBottomWidget),
@@ -118,7 +119,7 @@ class BottomTools extends StatelessWidget {
 
               /// save final image to gallery
               Container(
-                width: _size.width / 3,
+                width: screenUtil.screenWidth / 3,
                 alignment: Alignment.centerRight,
                 padding: const EdgeInsets.only(right: 15),
                 child: Transform.scale(

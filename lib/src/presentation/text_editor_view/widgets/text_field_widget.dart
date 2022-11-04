@@ -1,6 +1,7 @@
 // ignore_for_file: unrelated_type_equality_checks
 
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
@@ -10,14 +11,14 @@ class TextFieldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _size = MediaQuery.of(context).size;
+    final ScreenUtil screenUtil = ScreenUtil();
     FocusNode _textNode = FocusNode();
     return Consumer2<TextEditingNotifier, ControlNotifier>(
       builder: (context, editorNotifier, controlNotifier, child) {
         return Center(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxWidth: _size.width - 100,
+              maxWidth: screenUtil.screenWidth - 100,
             ),
             child: IntrinsicWidth(
 

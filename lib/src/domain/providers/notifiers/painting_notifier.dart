@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:stories_editor/src/domain/models/painting_model.dart';
-import 'package:stories_editor/src/presentation/utils/constants/painting_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 
 class PaintingNotifier extends ChangeNotifier {
   /// here all line Paths will be save

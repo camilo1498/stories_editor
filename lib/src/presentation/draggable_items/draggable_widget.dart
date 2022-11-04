@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:align_positioned/align_positioned.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:modal_gif_picker/modal_gif_picker.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/models/editable_items.dart';
@@ -10,8 +11,7 @@ import 'package:stories_editor/src/domain/providers/notifiers/control_provider.d
 import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/gradient_notifier.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
-import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
-import 'package:stories_editor/src/presentation/utils/constants/text_animation_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/file_image_bg.dart';
 
@@ -32,12 +32,12 @@ class DraggableWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var _size = MediaQuery.of(context).size;
+    final ScreenUtil screenUtil = ScreenUtil();
     var _colorProvider =
         Provider.of<GradientNotifier>(this.context, listen: false);
     var _controlProvider =
         Provider.of<ControlNotifier>(this.context, listen: false);
-    Widget overlayWidget;
+    Widget? overlayWidget;
 
     switch (draggableWidget.type) {
       case ItemType.text:
@@ -47,7 +47,7 @@ class DraggableWidget extends StatelessWidget {
               constraints: BoxConstraints(
                 minHeight: 50,
                 minWidth: 50,
-                maxWidth: _size.width - 120,
+                maxWidth: screenUtil.screenWidth - 240.w,
               ),
               width: draggableWidget.deletePosition ? 100 : null,
               height: draggableWidget.deletePosition ? 100 : null,
@@ -95,7 +95,7 @@ class DraggableWidget extends StatelessWidget {
       case ItemType.image:
         if (_controlProvider.mediaPath.isNotEmpty) {
           overlayWidget = SizedBox(
-            width: _size.width - 72,
+            width: screenUtil.screenWidth - 144.w,
             child: FileImageBG(
               filePath: File(_controlProvider.mediaPath),
               generatedGradient: (color1, color2) {
@@ -141,11 +141,11 @@ class DraggableWidget extends StatelessWidget {
     return AnimatedAlignPositioned(
       duration: const Duration(milliseconds: 50),
       dy: (draggableWidget.deletePosition
-          ? _deleteTopOffset(_size)
-          : (draggableWidget.position.dy * _size.height)),
+          ? _deleteTopOffset()
+          : (draggableWidget.position.dy * screenUtil.screenHeight)),
       dx: (draggableWidget.deletePosition
           ? 0
-          : (draggableWidget.position.dx * _size.width)),
+          : (draggableWidget.position.dx * screenUtil.screenWidth)),
       alignment: Alignment.center,
       child: Transform.scale(
         scale: draggableWidget.deletePosition
@@ -247,13 +247,14 @@ class DraggableWidget extends StatelessWidget {
           ..maskFilter = const MaskFilter.blur(BlurStyle.solid, 1));
   }
 
-  _deleteTopOffset(size) {
+  _deleteTopOffset() {
     double top = 0.0;
+    final ScreenUtil screenUtil = ScreenUtil();
     if (draggableWidget.type == ItemType.text) {
-      top = size.width / 1.3;
+      top = screenUtil.screenWidth / 1.3;
       return top;
     } else if (draggableWidget.type == ItemType.gif) {
-      top = size.width / 1.3;
+      top = screenUtil.screenWidth / 1.3;
       return top;
     }
   }

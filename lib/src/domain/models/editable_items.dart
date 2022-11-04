@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:modal_gif_picker/modal_gif_picker.dart';
-import 'package:stories_editor/src/presentation/utils/constants/item_type.dart';
-import 'package:stories_editor/src/presentation/utils/constants/text_animation_type.dart';
+import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 
 class EditableItem {
   /// delete

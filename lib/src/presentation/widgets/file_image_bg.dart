@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'dart:async';
 
 import 'package:stories_editor/src/presentation/utils/color_detection.dart';
@@ -55,10 +56,10 @@ class _FileImageBGState extends State<FileImageBG> {
 
   @override
   Widget build(BuildContext context) {
-    var _size = MediaQuery.of(context).size;
+    final ScreenUtil screenUtil = ScreenUtil();
     return SizedBox(
-        height: _size.height,
-        width: _size.width,
+        height: screenUtil.screenHeight,
+        width: screenUtil.screenWidth,
         child: RepaintBoundary(
             key: paintKey,
             child: Center(
