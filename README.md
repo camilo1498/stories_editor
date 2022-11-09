@@ -1,4 +1,4 @@
-## Flutter version 3.0.5
+## Flutter version 3.3.6
 # flutter stories editor
 This is a package created in the style of the instagram story creator, with which you can create images with images, texts, stickers (Gifs), finger drawing. They can be exported as an image to the gallery or shared directly to social networks.
 
