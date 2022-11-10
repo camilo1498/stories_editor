@@ -1,7 +1,7 @@
 
 ## Flutter version 3.3.6
 
-## Previous repositories was deleted (4-Nov-2022)
+## Previous branches was deleted (4-Nov-2022)
 if you want to make a ull request you must be using the new "main" branch, the problems with gallery, overflow design were solved and the function to create Gif / mp4 was removed due to performance issues.
 
 # flutter stories editor
