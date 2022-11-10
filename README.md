@@ -1,4 +1,9 @@
+
 ## Flutter version 3.3.6
+
+## Previous repositories was deleted (4-Nov-2022)
+if you want to make a ull request you must be using the new "main" branch, the problems with gallery, overflow design were solved and the function to create Gif / mp4 was removed due to performance issues.
+
 # flutter stories editor
 This is a package created in the style of the instagram story creator, with which you can create images with images, texts, stickers (Gifs), finger drawing. They can be exported as an image to the gallery or shared directly to social networks.
 
