@@ -236,7 +236,7 @@ class DraggableWidget extends StatelessWidget {
       // ]
     ).copyWith(
         color: background ? Colors.black : draggableWidget.textColor,
-        fontSize: draggableWidget.deletePosition ? 8 : draggableWidget.fontSize,
+        fontSize: draggableWidget.deletePosition ? 0 : draggableWidget.fontSize,
         background: Paint()
           ..strokeWidth = 20.0
           ..color = draggableWidget.backGroundColor
