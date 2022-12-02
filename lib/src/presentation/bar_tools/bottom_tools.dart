@@ -35,91 +35,6 @@ class BottomTools extends StatelessWidget {
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                /// preview gallery
-                Expanded(
-                  child: Container(
-                    alignment: Alignment.centerLeft,
-                    child: SizedBox(
-                      child: _preViewContainer(
-                        /// if [model.imagePath] is null/empty return preview image
-                        child: controlNotifier.mediaPath.isEmpty
-                            ? ClipRRect(
-                                borderRadius: BorderRadius.circular(8),
-                                child: GestureDetector(
-                                  onTap: () {
-                                    /// scroll to gridView page
-                                    if (controlNotifier.mediaPath.isEmpty) {
-                                      scrollNotifier.pageController
-                                          .animateToPage(1,
-                                              duration: const Duration(
-                                                  milliseconds: 300),
-                                              curve: Curves.ease);
-                                    }
-                                  },
-                                  child: const CoverThumbnail(
-                                    thumbnailQuality: 150,
-                                  ),
-                                ))
-
-                            /// return clear [imagePath] provider
-                            : GestureDetector(
-                                onTap: () {
-                                  /// clear image url variable
-                                  controlNotifier.mediaPath = '';
-                                  itemNotifier.draggableWidget.removeAt(0);
-                                },
-                                child: Container(
-                                  height: 45,
-                                  width: 45,
-                                  color: Colors.transparent,
-                                  child: Transform.scale(
-                                    scale: 0.7,
-                                    child: const Icon(
-                                      Icons.delete,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                      ),
-                    ),
-                  ),
-                ),
-
-                /// center logo
-                if (controlNotifier.middleBottomWidget != null)
-                  Expanded(
-                    child: Center(
-                      child: Container(
-                          alignment: Alignment.bottomCenter,
-                          child: controlNotifier.middleBottomWidget),
-                    ),
-                  )
-                else
-                  Expanded(
-                    child: Center(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Image.asset(
-                            'assets/images/instagram_logo.png',
-                            package: 'stories_editor',
-                            color: Colors.white,
-                            height: 42,
-                          ),
-                          const Text(
-                            'Stories Creator',
-                            style: TextStyle(
-                                color: Colors.white38,
-                                letterSpacing: 1.5,
-                                fontSize: 9.2,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-
                 /// save final image to gallery
                 Expanded(
                   child: Container(
@@ -130,9 +45,9 @@ class BottomTools extends StatelessWidget {
                           onTap: () async {
                             String pngUri;
                             await takePicture(
-                                    contentKey: contentKey,
-                                    context: context,
-                                    saveToGallery: false)
+                                contentKey: contentKey,
+                                context: context,
+                                saveToGallery: false)
                                 .then((bytes) {
                               if (bytes != null) {
                                 pngUri = bytes;
@@ -169,6 +84,67 @@ class BottomTools extends StatelessWidget {
                                       ),
                                     ]),
                               )),
+                    ),
+                  ),
+                ),
+
+                /// center logo
+                if (controlNotifier.middleBottomWidget != null)
+                  Expanded(
+                    child: Center(
+                      child: Container(
+                          alignment: Alignment.bottomCenter,
+                          child: controlNotifier.middleBottomWidget),
+                    ),
+                  ),
+
+                /// preview gallery
+                Expanded(
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                      child: _preViewContainer(
+                        /// if [model.imagePath] is null/empty return preview image
+                        child: controlNotifier.mediaPath.isEmpty
+                            ? ClipRRect(
+                            borderRadius: BorderRadius.circular(8),
+                            child: GestureDetector(
+                              onTap: () {
+                                /// scroll to gridView page
+                                if (controlNotifier.mediaPath.isEmpty) {
+                                  scrollNotifier.pageController
+                                      .animateToPage(1,
+                                      duration: const Duration(
+                                          milliseconds: 300),
+                                      curve: Curves.ease);
+                                }
+                              },
+                              child: const CoverThumbnail(
+                                thumbnailQuality: 150,
+                              ),
+                            ))
+
+                        /// return clear [imagePath] provider
+                            : GestureDetector(
+                          onTap: () {
+                            /// clear image url variable
+                            controlNotifier.mediaPath = '';
+                            itemNotifier.draggableWidget.removeAt(0);
+                          },
+                          child: Container(
+                            height: 45,
+                            width: 45,
+                            color: Colors.transparent,
+                            child: Transform.scale(
+                              scale: 0.7,
+                              child: const Icon(
+                                Icons.delete,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

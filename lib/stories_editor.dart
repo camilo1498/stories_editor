@@ -95,30 +95,27 @@ class _StoriesEditorState extends State<StoriesEditor> {
         overscroll.disallowIndicator();
         return false;
       },
-      child: ScreenUtilInit(
-        designSize: const Size(1080, 1920),
-        builder: (_, __) => MultiProvider(
-          providers: [
-            ChangeNotifierProvider(create: (_) => ControlNotifier()),
-            ChangeNotifierProvider(create: (_) => ScrollNotifier()),
-            ChangeNotifierProvider(create: (_) => DraggableWidgetNotifier()),
-            ChangeNotifierProvider(create: (_) => GradientNotifier()),
-            ChangeNotifierProvider(create: (_) => PaintingNotifier()),
-            ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
-          ],
-          child: MainView(
-            giphyKey: widget.giphyKey,
-            onDone: widget.onDone,
-            fontFamilyList: widget.fontFamilyList,
-            isCustomFontList: widget.isCustomFontList,
-            middleBottomWidget: widget.middleBottomWidget,
-            gradientColors: widget.gradientColors,
-            colorList: widget.colorList,
-            onDoneButtonStyle: widget.onDoneButtonStyle,
-            onBackPress: widget.onBackPress,
-            editorBackgroundColor: widget.editorBackgroundColor,
-            galleryThumbnailQuality: widget.galleryThumbnailQuality,
-          ),
+      child: MultiProvider(
+        providers: [
+          ChangeNotifierProvider(create: (_) => ControlNotifier()),
+          ChangeNotifierProvider(create: (_) => ScrollNotifier()),
+          ChangeNotifierProvider(create: (_) => DraggableWidgetNotifier()),
+          ChangeNotifierProvider(create: (_) => GradientNotifier()),
+          ChangeNotifierProvider(create: (_) => PaintingNotifier()),
+          ChangeNotifierProvider(create: (_) => TextEditingNotifier()),
+        ],
+        child: MainView(
+          giphyKey: widget.giphyKey,
+          onDone: widget.onDone,
+          fontFamilyList: widget.fontFamilyList,
+          isCustomFontList: widget.isCustomFontList,
+          middleBottomWidget: widget.middleBottomWidget,
+          gradientColors: widget.gradientColors,
+          colorList: widget.colorList,
+          onDoneButtonStyle: widget.onDoneButtonStyle,
+          onBackPress: widget.onBackPress,
+          editorBackgroundColor: widget.editorBackgroundColor,
+          galleryThumbnailQuality: widget.galleryThumbnailQuality,
         ),
       ),
     );
