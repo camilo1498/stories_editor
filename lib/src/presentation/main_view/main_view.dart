@@ -411,9 +411,9 @@ class _MainViewState extends State<MainView> {
                                 color: Colors.white,
                                 width: 1.2,
                               )),
-                          child: const Text(
-                            'Cancel',
-                            style: TextStyle(
+                          child: Text(
+                            widget.isRtl ? 'انصراف' : 'Cancel',
+                            style: const TextStyle(
                                 color: Colors.white,
                                 fontSize: 15,
                                 fontWeight: FontWeight.w400),
