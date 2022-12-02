@@ -13,7 +13,8 @@ import 'package:stories_editor/src/presentation/widgets/tool_button.dart';
 class TopTools extends StatefulWidget {
   final GlobalKey contentKey;
   final BuildContext context;
-  const TopTools({Key? key, required this.contentKey, required this.context})
+  final bool isRtl;
+  const TopTools({Key? key, required this.contentKey, required this.context, required this.isRtl})
       : super(key: key);
 
   @override
@@ -44,7 +45,9 @@ class _TopToolsState extends State<TopTools> {
                     onTap: () async {
                       var res = await exitDialog(
                           context: widget.context,
-                          contentKey: widget.contentKey);
+                          contentKey: widget.contentKey,
+                          isRtl: widget.isRtl,
+                      );
                       if (res) {
                         Navigator.pop(context);
                       }

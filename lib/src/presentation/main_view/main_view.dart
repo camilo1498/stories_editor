@@ -58,12 +58,16 @@ class MainView extends StatefulWidget {
   /// gallery thumbnail quality
   final int? galleryThumbnailQuality;
 
+  /// rtl languages
+  final bool isRtl;
+
   /// editor custom color palette list
   List<Color>? colorList;
   MainView(
       {Key? key,
       required this.giphyKey,
       required this.onDone,
+      required this.isRtl,
       this.middleBottomWidget,
       this.colorList,
       this.isCustomFontList,
@@ -319,6 +323,7 @@ class _MainViewState extends State<MainView> {
                                 child: TopTools(
                                   contentKey: contentKey,
                                   context: context,
+                                  isRtl: widget.isRtl,
                                 )),
                           ),
 
@@ -443,7 +448,7 @@ class _MainViewState extends State<MainView> {
     /// show close dialog
     else if (!controlNotifier.isTextEditing && !controlNotifier.isPainting) {
       return widget.onBackPress ??
-          exitDialog(context: context, contentKey: contentKey);
+          exitDialog(context: context, contentKey: contentKey, isRtl: widget.isRtl);
     }
     return false;
   }

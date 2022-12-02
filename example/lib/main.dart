@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:stories_editor/stories_editor.dart';
 
@@ -11,12 +12,17 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter stories editor Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const Example(),
+    return ScreenUtilInit(
+      designSize: const Size(926, 428),
+      builder: (BuildContext context, Widget? child) {
+        return MaterialApp(
+          title: 'Flutter stories editor Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const Example(),
+        );
+      },
     );
   }
 }
@@ -41,6 +47,7 @@ class _ExampleState extends State<Example> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => StoriesEditor(
+                            isRtl: true,
                             giphyKey: 'C4dMA7Q19nqEGdpfj82T8ssbOeZIylD4',
                             //fontFamilyList: const ['Shizuru', 'Aladin'],
                             galleryThumbnailQuality: 300,

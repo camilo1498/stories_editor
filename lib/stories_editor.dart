@@ -49,10 +49,14 @@ class StoriesEditor extends StatefulWidget {
   /// gallery thumbnail quality
   final int? galleryThumbnailQuality;
 
+  /// rtl languages
+  final bool isRtl;
+
   const StoriesEditor(
       {Key? key,
       required this.giphyKey,
       required this.onDone,
+      required this.isRtl,
       this.middleBottomWidget,
       this.colorList,
       this.gradientColors,
@@ -107,6 +111,7 @@ class _StoriesEditorState extends State<StoriesEditor> {
         child: MainView(
           giphyKey: widget.giphyKey,
           onDone: widget.onDone,
+          isRtl: widget.isRtl,
           fontFamilyList: widget.fontFamilyList,
           isCustomFontList: widget.isCustomFontList,
           middleBottomWidget: widget.middleBottomWidget,
