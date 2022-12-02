@@ -39,7 +39,7 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
 
             /// slider decoration with animations
             AnimatedContainer(
-              padding: EdgeInsets.only(left: _isChange ? 1 : 1, right: 2.1),
+              padding: EdgeInsets.only(left: _isChange ? 2 : 2, right: 2.1),
               duration: const Duration(milliseconds: 300),
               width: _isChange ? 39 : 15,
               height: 300,
@@ -61,36 +61,39 @@ class _SizeSliderWidgetState extends State<SizeSliderWidget> {
                     ),
                     Padding(
                       padding: _isChange
-                          ? const EdgeInsets.only(top: 2)
-                          : const EdgeInsets.all(0),
-                      child: Slider(
-                        value: controlNotifier.isPainting
-                            ? paintingNotifier.lineWidth
-                            : editorNotifier.textSize,
-                        min: controlNotifier.isPainting ? 5 : 14,
-                        max: controlNotifier.isPainting ? 20 : 50,
-                        activeColor: Colors.transparent,
-                        thumbColor: Colors.white,
-                        inactiveColor: Colors.transparent,
-                        onChanged: (value) {
-                          if (controlNotifier.isPainting) {
-                            paintingNotifier.lineWidth = value;
-                          } else {
-                            editorNotifier.textSize = value;
-                          }
-                        },
-                        onChangeStart: (start) {
-                          setState(() {
-                            _isChange = true;
-                            _showIndicator = true;
-                          });
-                        },
-                        onChangeEnd: (end) {
-                          setState(() {
-                            _isChange = false;
-                            _showIndicator = false;
-                          });
-                        },
+                          ? const EdgeInsets.only(top: 2, left: 10)
+                          : const EdgeInsets.only(),
+                      child: Directionality(
+                        textDirection: TextDirection.ltr,
+                        child: Slider(
+                          value: controlNotifier.isPainting
+                              ? paintingNotifier.lineWidth
+                              : editorNotifier.textSize,
+                          min: controlNotifier.isPainting ? 5 : 14,
+                          max: controlNotifier.isPainting ? 20 : 50,
+                          activeColor: Colors.transparent,
+                          thumbColor: Colors.white,
+                          inactiveColor: Colors.transparent,
+                          onChanged: (value) {
+                            if (controlNotifier.isPainting) {
+                              paintingNotifier.lineWidth = value;
+                            } else {
+                              editorNotifier.textSize = value;
+                            }
+                          },
+                          onChangeStart: (start) {
+                            setState(() {
+                              _isChange = true;
+                              _showIndicator = true;
+                            });
+                          },
+                          onChangeEnd: (end) {
+                            setState(() {
+                              _isChange = false;
+                              _showIndicator = false;
+                            });
+                          },
+                        ),
                       ),
                     ),
                   ],
