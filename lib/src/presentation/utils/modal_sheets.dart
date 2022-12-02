@@ -78,7 +78,7 @@ Future<bool> exitDialog({required context, required contentKey, required bool is
                   ),
                   20.verticalSpace,
                   Text(
-                    isRtl ? ".اگر به عقب برگردید، تمام ویرایش هایی را که انجام داده اید از دست خواهید داد" :
+                    isRtl ? "اگر به عقب برگردید، تمام ویرایش هایی را که انجام داده اید از دست خواهید داد" :
                     "If you go back now, you'll lose all the edits you've made.",
                     style: const TextStyle(
                         fontSize: 15,
