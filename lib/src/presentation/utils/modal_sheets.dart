@@ -57,7 +57,7 @@ Future<bool> exitDialog({required context, required contentKey, required bool is
               height: 320,
               decoration: BoxDecoration(
                   shape: BoxShape.rectangle,
-                  color: HexColor.fromHex('#262626'),
+                  color: Colors.white,
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: const [
                     BoxShadow(
@@ -69,23 +69,21 @@ Future<bool> exitDialog({required context, required contentKey, required bool is
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
                   Text(
-                    isRtl ? 'حذف ویرایش ها' :'Discard Edits?',
+                    isRtl ? 'حذف تغییرات' :'Discard Edits?',
                     style: const TextStyle(
                         fontSize: 22,
                         fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                        color: Colors.black,
                         letterSpacing: 0.5),
                   ),
-
                   20.verticalSpace,
-
                   Text(
-                    isRtl ? ".اگر به عقب برگردید، تمام ویرایش هایی را که انجام داده اید از دست خواهید داد." :
+                    isRtl ? ".اگر به عقب برگردید، تمام ویرایش هایی را که انجام داده اید از دست خواهید داد" :
                     "If you go back now, you'll lose all the edits you've made.",
                     style: const TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
-                        color: Colors.white54,
+                        color: Colors.black,
                         letterSpacing: 0.1),
                     textAlign: TextAlign.center,
                   ),
@@ -97,21 +95,26 @@ Future<bool> exitDialog({required context, required contentKey, required bool is
                       _resetDefaults(context: context);
                       Navigator.of(context).pop(true);
                     },
-                    child: Text(
-                      isRtl ? "دورانداختن" : 'Discard',
-                      style: TextStyle(
-                          fontSize: 16,
-                          color: Colors.redAccent.shade200,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.1),
-                      textAlign: TextAlign.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          isRtl ? "دورانداختن" : 'Discard',
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.redAccent.shade200,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.1),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
 
                   const SizedBox(
                     height: 22,
                     child: Divider(
-                      color: Colors.white10,
+                      color: Colors.black12,
                     ),
                   ),
 
@@ -140,20 +143,26 @@ Future<bool> exitDialog({required context, required contentKey, required bool is
                         _dispose(context: context, message: isRtl ? "تغییراتی انجام نداده‌اید" : 'Draft Empty');
                       }
                     },
-                    child:  Text(
-                      isRtl ? "ذخیره پیش‌نویس" : 'Save Draft',
-                      style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5),
-                      textAlign: TextAlign.center,
+                    child:  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          isRtl ? "ذخیره پیش‌نویس" : 'Save Draft',
+                          style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
+
                   const SizedBox(
                     height: 22,
                     child: Divider(
-                      color: Colors.white10,
+                      color: Colors.black12,
                     ),
                   ),
 
@@ -162,14 +171,19 @@ Future<bool> exitDialog({required context, required contentKey, required bool is
                     onTap: () {
                       Navigator.of(context).pop(false);
                     },
-                    child: Text(
-                      isRtl ? "لغو" : 'Cancel',
-                      style: const TextStyle(
-                          fontSize: 16,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 0.5),
-                      textAlign: TextAlign.center,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          isRtl ? "لغو" : 'Cancel',
+                          style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 0.5),
+                          textAlign: TextAlign.center,
+                        ),
+                      ],
                     ),
                   ),
                 ],

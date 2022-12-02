@@ -26,6 +26,7 @@ import 'package:stories_editor/src/presentation/utils/constants/app_enums.dart';
 import 'package:stories_editor/src/presentation/utils/modal_sheets.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
 import 'package:stories_editor/src/presentation/widgets/scrollable_pageView.dart';
+import 'package:stories_editor/src/tools/key_extention.dart';
 
 class MainView extends StatefulWidget {
   /// editor custom font families
@@ -86,7 +87,7 @@ class MainView extends StatefulWidget {
 class _MainViewState extends State<MainView> {
   /// content container key
   final GlobalKey contentKey = GlobalKey();
-
+  final GlobalKey trashKey = GlobalKey();
   ///Editable item
   EditableItem? _activeItem;
 
@@ -329,6 +330,7 @@ class _MainViewState extends State<MainView> {
 
                           /// delete item when the item is in position
                           DeleteItem(
+                            key: trashKey,
                             activeItem: _activeItem,
                             animationsDuration:
                                 const Duration(milliseconds: 300),
@@ -340,6 +342,7 @@ class _MainViewState extends State<MainView> {
                             visible: controlNotifier.isTextEditing,
                             child: TextEditor(
                               context: context,
+                              isRtl: widget.isRtl,
                             ),
                           ),
 
@@ -484,18 +487,27 @@ class _MainViewState extends State<MainView> {
 
   /// active delete widget with offset position
   void _deletePosition(EditableItem item, PointerMoveEvent details) {
-    if (item.type == ItemType.text &&
-        item.position.dy >= 0.75.h &&
-        item.position.dx >= -0.4.w &&
-        item.position.dx <= 0.2.w) {
-      setState(() {
-        _isDeletePosition = true;
-        item.deletePosition = true;
-      });
-    } else if (item.type == ItemType.gif &&
-        item.position.dy >= 0.62.h &&
-        item.position.dx >= -0.35.w &&
-        item.position.dx <= 0.15) {
+    var trashY = (trashKey.globalPaintBounds!.bottom -
+        trashKey.globalPaintBounds!.left).abs();
+    var trashX = (trashKey.globalPaintBounds!.top
+        - trashKey.globalPaintBounds!.right).abs();
+
+    var objectX = details.position.dx;
+    var objectY = details.position.dy;
+
+    print(trashKey.globalPaintBounds);
+    print(details.position);
+    print("${trashX} - ${trashY}");
+    print("${objectX} - ${objectY}");
+    print("================>>");
+
+    if ((item.type == ItemType.text || item.type == ItemType.gif) &&
+        (objectX > (trashX - 55) && objectX < (trashX + 55)) &&
+        (objectY > (trashY - 55) && objectY < (trashY + 55))
+        // item.position.dy >= 0.75.h &&
+        // item.position.dx >= -0.4.w &&
+        // item.position.dx <= 0.2.w
+    ) {
       setState(() {
         _isDeletePosition = true;
         item.deletePosition = true;
