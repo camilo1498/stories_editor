@@ -23,7 +23,9 @@ dependencies:
   #    ref: 8156907eecfa812b181a5a729d790f6d399f311b
   image_gallery_saver: ^1.7.1
   #own packages
-  gallery_media_picker: ^0.0.82
+#  gallery_media_picker: ^0.0.82
+  gallery_media_picker:
+    git: https://github.com/camilo1498/gallery_media_picker
 
 
   modal_gif_picker: ^0.0.2
