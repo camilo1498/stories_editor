@@ -138,12 +138,10 @@ packages:
   gallery_media_picker:
     dependency: transitive
     description:
-      path: "."
-      ref: HEAD
-      resolved-ref: "555e8cf7c92221e404dcd021cc5695f6d2f132dd"
-      url: "https://github.com/camilo1498/gallery_media_picker"
-    source: git
-    version: "0.0.9+2"
+      name: gallery_media_picker
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.82"
   http:
     dependency: transitive
     description:
@@ -353,7 +351,7 @@ packages:
       name: photo_manager
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.5.0"
+    version: "2.5.2"
   photo_view:
     dependency: transitive
     description:
