@@ -1,4 +1,6 @@
 
+## I won't be giving support or any update for a while beacuse i don't have time to spend in this project.
+
 ## Flutter version 3.3.6
 
 ## Previous branches was deleted (4-Nov-2022)
