@@ -41,7 +41,7 @@ class _ExampleState extends State<Example> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => StoriesEditor(
-                            giphyKey: 'C4dMA7Q19nqEGdpfj82T8ssbOeZIylD4',
+                            giphyKey: 'API KEY',
                             //fontFamilyList: const ['Shizuru', 'Aladin'],
                             galleryThumbnailQuality: 300,
                             //isCustomFontList: true,
