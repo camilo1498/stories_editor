@@ -1,9 +1,10 @@
 import 'dart:async';
+import 'dart:ui' as ui;
+
+import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:image/image.dart' as img;
-import 'package:flutter/material.dart';
-import 'dart:ui' as ui;
 
 class ColorDetection {
   final GlobalKey? currentKey;
@@ -32,7 +33,8 @@ class ColorDetection {
     double px = localPosition.dx;
     double py = localPosition.dy;
 
-    int pixel32 = photo!.getPixelSafe(px.toInt(), py.toInt());
+    int pixel32 = photo!.getPixelIndex(px.toInt(), py.toInt());
+
     int hex = abgrToArgb(pixel32);
 
     stateController!.add(Color(hex));
@@ -40,17 +42,15 @@ class ColorDetection {
   }
 
   Future<void> loadSnapshotBytes() async {
-    RenderRepaintBoundary? boxPaint =
-        paintKey!.currentContext!.findRenderObject() as RenderRepaintBoundary?;
+    RenderRepaintBoundary? boxPaint = paintKey!.currentContext!.findRenderObject() as RenderRepaintBoundary?;
     ui.Image capture = await boxPaint!.toImage();
-    ByteData? imageBytes =
-        await capture.toByteData(format: ui.ImageByteFormat.png);
+    ByteData? imageBytes = await capture.toByteData(format: ui.ImageByteFormat.png);
     setImageBytes(imageBytes!);
     capture.dispose();
   }
 
   void setImageBytes(ByteData imageBytes) {
-    List<int> values = imageBytes.buffer.asUint8List();
+    Uint8List values = imageBytes.buffer.asUint8List();
     photo = null;
     photo = img.decodeImage(values);
   }
