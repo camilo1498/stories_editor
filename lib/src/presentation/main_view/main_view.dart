@@ -136,9 +136,13 @@ class _MainViewState extends State<MainView> {
     return WillPopScope(
       onWillPop: _popScope,
       child: Material(
-        color: widget.editorBackgroundColor == Colors.transparent ? Colors.black : widget.editorBackgroundColor ?? Colors.black,
-        child: Consumer6<ControlNotifier, DraggableWidgetNotifier, ScrollNotifier, GradientNotifier, PaintingNotifier, TextEditingNotifier>(
-          builder: (context, controlNotifier, itemProvider, scrollProvider, colorProvider, paintingProvider, editingProvider, child) {
+        color: widget.editorBackgroundColor == Colors.transparent
+            ? Colors.black
+            : widget.editorBackgroundColor ?? Colors.black,
+        child: Consumer6<ControlNotifier, DraggableWidgetNotifier, ScrollNotifier, GradientNotifier, PaintingNotifier,
+            TextEditingNotifier>(
+          builder: (context, controlNotifier, itemProvider, scrollProvider, colorProvider, paintingProvider,
+              editingProvider, child) {
             return SafeArea(
               //top: false,
               child: ScrollablePageView(
@@ -176,7 +180,8 @@ class _MainViewState extends State<MainView> {
                                       decoration: BoxDecoration(
                                           gradient: controlNotifier.mediaPath.isEmpty
                                               ? LinearGradient(
-                                                  colors: controlNotifier.gradientColors![controlNotifier.gradientIndex],
+                                                  colors:
+                                                      controlNotifier.gradientColors![controlNotifier.gradientIndex],
                                                   begin: Alignment.topLeft,
                                                   end: Alignment.bottomRight,
                                                 )
@@ -262,7 +267,9 @@ class _MainViewState extends State<MainView> {
                           ),
 
                           /// middle text
-                          if (itemProvider.draggableWidget.isEmpty && !controlNotifier.isTextEditing && paintingProvider.lines.isEmpty)
+                          if (itemProvider.draggableWidget.isEmpty &&
+                              !controlNotifier.isTextEditing &&
+                              paintingProvider.lines.isEmpty)
                             IgnorePointer(
                               ignoring: true,
                               child: Align(
@@ -276,7 +283,10 @@ class _MainViewState extends State<MainView> {
                                     fontSize: 30,
                                     color: Colors.white.withOpacity(0.5),
                                     shadows: <Shadow>[
-                                      Shadow(offset: const Offset(1.0, 1.0), blurRadius: 3.0, color: Colors.black45.withOpacity(0.3))
+                                      Shadow(
+                                          offset: const Offset(1.0, 1.0),
+                                          blurRadius: 3.0,
+                                          color: Colors.black45.withOpacity(0.3))
                                     ],
                                   ),
                                 ),
@@ -322,17 +332,17 @@ class _MainViewState extends State<MainView> {
                     ),
 
                     /// bottom tools
-                    if (!kIsWeb)
-                      BottomTools(
-                        contentKey: contentKey,
-                        onDone: (bytes) {
-                          setState(() {
-                            widget.onDone!(bytes);
-                          });
-                        },
-                        onDoneButtonStyle: widget.onDoneButtonStyle,
-                        editorBackgroundColor: widget.editorBackgroundColor,
-                      ),
+                    // if (!kIsWeb)
+                    BottomTools(
+                      contentKey: contentKey,
+                      onDone: (bytes) {
+                        setState(() {
+                          widget.onDone!(bytes);
+                        });
+                      },
+                      onDoneButtonStyle: widget.onDoneButtonStyle,
+                      editorBackgroundColor: widget.editorBackgroundColor,
+                    ),
                   ],
                 ),
                 gallery: GalleryMediaPicker(
@@ -341,7 +351,9 @@ class _MainViewState extends State<MainView> {
                   singlePick: true,
                   onlyImages: true,
                   appBarColor: widget.editorBackgroundColor ?? Colors.black,
-                  gridViewPhysics: itemProvider.draggableWidget.isEmpty ? const NeverScrollableScrollPhysics() : const ScrollPhysics(),
+                  gridViewPhysics: itemProvider.draggableWidget.isEmpty
+                      ? const NeverScrollableScrollPhysics()
+                      : const ScrollPhysics(),
                   pathList: (path) {
                     controlNotifier.mediaPath = path.first.path!.toString();
                     if (controlNotifier.mediaPath.isNotEmpty) {
@@ -351,7 +363,8 @@ class _MainViewState extends State<MainView> {
                             ..type = ItemType.image
                             ..position = const Offset(0.0, 0));
                     }
-                    scrollProvider.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                    scrollProvider.pageController
+                        .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                   },
                   appBarLeadingWidget: Padding(
                     padding: const EdgeInsets.only(bottom: 15, right: 15),
@@ -359,7 +372,8 @@ class _MainViewState extends State<MainView> {
                       alignment: Alignment.bottomRight,
                       child: AnimatedOnTapButton(
                         onTap: () {
-                          scrollProvider.pageController.animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                          scrollProvider.pageController
+                              .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
@@ -477,8 +491,14 @@ class _MainViewState extends State<MainView> {
     var _itemProvider = Provider.of<DraggableWidgetNotifier>(context, listen: false).draggableWidget;
     _inAction = false;
     if (item.type == ItemType.image) {
-    } else if (item.type == ItemType.text && item.position.dy >= 0.75.h && item.position.dx >= -0.4.w && item.position.dx <= 0.2.w ||
-        item.type == ItemType.gif && item.position.dy >= 0.62.h && item.position.dx >= -0.35.w && item.position.dx <= 0.15) {
+    } else if (item.type == ItemType.text &&
+            item.position.dy >= 0.75.h &&
+            item.position.dx >= -0.4.w &&
+            item.position.dx <= 0.2.w ||
+        item.type == ItemType.gif &&
+            item.position.dy >= 0.62.h &&
+            item.position.dx >= -0.35.w &&
+            item.position.dx <= 0.15) {
       setState(() {
         _itemProvider.removeAt(_itemProvider.indexOf(item));
         HapticFeedback.heavyImpact();
