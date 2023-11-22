@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:perfect_freehand/perfect_freehand.dart';
@@ -25,10 +26,8 @@ class _PaintingState extends State<Painting> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
       Provider.of<PaintingNotifier>(context, listen: false)
-        ..linesStreamController =
-            StreamController<List<PaintingModel>>.broadcast()
-        ..currentLineStreamController =
-            StreamController<PaintingModel>.broadcast();
+        ..linesStreamController = StreamController<List<PaintingModel>>.broadcast()
+        ..currentLineStreamController = StreamController<PaintingModel>.broadcast();
     });
     super.initState();
   }
@@ -47,8 +46,7 @@ class _PaintingState extends State<Painting> {
     var screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
 
     /// on gestures start
-    void _onPanStart(DragStartDetails details,
-        PaintingNotifier paintingNotifier, ControlNotifier controlProvider) {
+    void _onPanStart(DragStartDetails details, PaintingNotifier paintingNotifier, ControlNotifier controlProvider) {
       final box = context.findRenderObject() as RenderBox;
       final offset = box.globalToLocal(details.globalPosition);
       final point = Point(offset.dx, offset.dy);
@@ -57,25 +55,16 @@ class _PaintingState extends State<Painting> {
       /// validate allow pan area
       if (point.y >= 4 &&
           point.y <=
-              (Platform.isIOS
+              ((!kIsWeb && Platform.isIOS)
                   ? (screenSize.size.height - 132) - screenSize.viewPadding.top
                   : screenSize.size.height - 132)) {
-        line = PaintingModel(
-            points,
-            paintingNotifier.lineWidth,
-            1,
-            1,
-            false,
-            controlProvider.colorList![paintingNotifier.lineColor],
-            1,
-            true,
-            paintingNotifier.paintingType);
+        line = PaintingModel(points, paintingNotifier.lineWidth, 1, 1, false,
+            controlProvider.colorList![paintingNotifier.lineColor], 1, true, paintingNotifier.paintingType);
       }
     }
 
     /// on gestures update
-    void _onPanUpdate(DragUpdateDetails details,
-        PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
+    void _onPanUpdate(DragUpdateDetails details, PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
       final box = context.findRenderObject() as RenderBox;
       final offset = box.globalToLocal(details.globalPosition);
       final point = Point(offset.dx, offset.dy);
@@ -84,19 +73,11 @@ class _PaintingState extends State<Painting> {
       /// validate allow pan area
       if (point.y >= 6 &&
           point.y <=
-              (Platform.isIOS
+              ((!kIsWeb && Platform.isIOS)
                   ? (screenSize.size.height - 132) - screenSize.viewPadding.top
                   : screenSize.size.height - 132)) {
-        line = PaintingModel(
-            points,
-            paintingNotifier.lineWidth,
-            1,
-            1,
-            false,
-            controlNotifier.colorList![paintingNotifier.lineColor],
-            1,
-            true,
-            paintingNotifier.paintingType);
+        line = PaintingModel(points, paintingNotifier.lineWidth, 1, 1, false,
+            controlNotifier.colorList![paintingNotifier.lineColor], 1, true, paintingNotifier.paintingType);
         paintingNotifier.currentLineStreamController.add(line!);
       }
     }
@@ -109,8 +90,8 @@ class _PaintingState extends State<Painting> {
     }
 
     /// paint current line
-    Widget _renderCurrentLine(BuildContext context,
-        PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
+    Widget _renderCurrentLine(
+        BuildContext context, PaintingNotifier paintingNotifier, ControlNotifier controlNotifier) {
       return GestureDetector(
         onPanStart: (details) {
           _onPanStart(details, paintingNotifier, controlNotifier);
@@ -130,13 +111,11 @@ class _PaintingState extends State<Painting> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   width: MediaQuery.of(context).size.width,
-                  height: Platform.isIOS
-                      ? (screenSize.size.height - 132) -
-                          screenSize.viewPadding.top
+                  height: (!kIsWeb && Platform.isIOS)
+                      ? (screenSize.size.height - 132) - screenSize.viewPadding.top
                       : MediaQuery.of(context).size.height - 132,
                   child: StreamBuilder<PaintingModel>(
-                      stream:
-                          paintingNotifier.currentLineStreamController.stream,
+                      stream: paintingNotifier.currentLineStreamController.stream,
                       builder: (context, snapshot) {
                         return CustomPaint(
                           painter: Sketcher(
@@ -184,8 +163,7 @@ class _PaintingState extends State<Painting> {
                 Align(
                   alignment: Alignment.bottomCenter,
                   child: Padding(
-                    padding:
-                        EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
+                    padding: EdgeInsets.symmetric(vertical: 30.h, horizontal: 30.w),
                     child: const ColorSelector(),
                   ),
                 ),
