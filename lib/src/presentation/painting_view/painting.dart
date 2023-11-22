@@ -55,7 +55,7 @@ class _PaintingState extends State<Painting> {
       /// validate allow pan area
       if (point.y >= 4 &&
           point.y <=
-              ((!kIsWeb && Platform.isIOS)
+              ((kIsWeb || Platform.isIOS)
                   ? (screenSize.size.height - 132) - screenSize.viewPadding.top
                   : screenSize.size.height - 132)) {
         line = PaintingModel(points, paintingNotifier.lineWidth, 1, 1, false,
@@ -73,7 +73,7 @@ class _PaintingState extends State<Painting> {
       /// validate allow pan area
       if (point.y >= 6 &&
           point.y <=
-              ((!kIsWeb && Platform.isIOS)
+              ((kIsWeb || Platform.isIOS)
                   ? (screenSize.size.height - 132) - screenSize.viewPadding.top
                   : screenSize.size.height - 132)) {
         line = PaintingModel(points, paintingNotifier.lineWidth, 1, 1, false,
@@ -111,7 +111,7 @@ class _PaintingState extends State<Painting> {
                     borderRadius: BorderRadius.circular(25),
                   ),
                   width: MediaQuery.of(context).size.width,
-                  height: (!kIsWeb && Platform.isIOS)
+                  height: (kIsWeb || Platform.isIOS)
                       ? (screenSize.size.height - 132) - screenSize.viewPadding.top
                       : MediaQuery.of(context).size.height - 132,
                   child: StreamBuilder<PaintingModel>(
