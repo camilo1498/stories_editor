@@ -45,7 +45,7 @@ class MainView extends StatefulWidget {
   final Widget? middleBottomWidget;
 
   /// on done
-  final Function(String)? onDone;
+  final Function(dynamic)? onDone;
 
   /// on done button Text
   final Widget? onDoneButtonStyle;
