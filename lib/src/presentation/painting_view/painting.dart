@@ -43,7 +43,7 @@ class _PaintingState extends State<Painting> {
     PaintingModel? line;
 
     /// screen size
-    var screenSize = MediaQueryData.fromWindow(WidgetsBinding.instance.window);
+    var screenSize = MediaQueryData.fromView(WidgetsBinding.instance.window);
 
     /// on gestures start
     void _onPanStart(DragStartDetails details, PaintingNotifier paintingNotifier, ControlNotifier controlProvider) {

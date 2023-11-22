@@ -146,7 +146,7 @@ class _MainViewState extends State<MainView> {
             return SafeArea(
               //top: false,
               child: ScrollablePageView(
-                scrollPhysics: controlNotifier.mediaPath.isEmpty &&
+                scrollPhysics: (controlNotifier.mediaPath.isEmpty && controlNotifier.mediaByte.isEmpty) &&
                     itemProvider.draggableWidget.isEmpty &&
                     !controlNotifier.isPainting &&
                     !controlNotifier.isTextEditing,
@@ -178,7 +178,8 @@ class _MainViewState extends State<MainView> {
                                     child: AnimatedContainer(
                                       duration: const Duration(milliseconds: 200),
                                       decoration: BoxDecoration(
-                                          gradient: controlNotifier.mediaPath.isEmpty
+                                          gradient: (controlNotifier.mediaPath.isEmpty &&
+                                                  controlNotifier.mediaByte.isEmpty)
                                               ? LinearGradient(
                                                   colors:
                                                       controlNotifier.gradientColors![controlNotifier.gradientIndex],
@@ -335,6 +336,16 @@ class _MainViewState extends State<MainView> {
                     // if (!kIsWeb)
                     BottomTools(
                       contentKey: contentKey,
+                      selectImageWeb: (bytes) {
+                        controlNotifier.mediaByte = bytes;
+                        if (controlNotifier.mediaByte.isNotEmpty) {
+                          itemProvider.draggableWidget.insert(
+                              0,
+                              EditableItem()
+                                ..type = ItemType.image
+                                ..position = const Offset(0.0, 0));
+                        }
+                      },
                       onDone: (bytes) {
                         setState(() {
                           widget.onDone!(bytes);
@@ -345,54 +356,57 @@ class _MainViewState extends State<MainView> {
                     ),
                   ],
                 ),
-                gallery: GalleryMediaPicker(
-                  gridViewController: scrollProvider.gridController,
-                  thumbnailQuality: widget.galleryThumbnailQuality,
-                  singlePick: true,
-                  onlyImages: true,
-                  appBarColor: widget.editorBackgroundColor ?? Colors.black,
-                  gridViewPhysics: itemProvider.draggableWidget.isEmpty
-                      ? const NeverScrollableScrollPhysics()
-                      : const ScrollPhysics(),
-                  pathList: (path) {
-                    controlNotifier.mediaPath = path.first.path!.toString();
-                    if (controlNotifier.mediaPath.isNotEmpty) {
-                      itemProvider.draggableWidget.insert(
-                          0,
-                          EditableItem()
-                            ..type = ItemType.image
-                            ..position = const Offset(0.0, 0));
-                    }
-                    scrollProvider.pageController
-                        .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
-                  },
-                  appBarLeadingWidget: Padding(
-                    padding: const EdgeInsets.only(bottom: 15, right: 15),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: AnimatedOnTapButton(
-                        onTap: () {
+                gallery: kIsWeb
+                    ? Container()
+                    : GalleryMediaPicker(
+                        gridViewController: scrollProvider.gridController,
+                        thumbnailQuality: widget.galleryThumbnailQuality,
+                        singlePick: true,
+                        onlyImages: true,
+                        appBarColor: widget.editorBackgroundColor ?? Colors.black,
+                        gridViewPhysics: itemProvider.draggableWidget.isEmpty
+                            ? const NeverScrollableScrollPhysics()
+                            : const ScrollPhysics(),
+                        pathList: (path) {
+                          controlNotifier.mediaPath = path.first.path!.toString();
+                          if (controlNotifier.mediaPath.isNotEmpty) {
+                            itemProvider.draggableWidget.insert(
+                                0,
+                                EditableItem()
+                                  ..type = ItemType.image
+                                  ..position = const Offset(0.0, 0));
+                          }
                           scrollProvider.pageController
                               .animateToPage(0, duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
                         },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-                          decoration: BoxDecoration(
-                              color: Colors.transparent,
-                              borderRadius: BorderRadius.circular(10),
-                              border: Border.all(
-                                color: Colors.white,
-                                width: 1.2,
-                              )),
-                          child: Text(
-                            widget.isRtl ? 'انصراف' : 'Cancel',
-                            style: const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
+                        appBarLeadingWidget: Padding(
+                          padding: const EdgeInsets.only(bottom: 15, right: 15),
+                          child: Align(
+                            alignment: Alignment.bottomRight,
+                            child: AnimatedOnTapButton(
+                              onTap: () {
+                                scrollProvider.pageController.animateToPage(0,
+                                    duration: const Duration(milliseconds: 300), curve: Curves.easeIn);
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
+                                decoration: BoxDecoration(
+                                    color: Colors.transparent,
+                                    borderRadius: BorderRadius.circular(10),
+                                    border: Border.all(
+                                      color: Colors.white,
+                                      width: 1.2,
+                                    )),
+                                child: Text(
+                                  widget.isRtl ? 'انصراف' : 'Cancel',
+                                  style:
+                                      const TextStyle(color: Colors.white, fontSize: 15, fontWeight: FontWeight.w400),
+                                ),
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ),
               ),
             );
           },

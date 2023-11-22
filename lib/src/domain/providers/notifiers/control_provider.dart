@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:stories_editor/src/presentation/utils/constants/app_colors.dart';
 import 'package:stories_editor/src/presentation/utils/constants/font_family.dart';
@@ -104,6 +106,13 @@ class ControlNotifier extends ChangeNotifier {
   String get mediaPath => _mediaPath;
   set mediaPath(String media) {
     _mediaPath = media;
+    notifyListeners();
+  }
+
+  Uint8List _mediaByte = Uint8List.fromList([]);
+  Uint8List get mediaByte => _mediaByte;
+  set mediaByte(Uint8List media) {
+    _mediaByte = media;
     notifyListeners();
   }
 
