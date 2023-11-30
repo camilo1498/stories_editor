@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:provider/provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/control_provider.dart';
 import 'package:stories_editor/src/domain/providers/notifiers/text_editing_notifier.dart';
@@ -11,12 +10,12 @@ class FontSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ScreenUtil screenUtil = ScreenUtil();
+    var _size = MediaQuery.of(context).size;
     return Consumer2<TextEditingNotifier, ControlNotifier>(
       builder: (context, editorNotifier, controlNotifier, child) {
         return Container(
-          height: screenUtil.screenWidth * 0.1,
-          width: screenUtil.screenWidth,
+          height: _size.width * 0.1,
+          width: _size.width,
           alignment: Alignment.center,
           child: PageView.builder(
             controller: editorNotifier.fontFamilyController,
@@ -35,8 +34,8 @@ class FontSelector extends StatelessWidget {
                   editorNotifier.fontFamilyController.jumpToPage(index);
                 },
                 child: Container(
-                  height: screenUtil.screenWidth * 0.1,
-                  width: screenUtil.screenWidth * 0.1,
+                  height: _size.width * 0.1,
+                  width: _size.width * 0.1,
                   alignment: Alignment.center,
                   margin: const EdgeInsets.all(2),
                   decoration: BoxDecoration(
