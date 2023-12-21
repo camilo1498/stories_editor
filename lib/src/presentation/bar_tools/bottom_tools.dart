@@ -10,7 +10,6 @@ import 'package:stories_editor/src/domain/providers/notifiers/draggable_widget_n
 import 'package:stories_editor/src/domain/providers/notifiers/scroll_notifier.dart';
 import 'package:stories_editor/src/domain/sevices/save_as_image.dart';
 import 'package:stories_editor/src/presentation/widgets/animated_onTap_button.dart';
-import 'package:image_picker_web/image_picker_web.dart';
 
 class BottomTools extends StatelessWidget {
   final GlobalKey contentKey;
@@ -108,14 +107,6 @@ class BottomTools extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(8),
                                 child: GestureDetector(
                                   onTap: () async {
-                                    if (kIsWeb) {
-                                      Uint8List? bytesFromPicker = await ImagePickerWeb.getImageAsBytes();
-                                      if (bytesFromPicker != null) {
-                                        selectImageWeb!.call(bytesFromPicker);
-                                      }
-                                      return;
-                                    }
-
                                     /// scroll to gridView page
                                     if (controlNotifier.mediaPath.isEmpty) {
                                       scrollNotifier.pageController.animateToPage(1,
