@@ -1,9 +1,9 @@
 # This is a generated file; do not edit or check into version control.
-fluttertoast=/Users/reza/.pub-cache/hosted/pub.dev/fluttertoast-8.2.4/
-image_gallery_saver=/Users/reza/.pub-cache/hosted/pub.dev/image_gallery_saver-2.0.3/
-path_provider=/Users/reza/.pub-cache/hosted/pub.dev/path_provider-2.1.1/
-path_provider_android=/Users/reza/.pub-cache/hosted/pub.dev/path_provider_android-2.2.1/
-path_provider_foundation=/Users/reza/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.1/
-path_provider_linux=/Users/reza/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
-path_provider_windows=/Users/reza/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1/
-photo_manager=/Users/reza/.pub-cache/hosted/pub.dev/photo_manager-2.8.1/
+fluttertoast=/home/rezaz/.pub-cache/hosted/pub.dev/fluttertoast-8.2.4/
+image_gallery_saver=/home/rezaz/.pub-cache/hosted/pub.dev/image_gallery_saver-2.0.3/
+path_provider=/home/rezaz/.pub-cache/hosted/pub.dev/path_provider-2.1.1/
+path_provider_android=/home/rezaz/.pub-cache/hosted/pub.dev/path_provider_android-2.2.2/
+path_provider_foundation=/home/rezaz/.pub-cache/hosted/pub.dev/path_provider_foundation-2.3.1/
+path_provider_linux=/home/rezaz/.pub-cache/hosted/pub.dev/path_provider_linux-2.2.1/
+path_provider_windows=/home/rezaz/.pub-cache/hosted/pub.dev/path_provider_windows-2.2.1/
+photo_manager=/home/rezaz/.pub-cache/hosted/pub.dev/photo_manager-3.0.0-dev.5/
