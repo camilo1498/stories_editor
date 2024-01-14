@@ -21,7 +21,7 @@ dependencies:
   gallery_media_picker:
     git:
       url: https://github.com/rezam92/gallery_media_picker
-      ref: upgrade
+      ref: master
 
 
   modal_gif_picker: ^0.0.2
